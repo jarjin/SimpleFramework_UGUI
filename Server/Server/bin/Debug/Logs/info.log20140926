@@ -1,0 +1,54 @@
+﻿2014-09-26 10:48:32,882 [5368] INFO  GameService - The server instance GameService has been started!
+2014-09-26 10:48:32,882 [5368] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-09-26 10:48:32,882 [5368] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-09-26 10:48:42,597 [4156] INFO  SilverlightPolicyServer - Session: 4c3eca5a-4530-4b43-8bc2-1764c7203594/127.0.0.1:3578
+A new session connected!
+2014-09-26 10:48:42,771 [4156] INFO  SilverlightPolicyServer - Session: 4c3eca5a-4530-4b43-8bc2-1764c7203594/127.0.0.1:3578
+This session was closed for ServerClosing!
+2014-09-26 10:48:42,791 [4156] INFO  ManagementServer - Session: 12ac8484-8a1d-49b8-ba17-0588567a6c45/127.0.0.1:3581
+A new session connected!
+2014-09-26 10:49:36,089 [3364] INFO  GameService - The server instance GameService has been stopped!
+2014-09-26 10:49:40,376 [4200] INFO  GameService - The server instance GameService has been started!
+2014-09-26 10:50:11,561 [5228] INFO  GameService - The server instance GameService has been started!
+2014-09-26 10:50:11,592 [5228] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-09-26 10:50:11,592 [5228] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-09-26 10:52:09,102 [6024] INFO  GameService - The server instance GameService has been started!
+2014-09-26 10:52:09,102 [6024] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-09-26 10:52:09,102 [6024] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-09-26 10:52:16,430 [4716] INFO  SilverlightPolicyServer - Session: 2431ab0a-f1f2-42ae-9699-a97090989c9c/127.0.0.1:3987
+A new session connected!
+2014-09-26 10:52:16,527 [4716] INFO  SilverlightPolicyServer - Session: 2431ab0a-f1f2-42ae-9699-a97090989c9c/127.0.0.1:3987
+This session was closed for ServerClosing!
+2014-09-26 10:52:16,533 [4600] INFO  ManagementServer - Session: 3afe5f55-f31f-4534-a28e-9050dabe2aee/127.0.0.1:3990
+A new session connected!
+2014-09-26 10:55:50,838 [5096] INFO  ManagementServer - Session: c384f52a-6351-41a7-9070-db5040a54d50/127.0.0.1:4377
+A new session connected!
+2014-09-26 10:55:56,317 [4888] INFO  ManagementServer - Session: 3afe5f55-f31f-4534-a28e-9050dabe2aee/127.0.0.1:3990
+This session was closed for ClientClosing!
+2014-09-26 10:56:41,383 [1880] INFO  ManagementServer - Session: c384f52a-6351-41a7-9070-db5040a54d50/127.0.0.1:4377
+This session was closed for ClientClosing!
+2014-09-26 11:06:26,498 [4120] INFO  GameService - The server instance GameService has been started!
+2014-09-26 11:06:26,514 [4120] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-09-26 11:06:26,514 [4120] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-09-26 11:06:30,589 [5276] INFO  SilverlightPolicyServer - Session: c7d62f5d-98d3-4ece-8ace-4e803d05f2cf/127.0.0.1:6857
+A new session connected!
+2014-09-26 11:06:30,707 [2500] INFO  ManagementServer - Session: 2407fe85-1156-4a9b-be36-0b748c7dc8b3/127.0.0.1:6858
+A new session connected!
+2014-09-26 11:06:30,718 [5276] INFO  SilverlightPolicyServer - Session: c7d62f5d-98d3-4ece-8ace-4e803d05f2cf/127.0.0.1:6857
+This session was closed for ServerClosing!
+2014-09-26 11:06:40,425 [6040] INFO  GameService - The server instance GameService has been stopped!
+2014-09-26 11:06:45,036 [668] INFO  GameService - The server instance GameService has been started!
+2014-09-26 11:09:55,753 [5144] INFO  GameService - The server instance GameService has been started!
+2014-09-26 11:09:55,800 [5144] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-09-26 11:09:55,800 [5144] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-09-26 11:09:57,241 [5552] INFO  SilverlightPolicyServer - Session: b21692db-b22d-423c-a5b9-cff08a6f32fc/127.0.0.1:6965
+A new session connected!
+2014-09-26 11:09:57,373 [3356] INFO  ManagementServer - Session: 7dd2801c-be48-46fa-8b84-d67e49fb6574/127.0.0.1:6966
+A new session connected!
+2014-09-26 11:09:57,383 [1560] INFO  SilverlightPolicyServer - Session: b21692db-b22d-423c-a5b9-cff08a6f32fc/127.0.0.1:6965
+This session was closed for ServerClosing!
+2014-09-26 11:13:56,565 [5284] INFO  ManagementServer - Session: 7dd2801c-be48-46fa-8b84-d67e49fb6574/127.0.0.1:6966
+This session was closed for ClientClosing!
+2014-09-26 21:55:40,314 [2764] INFO  GameService - The server instance GameService has been started!
+2014-09-26 21:55:40,407 [2764] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-09-26 21:55:40,407 [2764] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!

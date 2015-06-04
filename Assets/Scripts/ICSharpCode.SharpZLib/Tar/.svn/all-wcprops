@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar
+END
+TarArchive.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarArchive.cs.meta
+END
+InvalidHeaderException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/InvalidHeaderException.cs
+END
+TarBuffer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarBuffer.cs
+END
+TarInputStream.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarInputStream.cs
+END
+TarOutputStream.cs
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarOutputStream.cs
+END
+TarHeader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarHeader.cs.meta
+END
+TarArchive.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarArchive.cs
+END
+TarException.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarException.cs.meta
+END
+TarEntry.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarEntry.cs.meta
+END
+TarHeader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarHeader.cs
+END
+InvalidHeaderException.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/InvalidHeaderException.cs.meta
+END
+TarException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarException.cs
+END
+TarBuffer.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarBuffer.cs.meta
+END
+TarInputStream.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarInputStream.cs.meta
+END
+TarOutputStream.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarOutputStream.cs.meta
+END
+TarEntry.cs
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Tar/TarEntry.cs
+END

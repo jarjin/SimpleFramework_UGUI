@@ -1,0 +1,32 @@
+﻿2014-10-10 12:19:21,364 Performance - ---------------------------------------------------
+CPU Usage: 0.00%, Physical Memory Usage: 38,535,168.00, Total Thread Count: 22
+AvailableWorkingThreads: 32766, AvailableCompletionPortThreads: 1000
+MaxWorkingThreads: 32767, MaxCompletionPortThreads: 1000
+GameService ----------------------------------
+Started Time: 2014/10/10 12:19:20
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 1000
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+ManagementServer ----------------------------------
+Started Time: 2014/10/10 12:19:21
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 100
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+SilverlightPolicyServer ----------------------------------
+Started Time: 2014/10/10 12:19:21
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 10
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+

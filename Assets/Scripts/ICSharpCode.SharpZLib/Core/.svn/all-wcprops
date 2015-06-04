@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core
+END
+NameFilter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/NameFilter.cs.meta
+END
+StreamUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/StreamUtils.cs
+END
+WindowsPathUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/WindowsPathUtils.cs.meta
+END
+FileSystemScanner.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/FileSystemScanner.cs
+END
+StreamUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/StreamUtils.cs.meta
+END
+PathFilter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/PathFilter.cs
+END
+FileSystemScanner.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/FileSystemScanner.cs.meta
+END
+IScanFilter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/IScanFilter.cs
+END
+INameTransform.cs
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/INameTransform.cs
+END
+NameFilter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/NameFilter.cs
+END
+PathFilter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/PathFilter.cs.meta
+END
+IScanFilter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/IScanFilter.cs.meta
+END
+WindowsPathUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/WindowsPathUtils.cs
+END
+INameTransform.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Core/INameTransform.cs.meta
+END

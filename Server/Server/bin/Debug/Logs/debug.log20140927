@@ -1,0 +1,65 @@
+﻿2014-09-27 01:46:15,675 [956] DEBUG DefaultBootstrap - The server instance GameService has been created!
+2014-09-27 01:46:15,955 [956] DEBUG DefaultBootstrap - The server instance GameService has been initialized!
+2014-09-27 01:46:15,995 [956] DEBUG DefaultBootstrap - The server instance ManagementServer has been created!
+2014-09-27 01:46:16,085 [956] DEBUG ManagementServer - SubProtocol ServerManager found the commands: [RESTART, LOGIN, START, STOP]
+2014-09-27 01:46:16,146 [956] DEBUG DefaultBootstrap - The server instance ManagementServer has been initialized!
+2014-09-27 01:46:16,156 [956] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been created!
+2014-09-27 01:46:16,166 [956] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been initialized!
+2014-09-27 01:46:18,067 [956] DEBUG DefaultBootstrap - The PerformanceMonitor has been initialized!
+2014-09-27 01:46:18,067 [956] DEBUG DefaultBootstrap - The Bootstrap has been initialized!
+2014-09-27 01:46:18,137 [956] DEBUG GameService - Listener (0.0.0.0:2012) was started
+2014-09-27 01:46:18,167 [956] DEBUG ManagementServer - Listener (0.0.0.0:4502) was started
+2014-09-27 01:46:18,227 [956] DEBUG SilverlightPolicyServer - Listener (0.0.0.0:943) was started
+2014-09-27 01:46:18,247 [956] DEBUG DefaultBootstrap - The PerformanceMonitor has been started!
+2014-09-27 02:05:40,914 [5136] DEBUG DefaultBootstrap - The server instance GameService has been created!
+2014-09-27 02:05:41,244 [5136] DEBUG DefaultBootstrap - The server instance GameService has been initialized!
+2014-09-27 02:05:41,294 [5136] DEBUG DefaultBootstrap - The server instance ManagementServer has been created!
+2014-09-27 02:05:41,384 [5136] DEBUG ManagementServer - SubProtocol ServerManager found the commands: [RESTART, LOGIN, START, STOP]
+2014-09-27 02:05:41,454 [5136] DEBUG DefaultBootstrap - The server instance ManagementServer has been initialized!
+2014-09-27 02:05:41,464 [5136] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been created!
+2014-09-27 02:05:41,484 [5136] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been initialized!
+2014-09-27 02:05:43,405 [5136] DEBUG DefaultBootstrap - The PerformanceMonitor has been initialized!
+2014-09-27 02:05:43,405 [5136] DEBUG DefaultBootstrap - The Bootstrap has been initialized!
+2014-09-27 02:05:43,485 [5136] DEBUG GameService - Listener (0.0.0.0:2012) was started
+2014-09-27 02:05:43,525 [5136] DEBUG ManagementServer - Listener (0.0.0.0:4502) was started
+2014-09-27 02:05:43,535 [5136] DEBUG SilverlightPolicyServer - Listener (0.0.0.0:943) was started
+2014-09-27 02:05:43,555 [5136] DEBUG DefaultBootstrap - The PerformanceMonitor has been started!
+2014-09-27 02:10:59,983 [6040] DEBUG DefaultBootstrap - The server instance GameService has been created!
+2014-09-27 02:11:00,293 [6040] DEBUG DefaultBootstrap - The server instance GameService has been initialized!
+2014-09-27 02:11:00,333 [6040] DEBUG DefaultBootstrap - The server instance ManagementServer has been created!
+2014-09-27 02:11:00,433 [6040] DEBUG ManagementServer - SubProtocol ServerManager found the commands: [RESTART, LOGIN, START, STOP]
+2014-09-27 02:11:00,503 [6040] DEBUG DefaultBootstrap - The server instance ManagementServer has been initialized!
+2014-09-27 02:11:00,513 [6040] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been created!
+2014-09-27 02:11:00,523 [6040] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been initialized!
+2014-09-27 02:11:02,433 [6040] DEBUG DefaultBootstrap - The PerformanceMonitor has been initialized!
+2014-09-27 02:11:02,433 [6040] DEBUG DefaultBootstrap - The Bootstrap has been initialized!
+2014-09-27 02:11:02,493 [6040] DEBUG GameService - Listener (0.0.0.0:2012) was started
+2014-09-27 02:11:02,533 [6040] DEBUG ManagementServer - Listener (0.0.0.0:4502) was started
+2014-09-27 02:11:02,533 [6040] DEBUG SilverlightPolicyServer - Listener (0.0.0.0:943) was started
+2014-09-27 02:11:02,553 [6040] DEBUG DefaultBootstrap - The PerformanceMonitor has been started!
+2014-09-27 02:21:32,373 [3712] DEBUG DefaultBootstrap - The server instance GameService has been created!
+2014-09-27 02:21:32,653 [3712] DEBUG DefaultBootstrap - The server instance GameService has been initialized!
+2014-09-27 02:21:32,693 [3712] DEBUG DefaultBootstrap - The server instance ManagementServer has been created!
+2014-09-27 02:21:32,783 [3712] DEBUG ManagementServer - SubProtocol ServerManager found the commands: [RESTART, LOGIN, START, STOP]
+2014-09-27 02:21:32,843 [3712] DEBUG DefaultBootstrap - The server instance ManagementServer has been initialized!
+2014-09-27 02:21:32,853 [3712] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been created!
+2014-09-27 02:21:32,863 [3712] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been initialized!
+2014-09-27 02:21:35,014 [3712] DEBUG DefaultBootstrap - The PerformanceMonitor has been initialized!
+2014-09-27 02:21:35,014 [3712] DEBUG DefaultBootstrap - The Bootstrap has been initialized!
+2014-09-27 02:21:35,074 [3712] DEBUG GameService - Listener (0.0.0.0:2012) was started
+2014-09-27 02:21:35,094 [3712] DEBUG ManagementServer - Listener (0.0.0.0:4502) was started
+2014-09-27 02:21:35,094 [3712] DEBUG SilverlightPolicyServer - Listener (0.0.0.0:943) was started
+2014-09-27 02:21:35,124 [3712] DEBUG DefaultBootstrap - The PerformanceMonitor has been started!
+2014-09-27 09:47:05,734 [3824] DEBUG DefaultBootstrap - The server instance GameService has been created!
+2014-09-27 09:47:05,994 [3824] DEBUG DefaultBootstrap - The server instance GameService has been initialized!
+2014-09-27 09:47:06,084 [3824] DEBUG DefaultBootstrap - The server instance ManagementServer has been created!
+2014-09-27 09:47:06,154 [3824] DEBUG ManagementServer - SubProtocol ServerManager found the commands: [RESTART, LOGIN, START, STOP]
+2014-09-27 09:47:06,234 [3824] DEBUG DefaultBootstrap - The server instance ManagementServer has been initialized!
+2014-09-27 09:47:06,234 [3824] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been created!
+2014-09-27 09:47:06,254 [3824] DEBUG DefaultBootstrap - The server instance SilverlightPolicyServer has been initialized!
+2014-09-27 09:47:08,245 [3824] DEBUG DefaultBootstrap - The PerformanceMonitor has been initialized!
+2014-09-27 09:47:08,245 [3824] DEBUG DefaultBootstrap - The Bootstrap has been initialized!
+2014-09-27 09:47:08,305 [3824] DEBUG GameService - Listener (0.0.0.0:2012) was started
+2014-09-27 09:47:08,365 [3824] DEBUG ManagementServer - Listener (0.0.0.0:4502) was started
+2014-09-27 09:47:08,365 [3824] DEBUG SilverlightPolicyServer - Listener (0.0.0.0:943) was started
+2014-09-27 09:47:08,385 [3824] DEBUG DefaultBootstrap - The PerformanceMonitor has been started!

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams
+END
+StreamManipulator.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/StreamManipulator.cs.meta
+END
+OutputWindow.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/OutputWindow.cs.meta
+END
+InflaterInputStream.cs
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/InflaterInputStream.cs
+END
+DeflaterOutputStream.cs
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/DeflaterOutputStream.cs
+END
+InflaterInputStream.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/InflaterInputStream.cs.meta
+END
+StreamManipulator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/StreamManipulator.cs
+END
+DeflaterOutputStream.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/DeflaterOutputStream.cs.meta
+END
+OutputWindow.cs
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/KaPaiProBase/!svn/ver/6964/trunk/huoying_tailand_1/Assets/ICSharpCode.SharpZLib/Zip/Compression/Streams/OutputWindow.cs
+END

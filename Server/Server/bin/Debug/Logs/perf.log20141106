@@ -1,0 +1,64 @@
+﻿2014-11-06 09:22:02,982 Performance - ---------------------------------------------------
+CPU Usage: 0.00%, Physical Memory Usage: 38,424,576.00, Total Thread Count: 22
+AvailableWorkingThreads: 32766, AvailableCompletionPortThreads: 1000
+MaxWorkingThreads: 32767, MaxCompletionPortThreads: 1000
+GameService ----------------------------------
+Started Time: 2014/11/6 9:22:02
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 1000
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+ManagementServer ----------------------------------
+Started Time: 2014/11/6 9:22:02
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 100
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+SilverlightPolicyServer ----------------------------------
+Started Time: 2014/11/6 9:22:02
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 10
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+
+2014-11-06 09:22:11,349 Performance - ---------------------------------------------------
+CPU Usage: 0.00%, Physical Memory Usage: 37,675,008.00, Total Thread Count: 22
+AvailableWorkingThreads: 32766, AvailableCompletionPortThreads: 1000
+MaxWorkingThreads: 32767, MaxCompletionPortThreads: 1000
+GameService ----------------------------------
+Started Time: 2014/11/6 9:22:11
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 1000
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+ManagementServer ----------------------------------
+Started Time: 2014/11/6 9:22:11
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 100
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+SilverlightPolicyServer ----------------------------------
+Started Time: 2014/11/6 9:22:11
+Is Running: True
+Total Connections: 0
+Maximum Allowed Connection Number: 10
+Total Handled Requests: 0
+Request Handling Speed (#/second): 0
+Avialable Sending Queue Items: 256
+Total Sending Queue Items: 256
+

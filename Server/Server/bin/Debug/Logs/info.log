@@ -1,0 +1,28 @@
+﻿2015-03-15 13:20:17,474 [2676] INFO  GameService - The server instance GameService has been started!
+2015-03-15 13:20:17,490 [2676] INFO  ManagementServer - The server instance ManagementServer has been started!
+2015-03-15 13:20:17,490 [2676] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2015-03-15 13:20:25,708 [3196] INFO  GameService - Session: 5f11b27e-6b89-414a-a45d-73dd67606b07/127.0.0.1:21804
+A new session connected!
+2015-03-15 13:49:18,858 [7044] INFO  GameService - Session: 5f11b27e-6b89-414a-a45d-73dd67606b07/127.0.0.1:21804
+This session was closed for ClientClosing!
+2015-03-15 13:50:24,121 [3196] INFO  GameService - Session: d62e2393-4ae4-435e-a824-5ed40d3591c9/127.0.0.1:23309
+A new session connected!
+2015-03-15 13:52:33,555 [4312] INFO  GameService - Session: d62e2393-4ae4-435e-a824-5ed40d3591c9/127.0.0.1:23309
+This session was closed for ClientClosing!
+2015-03-15 13:52:36,510 [3196] INFO  GameService - Session: a9c2acf4-0ed1-4f5d-9520-261fa2588a9d/127.0.0.1:23402
+A new session connected!
+2015-03-15 13:53:54,518 [6088] INFO  GameService - The server instance GameService has been started!
+2015-03-15 13:53:54,549 [6088] INFO  ManagementServer - The server instance ManagementServer has been started!
+2015-03-15 13:53:54,549 [6088] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2015-03-15 13:53:59,658 [7620] INFO  GameService - Session: 2fbb9fa7-80a3-4930-a36c-a3cd55c55f82/127.0.0.1:23457
+A new session connected!
+2015-03-15 13:54:35,096 [2004] INFO  GameService - Session: 2fbb9fa7-80a3-4930-a36c-a3cd55c55f82/127.0.0.1:23457
+This session was closed for ClientClosing!
+2015-03-15 13:54:37,924 [7620] INFO  GameService - Session: ad3124c4-2d25-43eb-a301-c9c94f2f3220/127.0.0.1:23478
+A new session connected!
+2015-03-15 13:55:26,549 [2024] INFO  GameService - Session: ad3124c4-2d25-43eb-a301-c9c94f2f3220/127.0.0.1:23478
+This session was closed for ClientClosing!
+2015-03-15 13:55:29,362 [7620] INFO  GameService - Session: 096dc0a7-c05a-45ef-a977-34c6f1ac6ca8/127.0.0.1:23506
+A new session connected!
+2015-03-15 13:55:42,216 [7280] INFO  GameService - Session: 096dc0a7-c05a-45ef-a977-34c6f1ac6ca8/127.0.0.1:23506
+This session was closed for ClientClosing!

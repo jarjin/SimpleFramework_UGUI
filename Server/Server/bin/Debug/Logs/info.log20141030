@@ -1,0 +1,5 @@
+﻿2014-10-30 22:51:19,462 [6100] INFO  GameService - The server instance GameService has been started!
+2014-10-30 22:51:19,472 [6100] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-10-30 22:51:19,472 [6100] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-10-30 22:52:13,001 [5600] INFO  GameService - Session: b057a7aa-bc80-466c-ad6b-92fcff9f9c70/127.0.0.1:16243
+A new session connected!

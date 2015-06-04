@@ -1,0 +1,5 @@
+﻿2014-10-10 12:19:21,034 [4904] INFO  GameService - The server instance GameService has been started!
+2014-10-10 12:19:21,124 [4904] INFO  ManagementServer - The server instance ManagementServer has been started!
+2014-10-10 12:19:21,134 [4904] INFO  SilverlightPolicyServer - The server instance SilverlightPolicyServer has been started!
+2014-10-10 12:19:27,876 [3908] INFO  GameService - Session: 60cf77ee-5b5a-49f0-a6ba-be8dd7491d4a/127.0.0.1:8827
+A new session connected!

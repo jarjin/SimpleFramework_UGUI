@@ -1,0 +1,30 @@
+﻿2014-09-26 10:49:40,563 [6096] ERROR DefaultBootstrap - The process crashed for an unhandled exception!
+NetMQ.NetMQException ---> System.Net.Sockets.SocketException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   在 System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   在 NetMQ.zmq.TcpListener.SetAddress(String addr)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 NetMQ.zmq.TcpListener.SetAddress(String addr)
+   在 NetMQ.zmq.SocketBase.Bind(String addr)
+   在 NetMQ.zmq.ZMQ.Bind(SocketBase s, String addr)
+   在 NetMQ.NetMQSocket.Bind(String address)
+   在 Junfine.Dota.WebHandler.run() 位置 e:\workspace\Dota\Server\Server\Web\WebHandler.cs:行号 27
+   在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   在 System.Threading.ThreadHelper.ThreadStart()
+2014-09-26 11:06:45,056 [4820] ERROR DefaultBootstrap - The process crashed for an unhandled exception!
+NetMQ.NetMQException ---> System.Net.Sockets.SocketException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   在 System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   在 NetMQ.zmq.TcpListener.SetAddress(String addr)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 NetMQ.zmq.TcpListener.SetAddress(String addr)
+   在 NetMQ.zmq.SocketBase.Bind(String addr)
+   在 NetMQ.zmq.ZMQ.Bind(SocketBase s, String addr)
+   在 NetMQ.NetMQSocket.Bind(String address)
+   在 Junfine.Dota.WebHandler.run() 位置 e:\workspace\Dota\Server\Server\Web\WebHandler.cs:行号 27
+   在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   在 System.Threading.ThreadHelper.ThreadStart()
