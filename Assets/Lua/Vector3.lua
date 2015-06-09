@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+﻿--------------------------------------------------------------------------------
 --      Copyright (c) 2015 , 蒙占志(topameng) topameng@gmail.com
 --      All rights reserved.
 --
@@ -15,16 +15,15 @@ local cos	= math.cos
 local sin	= math.sin
 local abs	= math.abs
 local sign	= math.sign
+local setmetatable = setmetatable
+local rawset = rawset
+local rawget = rawget
 
 local rad2Deg = math.rad2Deg
 local deg2Rad = math.deg2Rad
 
 Vector3 = 
 {	
-	x = 0,
-	y = 0,
-	z = 0,
-		
 	class = "Vector3",
 }
 
@@ -51,12 +50,8 @@ Vector3.__call = function(t,x,y,z)
 end
 
 function Vector3.New(x, y, z)
-	local v = {x = 0, y = 0, z = 0}	
-	v.x = x or 0
-	v.y = y or 0
-	v.z = z or 0
-	setmetatable(v, Vector3)	
-	--v:Set(x, y, z)
+	local v = {x = x or 0, y = y or 0, z = z or 0}		
+	setmetatable(v, Vector3)		
 	return v
 end
 	
@@ -181,11 +176,10 @@ function Vector3.RotateTowards2(from, to, maxRadiansDelta, maxMagnitudeDelta)
 	v2:Add(v1)
 	v2:SetNormalize()
 	v2:Mul(len)
-	return v2
-	--return UnityEngine.Vector3.RotateTowards(from, to, maxRadiansDelta, maxMagnitudeDelta)		
+	return v2	
 end
 
-function Vector3.RotateTowards(from, to, maxRadiansDelta, maxMagnitudeDelta)	
+function Vector3.RotateTowards1(from, to, maxRadiansDelta, maxMagnitudeDelta)	
 	local omega, sinom, scale0, scale1, len, theta
 	local v2 	= to:Clone()
 	local v1 	= from:Clone()
@@ -223,16 +217,88 @@ function Vector3.RotateTowards(from, to, maxRadiansDelta, maxMagnitudeDelta)
 end
 	
 function Vector3.MoveTowards(current, target, maxDistanceDelta)	
-	local vector 	= target - current	
-    local magnitude = vector:Magnitude()
+	local delta = target - current	
+    local sqrDelta = delta:SqrMagnitude()
+	local sqrDistance = maxDistanceDelta * maxDistanceDelta
 	
-    if magnitude > maxDistanceDelta and magnitude ~= 0 then    
-		vector:Mul(maxDistanceDelta / magnitude)
-		vector:Add(current)
-        return vector
+    if sqrDelta > sqrDistance then    
+		local magnitude = sqrt(sqrDelta)
+		
+		if magnitude > 1e-6 then
+			delta:Mul(maxDistanceDelta / magnitude)
+			delta:Add(current)
+			return delta
+		else
+			return current
+		end
     end
 	
     return target
+end
+
+function ClampedMove(lhs, rhs, clampedDelta)
+	local delta = rhs - lhs
+	
+	if delta > 0 then
+		return lhs + min(delta, clampedDelta)
+	else
+		return lhs - min(-delta, clampedDelta)
+	end
+end
+
+local overSqrt2 = 0.7071067811865475244008443621048490
+
+local function OrthoNormalVector(vec)
+	local res = Vector3.New()
+	
+	if abs(vec.z) > overSqrt2 then			
+		local a = vec.y * vec.y + vec.z * vec.z
+		local k = 1 / sqrt (a)
+		res.x = 0
+		res.y = -vec.z * k
+		res.z = vec.y * k
+	else			
+		local a = vec.x * vec.x + vec.y * vec.y
+		local k = 1 / sqrt (a)
+		res.x = -vec.y * k
+		res.y = vec.x * k
+		res.z = 0
+	end
+	
+	return res
+end
+
+function Vector3.RotateTowards(current, target, maxRadiansDelta, maxMagnitudeDelta)
+	local len1 = current:Magnitude()
+	local len2 = target:Magnitude()
+	
+	if len1 > 1e-6 and len2 > 1e-6 then	
+		local from = current / len1
+		local to = target / len2		
+		local cosom = dot(from, to)
+				
+		if cosom > 1 - 1e-6 then		
+			return Vector3.MoveTowards (current, target, maxMagnitudeDelta)		
+		elseif cosom < -1 + 1e-6 then		
+			local axis = OrthoNormalVector(from)						
+			local q = Quaternion.AngleAxis(maxRadiansDelta * rad2Deg, axis)	
+			local rotated = q:MulVec3(from)
+			local delta = ClampedMove(len1, len2, maxMagnitudeDelta)
+			rotated:Mul(delta)
+			return rotated
+		else		
+			local angle = acos(cosom)
+			local axis = Vector3.Cross(from, to)
+			axis:SetNormalize ()
+			local q = Quaternion.AngleAxis(min(maxRadiansDelta, angle) * rad2Deg, axis)			
+			local rotated = q:MulVec3(from)
+			local delta = ClampedMove(len1, len2, maxMagnitudeDelta)
+			rotated:Mul(delta)
+			return rotated
+		end
+	end
+		
+	return Vector3.MoveTowards(current, target, maxMagnitudeDelta)
 end
 	
 function Vector3.SmoothDamp(current, target, currentVelocity, smoothTime)
@@ -293,7 +359,7 @@ end
 function Vector3.Project(vector, onNormal)
 	local num = onNormal:SqrMagnitude()
 	
-	if num < 1.401298e-45 then	
+	if num < 1.175494e-38 then	
 		return Vector3.New(0,0,0)
 	end
 	
@@ -434,15 +500,15 @@ function Vector3:MulQuat(quat)
 end
 
 function Vector3.AngleAroundAxis (from, to, axis)	 	 
-	from 	= from - Vector3.Project(from, axis)
-	to 		= to - Vector3.Project(to, axis) 	    
+	from = from - Vector3.Project(from, axis)
+	to = to - Vector3.Project(to, axis) 	    
 	local angle = Vector3.Angle (from, to)	   	    
 	return angle * (Vector3.Dot (axis, Vector3.Cross (from, to)) < 0 and -1 or 1)
 end
 
 
 Vector3.__tostring = function(self)
-	return string.format("[%f,%f,%f]", self.x, self.y, self.z)
+	return "["..self.x..","..self.y..","..self.z.."]"
 end
 
 Vector3.__div = function(va, d)

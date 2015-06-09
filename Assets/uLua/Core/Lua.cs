@@ -119,8 +119,8 @@ namespace LuaInterface
         /// </summary>
         /// <exception cref="LuaScriptException">Thrown if the script caused an exception</exception>
         internal void ThrowExceptionFromError(int oldTop)
-        {
-            object err = translator.getObject(L, -1);
+        {            
+            string err = LuaDLL.lua_tostring(L, -1);
             LuaDLL.lua_settop(L, oldTop);
 
             // A pre-wrapped exception - just rethrow it (stack trace of InnerException will be preserved)
@@ -130,7 +130,7 @@ namespace LuaInterface
 
             // A non-wrapped Lua error (best interpreted as a string) - wrap it and throw it
             if (err == null) err = "Unknown Lua Error";
-            throw new LuaScriptException(err.ToString(), "");
+            throw new LuaScriptException(err, "");
         }
 
 
@@ -199,26 +199,22 @@ namespace LuaInterface
             byte[] bt = null;
             string path = Util.LuaPath(fileName);
 
-            //using (FileStream fs = new FileStream(path, FileMode.Open))
-            //{
-            //    BinaryReader br = new BinaryReader(fs);
-            //    bt = br.ReadBytes((int)fs.Length);
-            //    fs.Close();
-            //}
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                BinaryReader br = new BinaryReader(fs);
+                bt = br.ReadBytes((int)fs.Length);
+                fs.Close();
+            }
+
 
             //if( text == null )
             //{
             //    ThrowExceptionFromError(oldTop);
             //}
 
-            try {
-                bt = File.ReadAllBytes(path);
-
-                if (LuaDLL.luaL_loadbuffer(L, bt, bt.Length, fileName) != 0) {
-                    ThrowExceptionFromError(oldTop);
-                }
-            } catch (Exception) {
-                LuaDLL.luaL_error(L, "Loader file failed: " + fileName);     
+            if (LuaDLL.luaL_loadbuffer(L, bt, bt.Length, fileName) != 0)
+            {
+                ThrowExceptionFromError(oldTop);
             }
 
             LuaFunction result = translator.getFunction(L, -1);
@@ -245,7 +241,7 @@ namespace LuaInterface
         /// <returns></returns>
         public object[] DoString(string chunk, string chunkName, LuaTable env)
         {
-            int oldTop = LuaDLL.lua_gettop(L);
+            int oldTop = LuaDLL.lua_gettop(L);            
             byte[] bt = Encoding.UTF8.GetBytes(chunk);
 
             if (LuaDLL.luaL_loadbuffer(L, bt, bt.Length, chunkName) == 0)
@@ -278,7 +274,7 @@ namespace LuaInterface
          * values in an array
          */
         public object[] DoFile(string fileName, LuaTable env)
-        {
+        {            
             LuaDLL.lua_pushstdcallcfunction(L, tracebackFunction);
             int oldTop = LuaDLL.lua_gettop(L);
 
@@ -286,8 +282,10 @@ namespace LuaInterface
             byte[] text = LuaStatic.Load(fileName);
 
             if (text == null)
-            {
-                ThrowExceptionFromError(oldTop);
+            {                
+                Debugger.LogError("Loader lua file failed: {0}", fileName);      
+                LuaDLL.lua_pop(L, 1);
+                return null;
             }
 
             //Encoding.UTF8.GetByteCount(text)
@@ -309,11 +307,13 @@ namespace LuaInterface
                 else
                 {
                     ThrowExceptionFromError(oldTop);
+                    LuaDLL.lua_pop(L, 1);
                 }
             }
             else
             {
                 ThrowExceptionFromError(oldTop);
+                LuaDLL.lua_pop(L, 1);
             }
 
             return null;            // Never reached - keeps compiler happy
@@ -346,6 +346,7 @@ namespace LuaInterface
             {
                 int oldTop = LuaDLL.lua_gettop(L);
                 string[] path = fullPath.Split(new char[] { '.' });
+
                 if (path.Length == 1)
                 {
                     translator.push(L, value);
@@ -353,11 +354,22 @@ namespace LuaInterface
                 }
                 else
                 {
-                    LuaDLL.lua_getglobal(L, path[0]);
+                    //LuaDLL.lua_getglobal(L, path[0]);
+                    LuaDLL.lua_rawglobal(L, path[0]);
+                    LuaTypes type = LuaDLL.lua_type(L, -1);
+
+                    if (type == LuaTypes.LUA_TNIL)
+                    {
+                        Debugger.LogError("Table {0} not exists", path[0]);
+                        LuaDLL.lua_settop(L, oldTop);
+                        return;
+                    }
+
                     string[] remainingPath = new string[path.Length - 1];
                     Array.Copy(path, 1, remainingPath, 0, path.Length - 1);
                     setObject(remainingPath, value);
                 }
+
                 LuaDLL.lua_settop(L, oldTop);
 
                 // Globals auto-complete

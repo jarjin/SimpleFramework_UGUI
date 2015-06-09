@@ -1,4 +1,4 @@
-UpdateBeat = Event("Update", true)
+﻿UpdateBeat = Event("Update", true)
 LateUpdateBeat = Event("LateUpdate", true)
 CoUpdateBeat = Event("CoUpdate", true)
 FixedUpdateBeat = Event("FixedUpdate", true)

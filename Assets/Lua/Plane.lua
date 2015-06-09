@@ -1,4 +1,4 @@
-Plane = 
+﻿Plane = 
 {
 	normal = nil,
 	distance = 0,

@@ -7,7 +7,8 @@ public class HelloWorld : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         LuaState l = new LuaState();
-        l.DoString("print('hello world 世界')");
+        string str = "print('hello world 世界')";
+        l.DoString(str);
 	}
 	
 	// Update is called once per frame

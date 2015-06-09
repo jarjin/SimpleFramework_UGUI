@@ -1,4 +1,4 @@
-local List_Node = {}
+﻿local List_Node = {}
 
 List_Node.value = nil
 List_Node.next = nil

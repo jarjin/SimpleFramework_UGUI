@@ -18,6 +18,26 @@ using com.junfine.simpleframework.manager;
 
 public static class LuaBinding
 {
+    static LuaBinding()
+    {        
+        string dir = Application.dataPath + "/Source/LuaWrap/";
+
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+        
+        string[] files = Directory.GetFiles(dir);
+
+        if (files.Length <= 0)
+        {            
+            GenLuaDelegates();
+            Binding();
+            GenLuaBinder();
+        }
+    }
+
+
     public class BindType
     {
         public string name;                 //类名称
@@ -55,7 +75,7 @@ public static class LuaBinding
                 }
                 else
                 {
-                    results[i] = ToLua.GetTypeStr(types[i]);
+                    results[i] = ToLuaExport.GetTypeStr(types[i]);
                 }
 
             }
@@ -81,12 +101,12 @@ public static class LuaBinding
         {
             type = t;
 
-            name = ToLua.GetTypeStr(t);
+            name = ToLuaExport.GetTypeStr(t);
 
             if (t.IsGenericType)
             {
-                libName = ToLua.GetGenericLibName(t);
-                wrapName = ToLua.GetGenericLibName(t);
+                libName = ToLuaExport.GetGenericLibName(t);
+                wrapName = ToLuaExport.GetGenericLibName(t);
             }
             else
             {
@@ -101,7 +121,7 @@ public static class LuaBinding
 
             if (t.BaseType != null)
             {
-                baseName = ToLua.GetTypeStr(t.BaseType);
+                baseName = ToLuaExport.GetTypeStr(t.BaseType);
 
                 if (baseName == "ValueType")
                 {
@@ -142,7 +162,14 @@ public static class LuaBinding
 
     static BindType[] binds = new BindType[]
     {
-        //object 由于跟 Object 文件重名就不加入了                     
+        _GT(typeof(object)),
+        _GT(typeof(System.String)),
+        _GT(typeof(System.Enum)),   
+        _GT(typeof(IEnumerator)),
+        _GT(typeof(System.Delegate)),        
+        _GT(typeof(Type)).SetBaseName("System.Object"),                                                     
+        _GT(typeof(UnityEngine.Object)),
+        
         //测试模板
         ////_GT(typeof(Dictionary<int,string>)).SetWrapName("DictInt2Str").SetLibName("DictInt2Str"),
         
@@ -189,7 +216,7 @@ public static class LuaBinding
         _GT(typeof(CharacterController)),
 
         _GT(typeof(Animation)),             
-        _GT(typeof(AnimationClip)),
+        _GT(typeof(AnimationClip)).SetBaseName("UnityEngine.Object"),
         _GT(typeof(TrackedReference)),
         _GT(typeof(AnimationState)),  
         _GT(typeof(QueueMode)),  
@@ -207,12 +234,12 @@ public static class LuaBinding
         _GT(typeof(RenderSettings)),
         _GT(typeof(SleepTimeout)),        
 
-        _GT(typeof(AsyncOperation)),
+        _GT(typeof(AsyncOperation)).SetBaseName("System.Object"),
         _GT(typeof(AssetBundle)),   
         _GT(typeof(BlendWeights)),   
-        _GT(typeof(QualitySettings)),  
-        _GT(typeof(Plane)), 
+        _GT(typeof(QualitySettings)),          
         _GT(typeof(AnimationBlendMode)),    
+        _GT(typeof(Texture)),
         _GT(typeof(RenderTexture)),
         _GT(typeof(ParticleSystem)),
         _GT(typeof(Text)),
@@ -263,14 +290,14 @@ public static class LuaBinding
 
         for (int i = 0; i < list.Length; i++)
         {
-            ToLua.Clear();
-            ToLua.className = list[i].name;
-            ToLua.type = list[i].type;
-            ToLua.isStaticClass = list[i].IsStatic;
-            ToLua.baseClassName = list[i].baseName;
-            ToLua.wrapClassName = list[i].wrapName;
-            ToLua.libClassName = list[i].libName;
-            ToLua.Generate(null);
+            ToLuaExport.Clear();
+            ToLuaExport.className = list[i].name;
+            ToLuaExport.type = list[i].type;
+            ToLuaExport.isStaticClass = list[i].IsStatic;
+            ToLuaExport.baseClassName = list[i].baseName;
+            ToLuaExport.wrapClassName = list[i].wrapName;
+            ToLuaExport.libClassName = list[i].libName;
+            ToLuaExport.Generate(null);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -303,16 +330,7 @@ public static class LuaBinding
         sb.AppendLine("public static class LuaBinder");
         sb.AppendLine("{");
         sb.AppendLine("\tpublic static void Bind(IntPtr L)");
-        sb.AppendLine("\t{");
-        sb.AppendLine("\t\tobjectWrap.Register(L);");
-        sb.AppendLine("\t\tObjectWrap.Register(L);");
-        sb.AppendLine("\t\tTypeWrap.Register(L);");
-        sb.AppendLine("\t\tDelegateWrap.Register(L);");
-        sb.AppendLine("\t\tIEnumeratorWrap.Register(L);");
-        sb.AppendLine("\t\tEnumWrap.Register(L);");
-        sb.AppendLine("\t\tStringWrap.Register(L);");
-        sb.AppendLine("\t\tMsgPacketWrap.Register(L);");
-        
+        sb.AppendLine("\t{");        
 
         string[] files = Directory.GetFiles("Assets/Source/LuaWrap/", "*.cs", SearchOption.TopDirectoryOnly);
 
@@ -327,7 +345,7 @@ public static class LuaBinding
         sb.AppendLine("\t}");
         sb.AppendLine("}");
 
-        string file = Application.dataPath + "/Source/LuaWrap/Base/LuaBinder.cs";
+        string file = Application.dataPath + "/Source/Base/LuaBinder.cs";
 
         using (StreamWriter textWriter = new StreamWriter(file, false, Encoding.UTF8))
         {
@@ -350,7 +368,7 @@ public static class LuaBinding
         sb.AppendLine("\t}");
         sb.AppendLine("}");
 
-        string file = Application.dataPath + "/Source/LuaWrap/Base/LuaBinder.cs";
+        string file = Application.dataPath + "/Source/Base/LuaBinder.cs";
 
         using (StreamWriter textWriter = new StreamWriter(file, false, Encoding.UTF8))
         {
@@ -382,19 +400,18 @@ public static class LuaBinding
     [MenuItem("Lua/Gen Lua Delegates", false, 12)]
     static void GenLuaDelegates()
     {
-        string path = Application.dataPath;
-        ClearFiles(path + "/Source/LuaWrap/Delegate/");
+        ToLuaExport.Clear();
 
         DelegateType[] list = new DelegateType[]
         {
             _DT(typeof(Action<GameObject>)),
-            _DT(typeof(Action<GameObject, int, string>)),
-            _DT(typeof(Action<int, int, int, List<int>>)),
+            //_DT(typeof(Action<GameObject, int, string>)),
+            //_DT(typeof(Action<int, int, int, List<int>>)),
             //_DT(typeof(UIEventListener.VoidDelegate)).SetName("VoidDelegate"),            
         };
 
-        ToLua.GenDelegates(list);
-        AssetDatabase.Refresh();
+        ToLuaExport.GenDelegates(list);
+
         Debug.Log("Create lua delegate over");
     }
 
@@ -616,7 +633,7 @@ public static class LuaBinding
         {
             //不导出： 模版类，event委托, c#协同相关, obsolete 类
             if (!types[i].IsGenericType && types[i].BaseType != typeof(System.MulticastDelegate) &&
-                !typeof(YieldInstruction).IsAssignableFrom(types[i]) && !ToLua.IsObsolete(types[i]))
+                !typeof(YieldInstruction).IsAssignableFrom(types[i]) && !ToLuaExport.IsObsolete(types[i]))
             {
                 list.Add(_GT(types[i]));
             }
@@ -644,14 +661,14 @@ public static class LuaBinding
         {
             try
             {
-                ToLua.Clear();
-                ToLua.className = list[i].name;
-                ToLua.type = list[i].type;
-                ToLua.isStaticClass = list[i].IsStatic;
-                ToLua.baseClassName = list[i].baseName;
-                ToLua.wrapClassName = list[i].wrapName;
-                ToLua.libClassName = list[i].libName;
-                ToLua.Generate(null);
+                ToLuaExport.Clear();
+                ToLuaExport.className = list[i].name;
+                ToLuaExport.type = list[i].type;
+                ToLuaExport.isStaticClass = list[i].IsStatic;
+                ToLuaExport.baseClassName = list[i].baseName;
+                ToLuaExport.wrapClassName = list[i].wrapName;
+                ToLuaExport.libClassName = list[i].libName;
+                ToLuaExport.Generate(null);
             }
             catch (Exception e)
             {

@@ -32,21 +32,13 @@ namespace LuaInterface
         //    LuaDLL.lua_settop(L, oldTop);
         //}
 
-        static byte[] DefaultLoader(string name)
+        static byte[] DefaultLoader(string path)
         {
             byte[] str = null;
-            string path = Util.LuaPath(name);
-
-            try {
-                //using (FileStream file = new FileStream(path, FileMode.Open))
-                //{
-                //    str = new byte[(int)file.Length];
-                //    file.Read(str, 0, str.Length);                
-                //    file.Close();
-                //}
+            
+            if (File.Exists(path))
+            {
                 str = File.ReadAllBytes(path);
-            } catch {
-                Debugger.LogError("Loader file failed: " + name);
             }
 
             return str;

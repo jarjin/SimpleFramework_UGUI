@@ -1,4 +1,4 @@
-luanet.load_assembly("UnityEngine")
+﻿luanet.load_assembly("UnityEngine")
 
 object			= System.Object
 Type			= System.Type
@@ -57,7 +57,7 @@ function printf(format, ...)
 end
 
 
---require "strict"
+require "strict"
 --require "memory"
 require "class"
 require "Math"

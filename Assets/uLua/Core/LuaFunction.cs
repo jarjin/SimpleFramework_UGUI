@@ -68,15 +68,14 @@ namespace LuaInterface
 
             if (error != 0)
             {
-                string err = LuaDLL.lua_tostring(L, -1);
-                LuaDLL.lua_settop(L, oldTop);                
-                LuaDLL.lua_pop(L, 1);
+                string err = LuaDLL.lua_tostring(L, -1);                                
+                LuaDLL.lua_settop(L, oldTop - 1);                                
                 if (err == null) err = "Unknown Lua Error";
-                throw new LuaScriptException(err.ToString(), "");                              
+                throw new LuaScriptException(err, "");                              
             }
 
             object[] ret = returnTypes != null ? translator.popValues(L, oldTop, returnTypes) : translator.popValues(L, oldTop);
-            LuaDLL.lua_pop(L, 1);            
+            LuaDLL.lua_settop(L, oldTop - 1);        
             return ret;
         }       
 
@@ -95,9 +94,12 @@ namespace LuaInterface
 
             if (PCall(oldTop, 0))
             {
-                return EndPCall(oldTop);
+                object[] objs = PopValues(oldTop);
+                EndPCall(oldTop);
+                return objs;
             }
 
+            LuaDLL.lua_settop(L, oldTop - 1);
             return null;
         }
 
@@ -108,117 +110,53 @@ namespace LuaInterface
 
             if (PCall(oldTop, 1))
             {
-                return EndPCall(oldTop);
+                object[] objs = PopValues(oldTop);
+                EndPCall(oldTop);
+                return objs;
             }
 
+            LuaDLL.lua_settop(L, oldTop - 1);
             return null;
         }
+
+        int beginPos = -1;
 
         public int BeginPCall()
         {            
             LuaScriptMgr.PushTraceBack(L);
-            int oldTop = LuaDLL.lua_gettop(L);
+            beginPos = LuaDLL.lua_gettop(L);
             push(L);
-            return oldTop;
+            return beginPos;
         }
 
         public bool PCall(int oldTop, int args)
         {
             if (LuaDLL.lua_pcall(L, args, -1, -args - 2) != 0)
-            {
+            {                
                 string err = LuaDLL.lua_tostring(L, -1);
-                LuaDLL.lua_settop(L, oldTop);
-                LuaDLL.lua_pop(L, 1);
+                LuaDLL.lua_settop(L, oldTop - 1);                
                 if (err == null) err = "Unknown Lua Error";
-                throw new LuaScriptException(err.ToString(), "");
+                throw new LuaScriptException(err, "");
             }
 
             return true;
         }
 
-        public object[] EndPCall(int oldTop)
+        public object[] PopValues(int oldTop)
         {
-            object[] ret = translator.popValues(L, oldTop);
-            LuaDLL.lua_pop(L, 1);
+            object[] ret = translator.popValues(L, oldTop);            
             return ret;
-        }
+        }        
 
-        public void EndPCall()
+        public void EndPCall(int oldTop)
         {
-            LuaDLL.lua_pop(L, 1);
+            LuaDLL.lua_settop(L, oldTop - 1);
         }
         
         public IntPtr GetLuaState()
         {
             return L;
         }
-
-
-        //public object[] Call<T1>(T1 t1)
-        //{
-        //    int oldTop = BeginPCall();
-
-        //    PushArgs1(L, t1);
-
-        //    if (PCall(oldTop, 1))
-        //    {
-        //        return EndPCall(oldTop);
-        //    }
-
-        //    return null;
-        //}
-
-
-        //public object[] Call<T1, T2, T3>(T1 t1, T2 t2, T3 t3)
-        //{
-        //    int oldTop = BeginPCall();
-
-        //    PushArgs(L, t1);
-        //    PushArgs(L, t2);
-        //    PushArgs(L, t3);
-
-        //    if (PCall(oldTop, 3))
-        //    {
-        //        return EndPCall(oldTop);
-        //    }
-
-        //    return null;
-        //}
-
-        //public object[] Call<T1, T2, T3, T4>(T1 t1, T2 t2, T3 t3, T4 t4)
-        //{
-        //    int oldTop = BeginPCall();
-
-        //    PushArgs(L, t1);
-        //    PushArgs(L, t2);
-        //    PushArgs(L, t3);
-        //    PushArgs(L, t4);
-
-        //    if (PCall(oldTop, 4))
-        //    {
-        //        return EndPCall(oldTop);
-        //    }
-
-        //    return null;
-        //}
-
-        //public object[] Call<T1, T2, T3, T4, T5>(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
-        //{
-        //    int oldTop = BeginPCall();
-
-        //    PushArgs(L, t1);
-        //    PushArgs(L, t2);
-        //    PushArgs(L, t3);
-        //    PushArgs(L, t4);
-        //    PushArgs(L, t5);
-
-        //    if (PCall(oldTop, 5))
-        //    {
-        //        return EndPCall(oldTop);
-        //    }
-
-        //    return null;
-        //}
 
         /*
          * Pushes the function into the Lua stack
