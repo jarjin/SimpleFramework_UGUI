@@ -11,7 +11,7 @@ public class LuaArray : MonoBehaviour {
                 print(objs[i])
             end
             local table1 = {'111', '222', '333'}
-            return table1
+            return unpack(table1)
         end
     ";
 
@@ -28,14 +28,8 @@ public class LuaArray : MonoBehaviour {
         object[] rs = f.Call(objs, objs.Length);
 
         //lua table to c# array
-        LuaTable table = rs[0] as LuaTable;
-        foreach (DictionaryEntry de in table) {
-            Debug.Log(de.Value);
+        foreach (object de in rs) {
+            Debug.Log(de.ToString());
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
