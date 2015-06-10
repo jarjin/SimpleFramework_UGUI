@@ -18,24 +18,25 @@ using com.junfine.simpleframework.manager;
 
 public static class LuaBinding
 {
-    static LuaBinding()
-    {        
-        string dir = Application.dataPath + "/Source/LuaWrap/";
+    //自动生成wrap功能
+    //static LuaBinding()
+    //{        
+    //    string dir = Application.dataPath + "/Source/LuaWrap/";
 
-        if (!Directory.Exists(dir))
-        {
-            Directory.CreateDirectory(dir);
-        }
+    //    if (!Directory.Exists(dir))
+    //    {
+    //        Directory.CreateDirectory(dir);
+    //    }
         
-        string[] files = Directory.GetFiles(dir);
+    //    string[] files = Directory.GetFiles(dir);
 
-        if (files.Length <= 0)
-        {            
-            GenLuaDelegates();
-            Binding();
-            GenLuaBinder();
-        }
-    }
+    //    if (files.Length <= 0)
+    //    {            
+    //        GenLuaDelegates();
+    //        Binding();
+    //        GenLuaBinder();
+    //    }
+    //}
 
 
     public class BindType
