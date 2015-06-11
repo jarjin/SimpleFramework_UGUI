@@ -20,6 +20,7 @@ public class LuaArray : MonoBehaviour {
     // Use this for initialization
     void Start() {
         LuaScriptMgr luaMgr = new LuaScriptMgr();
+        luaMgr.Start();
         LuaState l = luaMgr.lua;
         l.DoString(source);
 
