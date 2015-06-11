@@ -314,8 +314,12 @@ public static class ToLuaExport
         GenFunction();        
 
         sb.AppendLine("}\r\n");
-        //Debugger.Log(sb.ToString());                
-        SaveFile(Application.dataPath + "/Source/LuaWrap/" + wrapClassName + "Wrap.cs");     
+        //Debugger.Log(sb.ToString());       
+        string path = Application.dataPath + "/Source/LuaWrap/";
+        if (!Directory.Exists(path)) {
+            Directory.CreateDirectory(path);
+        }
+        SaveFile(path + wrapClassName + "Wrap.cs");     
     }
 
     static void SaveFile(string file)
