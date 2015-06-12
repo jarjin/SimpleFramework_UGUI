@@ -4,6 +4,9 @@
 支持平台：PC/MAC/Android(armv7-a + Intel x86)/iOS(armv7 + arm64)/
 	  WP8(SimpleFramework_WP_v0.1.1 (nlua))/
 
+//-------------2015-06-13-------------
+(1)感谢夜莺提供的新手引导面板代码。
+
 //-------------2015-06-11-------------
 (1)继续同步cstolua最新版。
 (2)暂时去掉了自动生成wrap功能，需要的话在Editor/BindLua.cs中反注释构造函数。
