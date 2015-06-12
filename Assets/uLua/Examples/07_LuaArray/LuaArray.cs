@@ -27,6 +27,7 @@ public class LuaArray : MonoBehaviour {
         //c# array to lua table
         LuaFunction f = l.GetFunction("luaFunc");
         object[] rs = f.Call(objs, objs.Length);
+        f.Release();
 
         //lua table to c# array
         foreach (object de in rs) {
