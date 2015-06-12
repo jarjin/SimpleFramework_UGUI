@@ -38,28 +38,30 @@ namespace LuaInterface
             L = LuaDLL.luaL_newstate();
 
             // Create LuaInterface library
-            LuaDLL.luaL_openlibs(L);
+            LuaDLL.luaL_openlibs(L);            
             LuaDLL.lua_pushstring(L, "LUAINTERFACE LOADED");
             LuaDLL.lua_pushboolean(L, true);
-            LuaDLL.lua_settable(L, (int)LuaIndexes.LUA_REGISTRYINDEX);
-            LuaDLL.lua_newtable(L);
+            LuaDLL.lua_settable(L, (int)LuaIndexes.LUA_REGISTRYINDEX);            
+            LuaDLL.lua_newtable(L);            
             LuaDLL.lua_setglobal(L, "luanet");
-            LuaDLL.lua_pushvalue(L, (int)LuaIndexes.LUA_GLOBALSINDEX);
+            LuaDLL.lua_pushvalue(L, (int)LuaIndexes.LUA_GLOBALSINDEX);  //ÂéãÂÖ•‰∫Ü_GË°®
             LuaDLL.lua_getglobal(L, "luanet");
             LuaDLL.lua_pushstring(L, "getmetatable");
             LuaDLL.lua_getglobal(L, "getmetatable");
             LuaDLL.lua_settable(L, -3);
+            LuaDLL.lua_pushstring(L, "rawget");
+            LuaDLL.lua_getglobal(L, "rawget");
+            LuaDLL.lua_settable(L, -3);
+            LuaDLL.lua_pushstring(L, "rawset");
+            LuaDLL.lua_getglobal(L, "rawset");
+            LuaDLL.lua_settable(L, -3);
 
-            // Set luanet as global for object translator
-            LuaDLL.lua_replace(L, (int)LuaIndexes.LUA_GLOBALSINDEX);
-            translator = new ObjectTranslator(this, L);
-            LuaDLL.lua_replace(L, (int)LuaIndexes.LUA_GLOBALSINDEX);
+            // Set luanet as global for object translator                          
+            LuaDLL.lua_replace(L, (int)LuaIndexes.LUA_GLOBALSINDEX); //Áî®luanetÊõøÊç¢_GË°®           
+            translator = new ObjectTranslator(this, L);            
+            LuaDLL.lua_replace(L, (int)LuaIndexes.LUA_GLOBALSINDEX); //ÊÅ¢Â§ç_GË°®                    
 
-            translator.PushTranslator(L);
-            //GCHandle handle = GCHandle.Alloc(translator, GCHandleType.Pinned);
-            //IntPtr thisptr = GCHandle.ToIntPtr(handle);
-            //LuaDLL.lua_pushlightuserdata(L, thisptr);
-            //LuaDLL.lua_setglobal(L, "_translator");            
+            translator.PushTranslator(L);                      
 
             // We need to keep this in a managed reference so the delegate doesn't get garbage collected
             panicCallback = new LuaCSFunction(LuaStatic.panic);
@@ -389,7 +391,7 @@ namespace LuaInterface
         }
 
         #region Globals auto-complete
-        //private readonly List<string> globals = new List<string>();     //ÕÍ»´Œﬁ”√µƒ∂∫±»
+        //private readonly List<string> globals = new List<string>();     //ÂÆåÂÖ®Êó†Áî®ÁöÑÈÄóÊØî
         //private bool globalsSorted;
 
         /// <summary>
@@ -627,7 +629,7 @@ namespace LuaInterface
 
             LuaDLL.lua_pushstring(L, remainingPath[remainingPath.Length - 1]);
 
-            //ø…“‘ Õ∑≈œ»
+            //ÂèØ‰ª•ÈáäÊîæÂÖà
             //if (val == null)
             //{
             //    LuaDLL.lua_gettable(L, -2);               

@@ -236,9 +236,10 @@ namespace LuaInterface
 		}
 		public static void lua_setglobal(IntPtr luaState, string name)
 		{
-			LuaDLL.lua_pushstring(luaState,name);
-			LuaDLL.lua_insert(luaState,-2);
-			LuaDLL.lua_settable(luaState,LuaIndexes.LUA_GLOBALSINDEX);
+			//LuaDLL.lua_pushstring(luaState,name);
+			//LuaDLL.lua_insert(luaState,-2);
+			//LuaDLL.lua_settable(luaState,LuaIndexes.LUA_GLOBALSINDEX);
+            LuaDLL.lua_setfield(luaState, LuaIndexes.LUA_GLOBALSINDEX, name);
 		}
         public static void lua_rawglobal(IntPtr luaState, string name)
         {
@@ -360,7 +361,7 @@ namespace LuaInterface
 			{
                 string ss = Marshal.PtrToStringAnsi(str, strlen);
 
-                //µ±´Óc´«³öÖÐÎÄÊ±»á×ª»»Ê§°Ü£¬ topameng
+                //当从c传出中文时会转换失败， topameng
                 if (ss == null)
                 {
                     return AnsiToUnicode(str, strlen);
@@ -434,8 +435,8 @@ namespace LuaInterface
         [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern string lua_getupvalue(IntPtr L, int funcindex, int n);
 
-        [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr lua_tocbuffer(byte[] bytes, int n);
+        //[DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
+        //public static extern IntPtr lua_tocbuffer(byte[] bytes, int n);
 
         [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int luaL_typerror(IntPtr luaState, int narg, string tname);
