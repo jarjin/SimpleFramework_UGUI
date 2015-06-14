@@ -416,7 +416,26 @@ public static class LuaBinding
         Debug.Log("Create lua delegate over");
     }
 
-    [MenuItem("Lua/Gen u3d Wrap Files(慎用)", false, 15)]
+    /// <summary>
+    /// 编码LUA文件用UTF-8
+    /// </summary>
+    [MenuItem("Lua/Encode LuaFile with UTF-8", false, 50)]
+    public static void EncodeLuaFile() {
+        string path = Application.dataPath + "/Lua";
+        string[] files = Directory.GetFiles(path, "*.lua", SearchOption.AllDirectories);
+        foreach (string f in files) {
+            string file = f.Replace('\\', '/');
+
+            string content = File.ReadAllText(file);
+            using (var sw = new StreamWriter(file, false, new UTF8Encoding(false))) {
+                sw.Write(content);
+            }
+            Debug.Log("Encode file::>>" + file + " OK!");
+        }
+    }
+
+
+    [MenuItem("Lua/Gen u3d Wrap Files(慎用)", false, 51)]
     public static void U3dBinding()
     {
         List<string> dropList = new List<string>

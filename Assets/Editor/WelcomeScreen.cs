@@ -26,10 +26,10 @@
         private Texture mContactImage;
         private Rect mContactImageRect = new Rect(15f, 322f, 50f, 50f);
         private Rect mDocDescriptionRect = new Rect(70f, 143f, 260f, 30f);
-        private Rect mDocHeaderRect = new Rect(70f, 123f, 250f, 20f);
+        private Rect mDocHeaderRect = new Rect(70f, 123f, 350f, 20f);
         private Texture mDocImage;
         private Rect mDocImageRect = new Rect(15f, 124f, 53f, 50f);
-        private Rect mForumDescriptionRect = new Rect(70f, 278f, 250f, 30f);
+        private Rect mForumDescriptionRect = new Rect(70f, 278f, 380f, 30f);
         private Rect mForumHeaderRect = new Rect(70f, 258f, 250f, 20f);
         private Texture mForumImage;
         private Rect mForumImageRect = new Rect(15f, 256f, 50f, 50f);
@@ -37,13 +37,13 @@
         private Rect mSamplesHeaderRect = new Rect(70f, 57f, 250f, 20f);
         private Texture mSamplesImage;
         private Rect mSamplesImageRect = new Rect(15f, 58f, 50f, 50f);
-        private Rect mToggleButtonRect = new Rect(220f, 385f, 125f, 20f);
+        private Rect mToggleButtonRect = new Rect(280f, 385f, 125f, 20f);
         private Rect mVersionRect = new Rect(5f, 385f, 125f, 20f);
-        private Rect mVideoDescriptionRect = new Rect(70f, 209f, 280f, 30f);
-        private Rect mVideoHeaderRect = new Rect(70f, 189f, 250f, 20f);
+        private Rect mVideoDescriptionRect = new Rect(70f, 209f, 380f, 30f);
+        private Rect mVideoHeaderRect = new Rect(70f, 189f, 350f, 20f);
         private Texture mVideoImage;
         private Rect mVideoImageRect = new Rect(15f, 190f, 50f, 50f);
-        private Rect mWelcomeIntroRect = new Rect(46f, 12f, 306f, 40f);
+        private Rect mWelcomeIntroRect = new Rect(10f, 12f, 400f, 40f);
         private Texture mWelcomeScreenImage;
         private Rect mWelcomeScreenImageRect = new Rect(0f, 0f, 340f, 44f);
 
@@ -63,19 +63,19 @@
         public void OnGUI()
         {
             //GUI.DrawTexture(this.mWelcomeScreenImageRect, this.mWelcomeScreenImage);
-            GUI.Label(this.mWelcomeIntroRect, "Welcome To SimpleFramework");
+            GUI.Label(this.mWelcomeIntroRect, "欢迎使用SimpleFramework，它是个基于uLua/CSTOLUA，\n将C#类注册进Lua，并且附带了AssetBundle管理的演示框架。入门步骤如下：");
             GUI.DrawTexture(this.mSamplesImageRect, this.mSamplesImage);
-            GUI.Label(this.mSamplesHeaderRect, "新手入门 - 生成Wrap文件" );
+            GUI.Label(this.mSamplesHeaderRect, "新手入门 - 生成Wrap文件(必须)" );
             GUI.Label(this.mSamplesDescriptionRect, "单击Lua菜单里面Gen Lua Wrap File子菜单.");
             GUI.DrawTexture(this.mDocImageRect, this.mDocImage);
-            GUI.Label(this.mDocHeaderRect, "新手入门 - 根据操作系统生成AssetBundle资源");
+            GUI.Label(this.mDocHeaderRect, "新手入门 - 根据不同平台生成AssetBundle资源(必须)");
             GUI.Label(this.mDocDescriptionRect, "单击Game菜单里面Build XXX Resources子菜单.");
             GUI.DrawTexture(this.mVideoImageRect, this.mVideoImage);
-            GUI.Label(this.mVideoHeaderRect, "新手入门 - 清除Wrap文件缓存");
+            GUI.Label(this.mVideoHeaderRect, "新手入门 - 改完注册到Lua的C#类，需清除文件缓存，重新生成");
             GUI.Label(this.mVideoDescriptionRect, "单击Lua菜单里面Clear LuaBinder File + Wrap Files子菜单.");
             GUI.DrawTexture(this.mForumImageRect, this.mForumImage);
-            GUI.Label(this.mForumHeaderRect, "框架下载地址");
-            GUI.Label(this.mForumDescriptionRect, "https://github.com/jarjin/");
+            GUI.Label(this.mForumHeaderRect, "新手入门 - Lua需要统一的UTF-8文件编码");
+            GUI.Label(this.mForumDescriptionRect, "单击Lua菜单里面Encode LuaFile with UTF-8子菜单.");
             GUI.DrawTexture(this.mContactImageRect, this.mContactImage);
             GUI.Label(this.mContactHeaderRect, " 加入技术支持社群");
             GUI.Label(this.mContactDescriptionRect, "QQ群:341746602 或者 QQ群:62978170");
@@ -124,7 +124,7 @@
                 }
                 else if ((this.mForumImageRect.Contains(mousePosition) || this.mForumHeaderRect.Contains(mousePosition)) || this.mForumDescriptionRect.Contains(mousePosition))
                 {
-                    Application.OpenURL("https://github.com/jarjin/");
+                    LuaBinding.EncodeLuaFile();
                 }
                 else if ((this.mContactImageRect.Contains(mousePosition) || this.mContactHeaderRect.Contains(mousePosition)) || this.mContactDescriptionRect.Contains(mousePosition))
                 {
@@ -137,7 +137,7 @@
         public static void ShowWindow()
         {
             WelcomeScreen window = EditorWindow.GetWindow<WelcomeScreen>(true, "Welcome to SimpleFramework");
-            window.minSize = window.maxSize = new Vector2(370f, 410f);
+            window.minSize = window.maxSize = new Vector2(410f, 410f);
             UnityEngine.Object.DontDestroyOnLoad(window);
         }
     }
