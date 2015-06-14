@@ -52,7 +52,7 @@ public class LuaScriptMgr
     int arrayMetaRef = 0;
 
     public static LockFreeQueue<LuaRef> refGCList = new LockFreeQueue<LuaRef>(1024);    
-    public static ObjectTranslator _translator = null;
+    static ObjectTranslator _translator = null;
 
     static HashSet<Type> checkBaseType = new HashSet<Type>();
 
@@ -277,10 +277,31 @@ public class LuaScriptMgr
     //    LuaDLL.lua_settop(L, 0);
     //}    
 
+    void InitLayers(IntPtr L)
+    {
+        LuaTable layers = GetLuaTable("Layer");        
+        layers.push(L);
+
+        for (int i = 0; i < 32; i++)
+        {
+            string str = LayerMask.LayerToName(i);
+
+            if (str != string.Empty)
+            {
+                LuaDLL.lua_pushstring(L, str);
+                Push(L, i);
+                LuaDLL.lua_rawset(L, -3);
+            }
+        }
+
+        LuaDLL.lua_settop(L, 0);
+    }
+
     void Bind()
     {
         IntPtr L = lua.L;
         BindArray(L);
+        DelegateFactory.Register(L);
         LuaBinder.Bind(L);
 
         enumMetaRef = GetTypeMetaRef(typeof(System.Enum));
@@ -389,10 +410,12 @@ public class LuaScriptMgr
 
     void OnBundleLoaded()
     {
-#if UNITY_EDITOR && !LUA_ZIP
-        //DoFile("strict.lua");
-#endif
-        DoFile("Golbal.lua");
+//#if UNITY_EDITOR && !LUA_ZIP
+//        DoFile("strict.lua");
+//#endif
+        DoFile("Global.lua");
+        InitLayers(lua.L);
+
         unpackVec3 = GetLuaReference("Vector3.Get");
         unpackVec2 = GetLuaReference("Vector2.Get");
         unpackVec4 = GetLuaReference("Vector4.Get");
@@ -1383,6 +1406,10 @@ public class LuaScriptMgr
             {
                 PushArray(L, (System.Array)o);
             }
+            else if (t == typeof(LuaCSFunction))
+            {
+                GetTranslator(L).pushFunction(L, (LuaCSFunction)o);
+            }
             else if (t.IsSubclassOf(typeof(Delegate)))
             {
                 Push(L, (Delegate)o);
@@ -1421,10 +1448,6 @@ public class LuaScriptMgr
             else if (t == typeof(LuaFunction))
             {
                 ((LuaFunction)o).push(L);
-            }
-            else if (t == typeof(LuaCSFunction))
-            {
-                GetTranslator(L).pushFunction(L, (LuaCSFunction)o);
             }
             else if (t == monoType)
             {
