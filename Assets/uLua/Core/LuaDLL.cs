@@ -80,10 +80,14 @@ namespace LuaInterface
 	{
         public static int LUA_MULTRET = -1;
 #if UNITY_IPHONE
+#if UNITY_EDITOR
+        const string LUADLL = "ulua";
+#else
         const string LUADLL = "__Internal";
+#endif
 #else
         const string LUADLL = "ulua";
-#endif              		
+#endif           		
         [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int luaopen_pb(IntPtr L);
 

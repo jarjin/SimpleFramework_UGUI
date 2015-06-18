@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Text;
@@ -13,7 +13,7 @@ public class Packager {
     static List<string> files = new List<string>();
 
     /// <summary>
-    /// ÔØÈëËØ²Ä
+    /// è½½å…¥ç´ æ
     /// </summary>
     static UnityEngine.Object LoadAsset(string file) {
         if (file.EndsWith(".lua")) file += ".txt";
@@ -21,42 +21,38 @@ public class Packager {
     }
 
     [MenuItem("Game/Build iPhone Resource", false, 11)]
-    public static void BuildiPhoneResource() {
+    public static void BuildiPhoneResource() { 
         BuildTarget target;
-#if UNITY_5
         target = BuildTarget.iOS;
-#else
-        target = BuildTarget.iPhone;
-#endif
-        BuildAssetResource(target);
+        BuildAssetResource(target, false);
     }
 
     [MenuItem("Game/Build Android Resource", false, 12)]
     public static void BuildAndroidResource() {
-        BuildAssetResource(BuildTarget.Android);
+        BuildAssetResource(BuildTarget.Android, true);
     }
 
     [MenuItem("Game/Build Windows Resource", false, 13)]
     public static void BuildWindowsResource() {
-        BuildAssetResource(BuildTarget.StandaloneWindows);
+        BuildAssetResource(BuildTarget.StandaloneWindows, true);
     }
 
     /// <summary>
-    /// Éú³É°ó¶¨ËØ²Ä
+    /// ç”Ÿæˆç»‘å®šç´ æ
     /// </summary>
-    public static void BuildAssetResource(BuildTarget target) {
+    public static void BuildAssetResource(BuildTarget target, bool isWin) {
         string dataPath = Util.DataPath;
-        if (Directory.Exists(dataPath)) { 
+        if (Directory.Exists(dataPath)) {
             Directory.Delete(dataPath, true);
         }
-        string assetfile = string.Empty;  //ËØ²ÄÎÄ¼şÃû
+        string assetfile = string.Empty;  //ç´ ææ–‡ä»¶å
         string resPath = AppDataPath + "/" + Const.AssetDirname + "/";
         if (!Directory.Exists(resPath)) Directory.CreateDirectory(resPath);
         BuildPipeline.BuildAssetBundles(resPath, BuildAssetBundleOptions.None, target);
 
         string luaPath = resPath + "/lua/";
 
-        //----------¸´ÖÆLuaÎÄ¼ş----------------
+        //----------å¤åˆ¶Luaæ–‡ä»¶----------------
         if (Directory.Exists(luaPath)) {
             Directory.Delete(luaPath, true);
         }
@@ -65,16 +61,27 @@ public class Packager {
         paths.Clear(); files.Clear();
         string luaDataPath = Application.dataPath + "/lua/".ToLower();
         Recursive(luaDataPath);
+        int n = 0;
         foreach (string f in files) {
             if (f.EndsWith(".meta")) continue;
             string newfile = f.Replace(luaDataPath, "");
             string newpath = luaPath + newfile;
             string path = Path.GetDirectoryName(newpath);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            File.Copy(f, newpath, true);
-        }
 
-        ///----------------------´´½¨ÎÄ¼şÁĞ±í-----------------------
+            if (File.Exists(newpath)) {
+                File.Delete(newpath);
+            }
+            if (Const.LuaEncode) {
+                UpdateProgress(n++, files.Count, newpath);
+                EncodeLuaFile(f, newpath, isWin);
+            } else {
+                File.Copy(f, newpath, true);
+            }
+        }
+        EditorUtility.ClearProgressBar();
+
+        ///----------------------åˆ›å»ºæ–‡ä»¶åˆ—è¡¨-----------------------
         string newFilePath = resPath + "/files.txt";
         if (File.Exists(newFilePath)) File.Delete(newFilePath);
 
@@ -96,14 +103,14 @@ public class Packager {
     }
 
     /// <summary>
-    /// Êı¾İÄ¿Â¼
+    /// æ•°æ®ç›®å½•
     /// </summary>
     static string AppDataPath {
         get { return Application.dataPath.ToLower(); }
     }
 
     /// <summary>
-    /// ±éÀúÄ¿Â¼¼°Æä×ÓÄ¿Â¼
+    /// éå†ç›®å½•åŠå…¶å­ç›®å½•
     /// </summary>
     static void Recursive(string path) {
         string[] names = Directory.GetFiles(path);
@@ -119,9 +126,46 @@ public class Packager {
         }
     }
 
+    static void UpdateProgress(int progress, int progressMax, string desc) {
+        string title = "Processing...[" + progress + " - " + progressMax + "]";
+        float value = (float)progress / (float)progressMax;
+        EditorUtility.DisplayProgressBar(title, desc, value);
+    }
+
+    static void EncodeLuaFile(string srcFile, string outFile, bool isWin) {
+        if (!srcFile.ToLower().EndsWith(".lua")) {
+            File.Copy(srcFile, outFile, true);
+            return;
+        }
+        string luaexe = AppDataPath;
+        string args = string.Empty;
+        string currDir = Directory.GetCurrentDirectory();
+        if (Application.platform == RuntimePlatform.WindowsEditor) {
+            luaexe = "luajit.exe";
+            args = "-b " + srcFile + " " + outFile;
+            Directory.SetCurrentDirectory(AppDataPath + "/Encoder/luajit/");
+        } else if (Application.platform == RuntimePlatform.OSXEditor) {
+            luaexe += "/Encoder/luavm/luac";
+            args = "-o " + outFile + " " + srcFile;
+        }
+        foreach (string f in files) {
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = luaexe;
+            info.Arguments = args;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
+            info.UseShellExecute = isWin;
+            info.ErrorDialog = true;
+            Util.Log(info.FileName + " " + info.Arguments);
+
+            Process pro = Process.Start(info);
+            pro.WaitForExit();
+        }
+        Directory.SetCurrentDirectory(currDir);
+    }
+
     [MenuItem("Game/Build Protobuf-lua-gen File")]
     public static void BuildProtobufFile() {
-        string dir = Application.dataPath + "/Lua/bin";
+        string dir = AppDataPath + "/Lua/bin";
         paths.Clear(); files.Clear(); Recursive(dir);
 
         string protoc = "d:/protobuf-2.4.1/src/protoc.exe";
@@ -135,7 +179,7 @@ public class Packager {
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = protoc;
             info.Arguments = " --lua_out=./ --plugin=protoc-gen-lua=" + protoc_gen_dir + " " + name;
-            info.WindowStyle = ProcessWindowStyle.Minimized;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
             info.UseShellExecute = true;
             info.WorkingDirectory = dir;
             info.ErrorDialog = true;

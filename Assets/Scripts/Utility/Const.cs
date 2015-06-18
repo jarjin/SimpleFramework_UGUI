@@ -15,7 +15,7 @@ namespace com.junfine.simpleframework {
         public static bool UseLpeg = true;                          //LPEG
         public static bool UsePbLua = true;                         //Protobuff-lua-gen
         public static bool UseCJson = true;                         //CJson
-        public static bool UseSQLite = true;                        //SQLite
+        public static bool LuaEncode = false;                        //使用LUA编码
 
         public static string UserId = string.Empty;                 //用户ID
         public static string AppName = "simpleframework";           //应用程序名称
