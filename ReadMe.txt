@@ -4,6 +4,10 @@
 支持平台：PC/MAC/Android(armv7-a + Intel x86)/iOS(armv7 + arm64)/
 	  WP8(SimpleFramework_WP_v0.1.1 (nlua))/
 
+//-------------2015-06-27-------------
+(1)修改LUAC编码脚本BUG
+(2)同步CSTOLUA，修复BUG
+
 //-------------2015-06-19-------------
 (1)修改MAC自动选择底层库。
 (2)增加LUAJIT/LUAVM编码功能。

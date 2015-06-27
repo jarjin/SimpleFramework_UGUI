@@ -137,29 +137,30 @@ public class Packager {
             File.Copy(srcFile, outFile, true);
             return;
         }
-        string luaexe = AppDataPath;
+        string luaexe = string.Empty;
         string args = string.Empty;
+        string exedir = string.Empty;
         string currDir = Directory.GetCurrentDirectory();
         if (Application.platform == RuntimePlatform.WindowsEditor) {
             luaexe = "luajit.exe";
             args = "-b " + srcFile + " " + outFile;
-            Directory.SetCurrentDirectory(AppDataPath + "/Encoder/luajit/");
+            exedir = AppDataPath + "/Encoder/luajit/";
         } else if (Application.platform == RuntimePlatform.OSXEditor) {
-            luaexe += "/Encoder/luavm/luac";
+            luaexe = "./luac";
             args = "-o " + outFile + " " + srcFile;
+            exedir = AppDataPath + "/Encoder/luavm/";
         }
-        foreach (string f in files) {
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = luaexe;
-            info.Arguments = args;
-            info.WindowStyle = ProcessWindowStyle.Hidden;
-            info.UseShellExecute = isWin;
-            info.ErrorDialog = true;
-            Util.Log(info.FileName + " " + info.Arguments);
+        Directory.SetCurrentDirectory(exedir);
+        ProcessStartInfo info = new ProcessStartInfo();
+        info.FileName = luaexe;
+        info.Arguments = args;
+        info.WindowStyle = ProcessWindowStyle.Hidden;
+        info.UseShellExecute = isWin;
+        info.ErrorDialog = true;
+        Util.Log(info.FileName + " " + info.Arguments);
 
-            Process pro = Process.Start(info);
-            pro.WaitForExit();
-        }
+        Process pro = Process.Start(info);
+        pro.WaitForExit();
         Directory.SetCurrentDirectory(currDir);
     }
 
