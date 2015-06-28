@@ -10,8 +10,9 @@ using com.junfine.simpleframework;
 
 namespace com.junfine.simpleframework.manager {
     public class GameManager : BaseLua {
-        public LuaScriptMgr uluaManager;
+        public LuaScriptMgr uluaMgr;
         private string message;
+        private bool canLuaUpdate = false;
 
         /// <summary>
         /// 初始化游戏管理器
@@ -192,10 +193,10 @@ namespace com.junfine.simpleframework.manager {
         /// 资源初始化结束
         /// </summary>
         public void OnResourceInited() {
-            uluaManager = new LuaScriptMgr();
-            uluaManager.Start();
-            uluaManager.DoFile("logic/game");      //加载游戏
-            uluaManager.DoFile("logic/network");   //加载网络
+            uluaMgr = new LuaScriptMgr();
+            uluaMgr.Start();
+            uluaMgr.DoFile("logic/game");      //加载游戏
+            uluaMgr.DoFile("logic/network");   //加载网络
             ioo.networkManager.OnInit();    //初始化网络
 
             object[] panels = CallMethod("LuaScriptPanel");
@@ -205,11 +206,30 @@ namespace com.junfine.simpleframework.manager {
                 if (string.IsNullOrEmpty(name)) continue;
                 name += "Panel";    //添加
 
-                uluaManager.DoFile("logic/" + name);
+                uluaMgr.DoFile("logic/" + name);
                 Debug.LogWarning("LoadLua---->>>>" + name + ".lua");
             }
             //------------------------------------------------------------
+            canLuaUpdate = true;
             CallMethod("OnInitOK");   //初始化完成
+        }
+
+        void Update() {
+            if (uluaMgr != null && canLuaUpdate) {
+                uluaMgr.Update();
+            }
+        }
+
+        void LateUpdate() {
+            if (uluaMgr != null && canLuaUpdate) {
+                uluaMgr.LateUpate();
+            }
+        }
+
+        void FixedUpdate() {
+            if (uluaMgr != null && canLuaUpdate) {
+                uluaMgr.FixedUpdate();
+            }
         }
 
         /// <summary>
@@ -223,6 +243,11 @@ namespace com.junfine.simpleframework.manager {
         /// 析构函数
         /// </summary>
         void OnDestroy() {
+            ioo.networkManager.Unload();
+            if (uluaMgr != null) {
+                uluaMgr.Destroy();
+                uluaMgr = null;
+            }
             Debug.Log("~GameManager was destroyed");
         }
     }

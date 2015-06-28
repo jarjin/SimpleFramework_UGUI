@@ -16,7 +16,7 @@ namespace com.junfine.simpleframework {
         public LuaScriptMgr uluaMgr {
             get {
                 if (umgr == null) {
-                    umgr = ioo.gameManager.uluaManager;
+                    umgr = ioo.gameManager.uluaMgr;
                 }
                 return umgr;
             }

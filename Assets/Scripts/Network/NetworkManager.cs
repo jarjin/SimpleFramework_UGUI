@@ -60,8 +60,6 @@ namespace com.junfine.simpleframework.manager {
         /// Îö¹¹º¯Êý
         /// </summary>
         new void OnDestroy() {
-            this.Unload();
-            base.OnDestroy();
             Debug.Log("~NetworkManager was destroy");
         }
     }

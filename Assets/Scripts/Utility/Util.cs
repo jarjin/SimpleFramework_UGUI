@@ -497,7 +497,7 @@ namespace com.junfine.simpleframework {
         }
 
         public static void PushBufferToLua(LuaFunction func, byte[] buffer) {
-            LuaScriptMgr mgr = ioo.gameManager.uluaManager;
+            LuaScriptMgr mgr = ioo.gameManager.uluaMgr;
             int oldTop = func.BeginPCall();
             LuaDLL.lua_pushlstring(mgr.lua.L, buffer, buffer.Length);
             if (func.PCall(oldTop, 1)) func.EndPCall(oldTop);
