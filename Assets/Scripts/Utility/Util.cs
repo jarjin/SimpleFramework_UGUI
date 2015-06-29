@@ -502,5 +502,32 @@ namespace com.junfine.simpleframework {
             LuaDLL.lua_pushlstring(mgr.lua.L, buffer, buffer.Length);
             if (func.PCall(oldTop, 1)) func.EndPCall(oldTop);
         }
+
+        /// <summary>
+        /// 防止初学者不按步骤来操作
+        /// </summary>
+        /// <returns></returns>
+        public static int CheckRuntimeFile() {
+            if (!Application.isEditor) return 0;
+            string streamDir = Application.dataPath + "/StreamingAssets/";
+            if (!Directory.Exists(streamDir)) {
+                return -1;
+            } else {
+                string[] files = Directory.GetFiles(streamDir);
+                if (files.Length == 0) return -1;
+
+                if (!File.Exists(streamDir + "files.txt")) {
+                    return -1;
+                }
+            }
+            string sourceDir = Application.dataPath + "/Source/LuaWrap/";
+            if (!Directory.Exists(sourceDir)) {
+                return -2;
+            } else {
+                string[] files = Directory.GetFiles(sourceDir);
+                if (files.Length == 0) return -2;
+            }
+            return 0;
+        }
     }
 }

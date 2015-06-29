@@ -1,8 +1,11 @@
-﻿本工程基于Unity 5.0/4.6.4 + UGUI + uLua 1.1.4 + cstolua构建
+﻿本工程基于Unity 5.0/4.6.4 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
 支持平台：PC/MAC/Android(armv7-a + Intel x86)/iOS(armv7 + arm64)/
 	  WP8(SimpleFramework_WP_v0.1.1 (nlua))/
+
+视频教程地址 http://pan.baidu.com/s/1gd8fG4N
+游戏案例地址 http://www.ulua.org/showcase.html
 
 //-------------2015-06-28-------------
 (1)启动CSTOLUA帧驱动Lua中的协同。
