@@ -8,6 +8,10 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using com.junfine.simpleframework;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace com.junfine.simpleframework.manager {
     public class GameManager : BaseLua {
         public LuaScriptMgr uluaMgr;
@@ -44,6 +48,16 @@ namespace com.junfine.simpleframework.manager {
         /// 释放资源
         /// </summary>
         public void CheckExtractResource() {
+            int resultId = Util.CheckRuntimeFile();
+            if (resultId == -1) {
+                Debug.LogError("没有找到框架所需要的资源，单击Game菜单下Build xxx Resource生成！！");
+                EditorApplication.isPlaying = false;
+                return;
+            } else if (resultId == -2) {
+                Debug.LogError("没有找到Wrap脚本缓存，单击Lua菜单下Gen Lua Wrap Files生成脚本！！");
+                EditorApplication.isPlaying = false;
+                return;
+            }
             bool isExists = Directory.Exists(Util.DataPath) &&
               Directory.Exists(Util.DataPath + "lua/") && File.Exists(Util.DataPath + "files.txt");
             if (isExists || Const.DebugMode) {
