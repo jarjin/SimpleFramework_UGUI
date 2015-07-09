@@ -11,7 +11,7 @@ local gameObject;
 function MessagePanel.Start()
 	warn("Start lua--->>"..this.gameObject.name);
 
-	message = this.gameObject:GetComponent('BaseLua');
+	message = this.gameObject:GetComponent('LuaBehaviour');
 	message:AddClick('Button', this.OnClick);
 end
 

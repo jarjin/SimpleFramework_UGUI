@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Diagnostics;
 using System.Collections;
-using com.junfine.simpleframework;
+using SimpleFramework;
 
 public class LuaScriptMgr
 {
@@ -189,16 +189,16 @@ public class LuaScriptMgr
 
 
         //LuaDLL.luaopen_pack(lua.L);
-        if (Const.UsePbLua) {
+        if (AppConst.UsePbLua) {
             LuaDLL.luaopen_pb(lua.L);
         }
-        if (Const.UsePbc) {
+        if (AppConst.UsePbc) {
             LuaDLL.luaopen_protobuf_c(lua.L);
         }
-        if (Const.UseLpeg) {
+        if (AppConst.UseLpeg) {
             LuaDLL.luaopen_lpeg(lua.L);
         }
-        if (Const.UseCJson) {
+        if (AppConst.UseCJson) {
             LuaDLL.luaopen_cjson(lua.L);
             LuaDLL.luaopen_cjson_safe(lua.L);
         }

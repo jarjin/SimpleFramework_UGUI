@@ -12,10 +12,10 @@ function PromptPanel.Start()
 	this = PromptPanel;
 	gameObject = find("PromptPanel");
 	trans = gameObject.transform;
-	prompt = gameObject:GetComponent('BaseLua');
+	prompt = gameObject:GetComponent('LuaBehaviour');
 
 	prompt:AddClick('Open', this.OnClick);
-	resMgr:LoadAsset('prompt', 'PromptItem', this.InitPanel);
+	ResManager:LoadAsset('prompt', 'PromptItem', this.InitPanel);
 	warn("Start lua--->>"..gameObject.name);
 end
 
@@ -53,6 +53,6 @@ function PromptPanel.OnClick(obj)
     buffer:WriteShort(Login);
     buffer:WriteString("ffff我的ffffQ靈uuu");
     buffer:WriteInt(200);
-    ioo.networkManager:SendMessage(buffer);
+    NetManager:SendMessage(buffer);
 	warn("OnClick---->>>"..obj.name);
 end

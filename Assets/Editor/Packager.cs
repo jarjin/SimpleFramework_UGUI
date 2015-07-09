@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using com.junfine.simpleframework;
+using SimpleFramework;
 
 public class Packager {
     public static string platform = string.Empty;
@@ -46,7 +46,7 @@ public class Packager {
             Directory.Delete(dataPath, true);
         }
         string assetfile = string.Empty;  //素材文件名
-        string resPath = AppDataPath + "/" + Const.AssetDirname + "/";
+        string resPath = AppDataPath + "/" + AppConst.AssetDirname + "/";
         if (!Directory.Exists(resPath)) Directory.CreateDirectory(resPath);
         BuildPipeline.BuildAssetBundles(resPath, BuildAssetBundleOptions.None, target);
 
@@ -72,7 +72,7 @@ public class Packager {
             if (File.Exists(newpath)) {
                 File.Delete(newpath);
             }
-            if (Const.LuaEncode) {
+            if (AppConst.LuaEncode) {
                 UpdateProgress(n++, files.Count, newpath);
                 EncodeLuaFile(f, newpath, isWin);
             } else {

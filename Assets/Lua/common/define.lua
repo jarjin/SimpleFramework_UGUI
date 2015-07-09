@@ -1,6 +1,9 @@
-ioo = com.junfine.simpleframework.ioo;
-Util = com.junfine.simpleframework.Util;
-Const = com.junfine.simpleframework.Const;
-LuaHelper = com.junfine.simpleframework.LuaHelper;
-ByteBuffer = com.junfine.simpleframework.ByteBuffer;
-resMgr = ioo.resourceManager;
+Util = SimpleFramework.Util;
+AppConst = SimpleFramework.AppConst;
+LuaHelper = SimpleFramework.LuaHelper;
+ByteBuffer = SimpleFramework.ByteBuffer;
+
+ResManager = LuaHelper.GetResManager();
+NetManager = LuaHelper.GetNetManager();
+PanelManager = LuaHelper.GetPanelManager();
+MusicManager = LuaHelper.GetMusicManager();

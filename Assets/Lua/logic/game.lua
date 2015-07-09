@@ -34,9 +34,9 @@ function GameManager.OnInitOK()
 	warn('OnInitOK--->>>');
 	createPanel("Prompt");
 
-    Const.SocketPort = 2012;
-    Const.SocketAddress = "127.0.0.1";
-    ioo.networkManager:SendConnect();
+    AppConst.SocketPort = 2012;
+    AppConst.SocketAddress = "127.0.0.1";
+    NetManager:SendConnect();
 
     this.test_class_func();
     this.test_pblua_func();

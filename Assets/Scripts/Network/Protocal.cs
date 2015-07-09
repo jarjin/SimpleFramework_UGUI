@@ -1,5 +1,5 @@
 
-namespace com.junfine.simpleframework {
+namespace SimpleFramework {
     public class Protocal {
         ///BUILD TABLE
         public const int Connect = 101;     //连接服务器

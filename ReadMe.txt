@@ -7,6 +7,10 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 
+//-------------2015-07-10-------------
+(1)集成开源框架PureMVC。
+(2)游戏框架做了调整，去掉了ioo类，使用facade代替。
+
 //-------------2015-06-28-------------
 (1)启动CSTOLUA帧驱动Lua中的协同。
 

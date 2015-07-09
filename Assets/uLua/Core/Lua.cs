@@ -15,7 +15,7 @@ namespace LuaInterface
     using System.Threading;
     using System.Text;
     using UnityEngine;
-    using com.junfine.simpleframework;
+    using SimpleFramework;
 
     public class LuaState : IDisposable
     {

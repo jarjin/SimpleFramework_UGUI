@@ -1,15 +1,12 @@
-﻿/*************************************************
-author：ricky pu
-data：2014.4.12
-email:32145628@qq.com
-**********************************************/
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
 using LuaInterface;
 using System;
+using Junfine.Debuger;
+using SimpleFramework.Manager;
 
-namespace com.junfine.simpleframework {
+namespace SimpleFramework {
     public static class LuaHelper {
 
         /// <summary>
@@ -28,51 +25,31 @@ namespace com.junfine.simpleframework {
         }
 
         /// <summary>
-        /// GetComponentInChildren
+        /// 面板管理器
         /// </summary>
-        public static Component GetComponentInChildren(GameObject obj, string classname) {
-            System.Type t = GetType(classname);
-            Component comp = null;
-            if (t != null && obj != null) comp = obj.GetComponentInChildren(t);
-            return comp;
+        public static PanelManager GetPanelManager() {
+            return AppFacade.Instance.GetManager<PanelManager>(ManagerName.Panel);
         }
 
         /// <summary>
-        /// GetComponent
+        /// 资源管理器
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="classname"></param>
-        /// <returns></returns>
-        public static Component GetComponent(GameObject obj, string classname) {
-            if (obj == null) return null;
-            return obj.GetComponent(classname);
+        public static ResourceManager GetResManager() {
+            return AppFacade.Instance.GetManager<ResourceManager>(ManagerName.Resource);
         }
 
         /// <summary>
-        /// 
+        /// 网络管理器
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="classname"></param>
-        /// <returns></returns>
-        public static Component[] GetComponentsInChildren(GameObject obj, string classname) {
-            System.Type t = GetType(classname);
-            if (t != null && obj != null) return obj.transform.GetComponentsInChildren(t);
-            return null;
+        public static NetworkManager GetNetManager() {
+            return AppFacade.Instance.GetManager<NetworkManager>(ManagerName.Network);
         }
 
         /// <summary>
-        /// 
+        /// 音乐管理器
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static Transform[] GetAllChild(GameObject obj) {
-            Transform[] child = null;
-            int count = obj.transform.childCount;
-            child = new Transform[count];
-            for (int i = 0; i < count; i++) {
-                child[i] = obj.transform.GetChild(i);
-            }
-            return child;
+        public static MusicManager GetMusicManager() {
+            return AppFacade.Instance.GetManager<MusicManager>(ManagerName.Music);
         }
 
         /// <summary>
@@ -81,8 +58,13 @@ namespace com.junfine.simpleframework {
         /// <param name="func"></param>
         public static void OnCallLuaFunc(LuaStringBuffer data, LuaFunction func) {
             byte[] buffer = data.buffer;
+            if (func != null) {
+                LuaScriptMgr mgr = AppFacade.Instance.GetManager<LuaScriptMgr>(ManagerName.Lua);
+                int oldTop = func.BeginPCall();
+                LuaDLL.lua_pushlstring(mgr.lua.L, buffer, buffer.Length);
+                if (func.PCall(oldTop, 1)) func.EndPCall(oldTop);
+            }
             Debug.LogWarning("OnCallLuaFunc buffer:>>" + buffer + " lenght:>>" + buffer.Length);
-            if (func != null) Util.PushBufferToLua(func, buffer);
         }
 
         /// <summary>

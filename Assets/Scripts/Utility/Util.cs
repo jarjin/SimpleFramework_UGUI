@@ -8,10 +8,9 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib.GZip;
 using LuaInterface;
-using com.junfine.simpleframework;
-using com.junfine.simpleframework.manager;
+using SimpleFramework.Manager;
 
-namespace com.junfine.simpleframework {
+namespace SimpleFramework {
     public class Util : MonoBehaviour {
         public static int Int(object o) {
             return Convert.ToInt32(o);
@@ -305,7 +304,7 @@ namespace com.junfine.simpleframework {
         /// 生成一个Key名
         /// </summary>
         public static string GetKey(string key) {
-            return Const.AppPrefix + Const.UserId + "_" + key;
+            return AppConst.AppPrefix + AppConst.UserId + "_" + key;
         }
 
         /// <summary>
@@ -363,10 +362,8 @@ namespace com.junfine.simpleframework {
         /// </summary>
         public static void ClearMemory() {
             GC.Collect(); Resources.UnloadUnusedAssets();
-            GameObject go = GameObject.FindWithTag("GameManager");
-            if (go != null) {
-                go.GetComponent<GameManager>().uluaMgr.LuaGC();
-            }
+            LuaScriptMgr mgr = AppFacade.Instance.GetManager<LuaScriptMgr>(ManagerName.Lua);
+            if (mgr == null) mgr.LuaGC();
         }
 
         /// <summary>
@@ -382,12 +379,12 @@ namespace com.junfine.simpleframework {
         /// </summary>
         public static string DataPath {
             get {
-                string game = Const.AppName.ToLower();
+                string game = AppConst.AppName.ToLower();
                 if (Application.isMobilePlatform) {
                     return Application.persistentDataPath + "/" + game + "/";
                 }
-                if (Const.DebugMode) {
-                    return Application.dataPath + "/" + Const.AssetDirname + "/";
+                if (AppConst.DebugMode) {
+                    return Application.dataPath + "/" + AppConst.AssetDirname + "/";
                 }
                 return "c:/" + game + "/";
             }
@@ -395,7 +392,7 @@ namespace com.junfine.simpleframework {
 
         public static string GetRelativePath() {
             if (Application.isEditor)
-                return "file://" + System.Environment.CurrentDirectory.Replace("\\", "/") + "/Assets/" + Const.AssetDirname + "/";
+                return "file://" + System.Environment.CurrentDirectory.Replace("\\", "/") + "/Assets/" + AppConst.AssetDirname + "/";
             else if (Application.isMobilePlatform || Application.isConsolePlatform)
                 return "file:///" + DataPath;
             else // For standalone player.
@@ -440,7 +437,7 @@ namespace com.junfine.simpleframework {
                     path = Application.dataPath + "/Raw/";
                 break;
                 default:
-                    path = Application.dataPath + "/" + Const.AssetDirname + "/";
+                    path = Application.dataPath + "/" + AppConst.AssetDirname + "/";
                 break;
             }
             return path;
@@ -468,7 +465,7 @@ namespace com.junfine.simpleframework {
         }
 
         public static string LuaPath() {
-            if (Const.DebugMode) {
+            if (AppConst.DebugMode) {
                 return Application.dataPath + "/lua/";
             }
             return DataPath + "lua/";
@@ -496,13 +493,6 @@ namespace com.junfine.simpleframework {
             Debug.LogError(str);
         }
 
-        public static void PushBufferToLua(LuaFunction func, byte[] buffer) {
-            LuaScriptMgr mgr = ioo.gameManager.uluaMgr;
-            int oldTop = func.BeginPCall();
-            LuaDLL.lua_pushlstring(mgr.lua.L, buffer, buffer.Length);
-            if (func.PCall(oldTop, 1)) func.EndPCall(oldTop);
-        }
-
         /// <summary>
         /// 防止初学者不按步骤来操作
         /// </summary>
@@ -528,6 +518,17 @@ namespace com.junfine.simpleframework {
                 if (files.Length == 0) return -2;
             }
             return 0;
+        }
+
+        /// <summary>
+        /// 执行Lua方法
+        /// </summary>
+        public static object[] CallMethod(string module, string func, params object[] args) {
+            LuaScriptMgr luaMgr = AppFacade.Instance.GetManager<LuaScriptMgr>(ManagerName.Lua);
+            if (luaMgr == null) return null;
+            string funcName = module + "." + func;
+            funcName = funcName.Replace("(Clone)", "");
+            return luaMgr.CallLuaFunction(funcName, args);
         }
     }
 }

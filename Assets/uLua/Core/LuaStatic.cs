@@ -9,7 +9,6 @@ namespace LuaInterface
 	using System.Threading;
     using System.Text;
 	using UnityEngine;
-    using com.junfine.simpleframework;
 
     public delegate byte[] ReadLuaFile(string name);
 	

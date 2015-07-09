@@ -13,8 +13,8 @@ using System.Reflection;
 using UnityEngine.Rendering;
 using Junfine.Debuger;
 using UnityEngine.UI;
-using com.junfine.simpleframework;
-using com.junfine.simpleframework.manager;
+using SimpleFramework;
+using SimpleFramework.Manager;
 
 public static class LuaBinding
 {
@@ -176,16 +176,15 @@ public static class LuaBinding
         
         //custom    
         _GT(typeof(Debugger)),
-		_GT(typeof(ioo)),
 		_GT(typeof(Util)),
-		_GT(typeof(Const)),
+		_GT(typeof(AppConst)),
 		_GT(typeof(ByteBuffer)),
         _GT(typeof(NetworkManager)),
         _GT(typeof(ResourceManager)),
         _GT(typeof(PanelManager)),
         _GT(typeof(TimerManager)),
         _GT(typeof(LuaHelper)),
-        _GT(typeof(BaseLua)), 
+        _GT(typeof(LuaBehaviour)), 
         _GT(typeof(RectTransform)),
         
         //unity                        
