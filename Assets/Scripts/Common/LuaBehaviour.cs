@@ -8,16 +8,18 @@ using UnityEngine.UI;
 namespace SimpleFramework {
     public class LuaBehaviour : BehaviourBase {
         private string data = null;
-        private Transform trans = null;
         private List<LuaFunction> buttons = new List<LuaFunction>();
         protected static bool initialize = false;
 
+        protected void Awake() {
+            CallMethod("Awake", gameObject);
+        }
+
         protected void Start() {
-            trans = transform;
             if (LuaManager != null && initialize) {
                 LuaState l = LuaManager.lua;
-                l[trans.name + ".transform"] = transform;
-                l[trans.name + ".gameObject"] = gameObject;
+                l[name + ".transform"] = transform;
+                l[name + ".gameObject"] = gameObject;
             }
             CallMethod("Start");
         }
@@ -33,11 +35,9 @@ namespace SimpleFramework {
         /// <summary>
         /// 添加单击事件
         /// </summary>
-        public void AddClick(string button, LuaFunction luafunc) {
-            Transform to = trans.Find(button);
-            if (to == null) return;
+        public void AddClick(GameObject go, LuaFunction luafunc) {
+            if (go == null) return;
             buttons.Add(luafunc);
-            GameObject go = to.gameObject;
             go.GetComponent<Button>().onClick.AddListener(
                 delegate() {
                     luafunc.Call(go);

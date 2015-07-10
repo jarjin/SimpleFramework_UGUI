@@ -475,10 +475,14 @@ namespace SimpleFramework {
         /// 取得Lua路径
         /// </summary>
         public static string LuaPath(string name) {
-            if (name.EndsWith(".lua")) {
-                return DataPath + "lua/" + name;
+            string path = AppConst.DebugMode ? Application.dataPath + "/" : DataPath;
+            string lowerName = name.ToLower();
+            if (lowerName.EndsWith(".lua")) {
+                int index = name.LastIndexOf('.');
+                name = name.Substring(0, index);
             }
-            return DataPath + "lua/" + name + ".lua";
+            name = name.Replace('.', '/');
+            return path + "lua/" + name + ".lua";
         }
 
         public static void Log(string str) {

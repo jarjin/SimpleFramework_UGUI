@@ -7,6 +7,9 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 
+//-------------2015-07-11-------------
+(1)调整Lua层代码结构，实现Ctrl层与View层分离。
+
 //-------------2015-07-10-------------
 (1)集成开源框架PureMVC。
 (2)游戏框架做了调整，去掉了ioo类，使用facade代替。

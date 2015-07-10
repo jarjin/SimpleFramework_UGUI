@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using LuaInterface;
 
 namespace SimpleFramework.Manager {
 
@@ -22,11 +23,11 @@ namespace SimpleFramework.Manager {
         /// 创建面板，请求资源管理器
         /// </summary>
         /// <param name="type"></param>
-        public void CreatePanel(string name) {
-            StartCoroutine(OnCreatePanel(name));
+        public void CreatePanel(string name, LuaFunction func = null) {
+            StartCoroutine(OnCreatePanel(name, func));
         }
 
-        IEnumerator OnCreatePanel(string name) {
+        IEnumerator OnCreatePanel(string name, LuaFunction func = null) {
             yield return StartCoroutine(Initialize());
 
             string assetName = name + "Panel";
@@ -50,6 +51,7 @@ namespace SimpleFramework.Manager {
             go.transform.localPosition = Vector3.zero;
             go.AddComponent<LuaBehaviour>();
 
+            if (func != null) func.Call(go);
             Debug.LogWarning("CreatePanel::>> " + name + " " + prefab);
         }
 

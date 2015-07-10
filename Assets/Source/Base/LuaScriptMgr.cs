@@ -411,9 +411,9 @@ public class LuaScriptMgr
     void OnBundleLoaded()
     {
 //#if UNITY_EDITOR && !LUA_ZIP
-//        DoFile("strict.lua");
+//        DoFile("System.strict");
 //#endif
-        DoFile("Global.lua");
+        DoFile("System.Global");
         InitLayers(lua.L);
 
         unpackVec3 = GetLuaReference("Vector3.Get");
@@ -438,7 +438,7 @@ public class LuaScriptMgr
         traceback = GetLuaFunction("traceback");
 #endif                       
 
-        DoFile("Main.lua");
+        DoFile("System.Main");
         
         updateFunc = GetLuaFunction("Update");
         lateUpdateFunc = GetLuaFunction("LateUpdate");
