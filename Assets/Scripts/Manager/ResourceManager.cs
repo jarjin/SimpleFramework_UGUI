@@ -54,7 +54,7 @@ namespace SimpleFramework.Manager {
 
         IEnumerator OnLoadAsset(string abname, string assetName, LuaFunction func) {
             // Load asset from assetBundle.
-            string abName = abname.ToLower() + ".unity3d";
+            string abName = abname.ToLower() + AppConst.ExtName;
             AssetBundleAssetOperation request = ResourceManager.LoadAssetAsync(abName, assetName, typeof(GameObject));
             if (request == null) yield break;
             yield return StartCoroutine(request);

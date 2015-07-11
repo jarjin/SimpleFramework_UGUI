@@ -95,8 +95,9 @@ public class Packager {
             string ext = Path.GetExtension(file);
             if (ext.Equals(".meta")) continue;
 
+            string md5 = Util.md5file(file);
             string value = file.Replace(resPath, string.Empty);
-            sw.WriteLine(value);
+            sw.WriteLine(value + "|" + md5);
         }
         sw.Close(); fs.Close();
         AssetDatabase.Refresh();

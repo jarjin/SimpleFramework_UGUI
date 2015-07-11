@@ -32,7 +32,7 @@ namespace SimpleFramework.Manager {
 
             string assetName = name + "Panel";
             // Load asset from assetBundle.
-            string abName = name.ToLower() + ".unity3d";
+            string abName = name.ToLower() + AppConst.ExtName;
             AssetBundleAssetOperation request = ResourceManager.LoadAssetAsync(abName, assetName, typeof(GameObject));
             if (request == null) yield break;
             yield return StartCoroutine(request);

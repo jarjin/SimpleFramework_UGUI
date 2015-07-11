@@ -9,13 +9,13 @@ using ICSharpCode.SharpZipLib.Zip;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using Junfine.Debuger;
 #endif
 
 namespace SimpleFramework.Manager {
     public class GameManager : LuaBehaviour {
         public LuaScriptMgr uluaMgr;
-        private string message;
-        private bool canLuaUpdate = false;
+        private List<string> downloadFiles = new List<string>();
 
         /// <summary>
         /// 初始化游戏管理器
@@ -53,14 +53,14 @@ namespace SimpleFramework.Manager {
             string dataPath = Util.DataPath;  //数据目录
             string resPath = Util.AppContentPath(); //游戏包资源目录
 
-            if (Directory.Exists(dataPath)) Directory.Delete(dataPath);
+            if (Directory.Exists(dataPath)) Directory.Delete(dataPath, true);
             Directory.CreateDirectory(dataPath);
 
             string infile = resPath + "files.txt";
             string outfile = dataPath + "files.txt";
             if (File.Exists(outfile)) File.Delete(outfile);
 
-            message = "正在解包文件:>files.txt";
+            string message = "正在解包文件:>files.txt";
             Debug.Log(infile);
             Debug.Log(outfile);
             if (Application.platform == RuntimePlatform.Android) {
@@ -77,10 +77,12 @@ namespace SimpleFramework.Manager {
             //释放所有文件到数据目录
             string[] files = File.ReadAllLines(outfile);
             foreach (var file in files) {
-                infile = resPath + file;  //
-                outfile = dataPath + file;
-                message = "正在解包文件:>" + file;
+                string[] fs = file.Split('|');
+                infile = resPath + fs[0];  //
+                outfile = dataPath + fs[0];
+                message = "正在解包文件:>" + fs[0];
                 Debug.Log("正在解包文件:>" + infile);
+                facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
 
                 string dir = Path.GetDirectoryName(outfile);
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
@@ -93,13 +95,19 @@ namespace SimpleFramework.Manager {
                         File.WriteAllBytes(outfile, www.bytes);
                     }
                     yield return 0;
-                } else File.Copy(infile, outfile, true);
+                } else {
+                    if (File.Exists(outfile)) {
+                        File.Delete(outfile);
+                    }
+                    File.Copy(infile, outfile, true);
+                }
                 yield return new WaitForEndOfFrame();
             }
             message = "解包完成!!!";
+            facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
             yield return new WaitForSeconds(0.1f);
-            message = string.Empty;
 
+            message = string.Empty;
             //释放完成，开始启动更新资源
             StartCoroutine(OnUpdateResource());
         }
@@ -128,9 +136,10 @@ namespace SimpleFramework.Manager {
             url = Const.WebUrl + "android/4x/";
         }
 #endif
+            string message = string.Empty;
             string random = DateTime.Now.ToString("yyyymmddhhmmss");
             string listUrl = url + "files.txt?v=" + random;
-            if (Debug.isDebugBuild) Debug.LogWarning("LoadUpdate---->>>" + listUrl);
+            Debuger.LogWarning("LoadUpdate---->>>" + listUrl);
 
             www = new WWW(listUrl); yield return www;
             if (www.error != null) {
@@ -147,7 +156,7 @@ namespace SimpleFramework.Manager {
             for (int i = 0; i < files.Length; i++) {
                 if (string.IsNullOrEmpty(files[i])) continue;
                 string[] keyValue = files[i].Split('|');
-                string f = keyValue[0].Remove(0, 1);
+                string f = keyValue[0];
                 string localfile = (dataPath + f).Trim();
                 string path = Path.GetDirectoryName(localfile);
                 if (!Directory.Exists(path)) {
@@ -164,25 +173,65 @@ namespace SimpleFramework.Manager {
                 if (canUpdate) {   //本地缺少文件
                     Debug.Log(fileUrl);
                     message = "downloading>>" + fileUrl;
+                    facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+                    /*
                     www = new WWW(fileUrl); yield return www;
                     if (www.error != null) {
                         OnUpdateFailed(path);   //
                         yield break;
                     }
                     File.WriteAllBytes(localfile, www.bytes);
+                     */
+                    //这里都是资源文件，用线程下载
+                    BeginDownload(fileUrl, localfile);
+                    while (!(IsDownOK(localfile))) { yield return new WaitForEndOfFrame(); }
                 }
             }
             yield return new WaitForEndOfFrame();
+
             message = "更新完成!!";
+            facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+
             OnResourceInited();
         }
 
         void OnUpdateFailed(string file) {
-            message = "更新失败!>" + file;
+            string message = "更新失败!>" + file;
+            facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
         }
 
-        void OnGUI() {
-            GUI.Label(new Rect(10, 120, 960, 50), message);
+        /// <summary>
+        /// 是否下载完成
+        /// </summary>
+        bool IsDownOK(string file) {
+            return downloadFiles.Contains(file);
+        }
+
+        /// <summary>
+        /// 线程下载
+        /// </summary>
+        void BeginDownload(string url, string file) {     //线程下载
+            object[] param = new object[2] { url, file };
+
+            ThreadEvent ev = new ThreadEvent();
+            ev.Key = NotiConst.UPDATE_DOWNLOAD;
+            ev.evParams.AddRange(param);
+            ThreadManager.AddEvent(ev, OnThreadCompleted);   //线程下载
+        }
+
+        /// <summary>
+        /// 线程完成
+        /// </summary>
+        /// <param name="data"></param>
+        void OnThreadCompleted(NotiData data) {
+            switch (data.evName) {
+                case NotiConst.UPDATE_EXTRACT:  //解压一个完成
+                //
+                break;
+                case NotiConst.UPDATE_DOWNLOAD: //下载一个完成
+                downloadFiles.Add(data.evParam.ToString());
+                break;
+            }
         }
 
         /// <summary>
@@ -190,8 +239,8 @@ namespace SimpleFramework.Manager {
         /// </summary>
         public void OnResourceInited() {
             LuaManager.Start();
-            LuaManager.DoFile("logic/game");      //加载游戏
-            LuaManager.DoFile("logic/network");   //加载网络
+            LuaManager.DoFile("Logic/game");      //加载游戏
+            LuaManager.DoFile("Logic/network");   //加载网络
             initialize = true;  
 
             NetManager.OnInit();    //初始化网络
@@ -207,33 +256,25 @@ namespace SimpleFramework.Manager {
                 Debug.LogWarning("LoadLua---->>>>" + name + ".lua");
             }
             //------------------------------------------------------------
-            canLuaUpdate = true;
             CallMethod("OnInitOK");   //初始化完成
         }
 
         void Update() {
-            if (LuaManager != null && canLuaUpdate) {
+            if (LuaManager != null && initialize) {
                 LuaManager.Update();
             }
         }
 
         void LateUpdate() {
-            if (LuaManager != null && canLuaUpdate) {
+            if (LuaManager != null && initialize) {
                 LuaManager.LateUpate();
             }
         }
 
         void FixedUpdate() {
-            if (LuaManager != null && canLuaUpdate) {
+            if (LuaManager != null && initialize) {
                 LuaManager.FixedUpdate();
             }
-        }
-
-        /// <summary>
-        /// 初始化场景
-        /// </summary>
-        public void OnInitScene() {
-            Debug.Log("OnInitScene-->>" + Application.loadedLevelName);
         }
 
         /// <summary>

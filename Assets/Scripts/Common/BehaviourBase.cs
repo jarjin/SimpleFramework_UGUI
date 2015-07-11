@@ -12,6 +12,7 @@ namespace SimpleFramework {
         private NetworkManager m_NetMgr;
         private MusicManager m_MusicMgr;
         private TimerManager m_TimerMgr;
+        private ThreadManager m_ThreadMgr;
 
         protected AppFacade facade {
             get {
@@ -65,6 +66,15 @@ namespace SimpleFramework {
                     m_TimerMgr = facade.GetManager<TimerManager>(ManagerName.Timer);
                 }
                 return m_TimerMgr;
+            }
+        }
+
+        protected ThreadManager ThreadManager {
+            get {
+                if (m_ThreadMgr == null) {
+                    m_ThreadMgr = facade.GetManager<ThreadManager>(ManagerName.Thread);
+                }
+                return m_ThreadMgr;
             }
         }
     }

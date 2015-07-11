@@ -202,6 +202,9 @@ public class LuaScriptMgr
             LuaDLL.luaopen_cjson(lua.L);
             LuaDLL.luaopen_cjson_safe(lua.L);
         }
+        if (AppConst.UseSproto) {
+            LuaDLL.luaopen_sproto_core(lua.L);
+        }
         LuaDLL.tolua_openlibs(lua.L);
 
         //if (Const.UseSQLite) {

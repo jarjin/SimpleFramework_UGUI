@@ -26,8 +26,9 @@ public class BootstrapCommands : SimpleCommand {
         Facade.AddManager<TimerManager>(ManagerName.Timer);
         Facade.AddManager<NetworkManager>(ManagerName.Network);
         Facade.AddManager<ResourceManager>(ManagerName.Resource);
-        Facade.AddManager<GameManager>(ManagerName.Game);
+        Facade.AddManager<ThreadManager>(ManagerName.Thread);
 
+        Facade.AddManager<GameManager>(ManagerName.Game);
         Debug.Log("SimpleFramework StartUp-------->>>>>");
     }
 }
