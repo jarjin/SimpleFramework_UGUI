@@ -4,13 +4,16 @@ using PureMVC.Patterns;
 using PureMVC.Interfaces;
 using SimpleFramework;
 using SimpleFramework.Manager;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class StartUpCommand : MacroCommand {
 
     protected override void InitializeMacroCommand() {
         base.InitializeMacroCommand();
-
+#if UNITY_EDITOR
         int resultId = Util.CheckRuntimeFile();
         if (resultId == -1) {
             Debug.LogError("没有找到框架所需要的资源，单击Game菜单下Build xxx Resource生成！！");
@@ -21,6 +24,7 @@ public class StartUpCommand : MacroCommand {
             EditorApplication.isPlaying = false;
             return;
         }
+#endif
         //BootstrapModels
         AddSubCommand(typeof(BootstrapModels));
 

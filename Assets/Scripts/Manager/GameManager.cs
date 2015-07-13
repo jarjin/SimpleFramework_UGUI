@@ -6,10 +6,10 @@ using LuaInterface;
 using System.Reflection;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
+using Junfine.Debuger;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using Junfine.Debuger;
 #endif
 
 namespace SimpleFramework.Manager {
@@ -139,7 +139,7 @@ namespace SimpleFramework.Manager {
             string message = string.Empty;
             string random = DateTime.Now.ToString("yyyymmddhhmmss");
             string listUrl = url + "files.txt?v=" + random;
-            Debuger.LogWarning("LoadUpdate---->>>" + listUrl);
+            Debug.LogWarning("LoadUpdate---->>>" + listUrl);
 
             www = new WWW(listUrl); yield return www;
             if (www.error != null) {

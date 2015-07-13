@@ -1,7 +1,7 @@
 
-require "common/define"
-require "common/protocal"
-require "common/functions"
+require "Common/define"
+require "Common/protocal"
+require "Common/functions"
 Event = require 'events'
 
 Network = {};
