@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using LuaInterface;
 using System.Reflection;
 using System.IO;
-using ICSharpCode.SharpZipLib.Zip;
 using Junfine.Debuger;
 
 #if UNITY_EDITOR
@@ -31,7 +30,6 @@ namespace SimpleFramework.Manager {
             DontDestroyOnLoad(gameObject);  //防止销毁自己
 
             CheckExtractResource(); //释放资源
-            ZipConstants.DefaultCodePage = 65001;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             Application.targetFrameRate = AppConst.GameFrameRate;
         }
