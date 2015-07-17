@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if ASYNC_MODE
+using UnityEngine;
 using System.Collections;
 
 namespace SimpleFramework.Manager {
@@ -84,3 +85,4 @@ namespace SimpleFramework.Manager {
         }
     }
 }
+#endif

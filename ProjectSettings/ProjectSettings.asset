@@ -257,7 +257,8 @@ PlayerSettings:
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: DefaultPackerPolicy
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: ASYNC_MODE
   metroPackageName: SimpleFramework
   metroPackageLogo: 
   metroPackageLogo140: 

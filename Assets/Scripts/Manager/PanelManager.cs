@@ -5,8 +5,7 @@ using UnityEngine.UI;
 using LuaInterface;
 
 namespace SimpleFramework.Manager {
-
-    public class PanelManager : MonoBehaviour {
+    public class PanelManager : BehaviourBase {
         private Transform parent;
 
         Transform Parent {
@@ -19,6 +18,8 @@ namespace SimpleFramework.Manager {
             }
         }
 
+
+#if ASYNC_MODE
         /// <summary>
         /// 创建面板，请求资源管理器
         /// </summary>
@@ -63,5 +64,28 @@ namespace SimpleFramework.Manager {
             if (request != null)
                 yield return StartCoroutine(request);
         }
+#else
+        /// <summary>
+        /// 创建面板，请求资源管理器
+        /// </summary>
+        /// <param name="type"></param>
+        public void CreatePanel(string name, LuaFunction func = null) {
+            string assetName = name + "Panel";
+            GameObject prefab = ResManager.LoadAsset(name, assetName);
+            if (Parent.FindChild(name) != null || prefab == null) {
+                return;
+            }
+            GameObject go = Instantiate(prefab) as GameObject;
+            go.name = assetName;
+            go.layer = LayerMask.NameToLayer("Default");
+            go.transform.SetParent(Parent);
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = Vector3.zero;
+            go.AddComponent<LuaBehaviour>();
+
+            if (func != null) func.Call(go);
+            Debug.LogWarning("CreatePanel::>> " + name + " " + prefab);
+        }
+#endif
     }
 }
