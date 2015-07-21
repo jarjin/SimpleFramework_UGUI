@@ -1,11 +1,16 @@
 ﻿本工程基于Unity 5.0/4.6.4 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
+有问题请加：ulua技术交流1群 341746602(已满)、请加2群：469941220
+
 支持平台：PC/MAC/Android(armv7-a + Intel x86)/iOS(armv7 + arm64)/
 	  WP8(SimpleFramework_WP_v0.1.1 (nlua))/
 
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
+
+//-------------2015-07-22-------------
+(1)增加了@最后的骄傲实现的32/64bit统一编码luavm，使用自带的编码工具编码。
 
 //-------------2015-07-17-------------
 (1)增加luac 32位及其 luac 64位版lua编码工具。

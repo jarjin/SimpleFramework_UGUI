@@ -78,8 +78,8 @@
             GUI.Label(this.mForumDescriptionRect, "单击Lua菜单里面Encode LuaFile with UTF-8子菜单.");
             GUI.DrawTexture(this.mContactImageRect, this.mContactImage);
             GUI.Label(this.mContactHeaderRect, " 加入技术支持社群");
-            GUI.Label(this.mContactDescriptionRect, "QQ群:341746602 或者 QQ群:62978170");
-            GUI.Label(this.mVersionRect, "Version : 0.3.5" );
+            GUI.Label(this.mContactDescriptionRect, "QQ群:469941220 或者 QQ群:62978170");
+            GUI.Label(this.mVersionRect, "Version : 0.3.6" );
 
             flag = GUI.Toggle(this.mToggleButtonRect, flag, "开始时候显示对话框");
             if (flag) {

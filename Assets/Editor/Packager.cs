@@ -145,11 +145,11 @@ public class Packager {
         if (Application.platform == RuntimePlatform.WindowsEditor) {
             luaexe = "luajit.exe";
             args = "-b " + srcFile + " " + outFile;
-            exedir = AppDataPath + "/Encoder/luajit/";
+            exedir = AppDataPath.Replace("assets", "") + "LuaEncoder/luajit/";
         } else if (Application.platform == RuntimePlatform.OSXEditor) {
             luaexe = "./luac";
             args = "-o " + outFile + " " + srcFile;
-            exedir = AppDataPath + "/Encoder/luavm/";
+            exedir = AppDataPath.Replace("assets", "") + "LuaEncoder/luavm/";
         }
         Directory.SetCurrentDirectory(exedir);
         ProcessStartInfo info = new ProcessStartInfo();

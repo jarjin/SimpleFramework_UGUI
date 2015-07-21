@@ -78,6 +78,7 @@ namespace SimpleFramework.Manager {
                 string[] fs = file.Split('|');
                 infile = resPath + fs[0];  //
                 outfile = dataPath + fs[0];
+
                 message = "正在解包文件:>" + fs[0];
                 Debug.Log("正在解包文件:>" + infile);
                 facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
