@@ -19,7 +19,7 @@ public class LuaScriptMgr
     }
 
     public LuaState lua;
-    HashSet<string> fileList = null;
+    public HashSet<string> fileList = null;
     Dictionary<string, LuaBase> dict = null;
     //Dictionary<string, IAssetFile> dictBundle = null;    
     LuaFunction updateFunc = null;

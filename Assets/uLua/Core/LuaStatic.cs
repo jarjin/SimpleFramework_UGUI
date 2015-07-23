@@ -105,11 +105,18 @@ namespace LuaInterface
 		public static int loader(IntPtr L)
 		{            
 			// Get script to load
-			string fileName = String.Empty;
+			string fileName = string.Empty;
 			fileName = LuaDLL.lua_tostring(L, 1);
-			fileName = fileName.Replace('.', '/');
-			fileName += ".lua";
-			
+			//fileName = fileName.Replace('.', '/');
+			//fileName += ".lua";
+
+            string lowerName = fileName.ToLower();
+            if (lowerName.EndsWith(".lua")) {
+                int index = fileName.LastIndexOf('.');
+                fileName = fileName.Substring(0, index);
+            }
+            fileName = fileName.Replace('.', '/') + ".lua";
+			/*
 			// Load with Unity3D resources			
             byte[] text = Load(fileName);
 
@@ -117,9 +124,24 @@ namespace LuaInterface
 			{
 				return 0;
 			}
-			
 			LuaDLL.luaL_loadbuffer(L, text, text.Length, fileName);
-			
+			*/
+            LuaScriptMgr mgr = LuaScriptMgr.GetMgrFromLuaState(L);
+            if (mgr == null) return 0;
+
+            LuaDLL.lua_pushstdcallcfunction(L, mgr.lua.tracebackFunction);
+            int oldTop = LuaDLL.lua_gettop(L);
+
+            byte[] text = LuaStatic.Load(fileName);
+            if (text == null) {
+                Debugger.LogError("Loader lua file failed: {0}", fileName);
+                LuaDLL.lua_pop(L, 1);
+                return 0;
+            }
+            if (LuaDLL.luaL_loadbuffer(L, text, text.Length, fileName) != 0) {
+                mgr.lua.ThrowExceptionFromError(oldTop);
+                LuaDLL.lua_pop(L, 1);
+            }
 			return 1;
 		}
 		
@@ -129,8 +151,15 @@ namespace LuaInterface
 			// Get script to load
 			string fileName = String.Empty;
 			fileName = LuaDLL.lua_tostring(L, 1);
-			fileName.Replace('.', '/');
-			fileName += ".lua";
+			//fileName.Replace('.', '/');
+			//fileName += ".lua";
+
+            string lowerName = fileName.ToLower();
+            if (lowerName.EndsWith(".lua")) {
+                int index = fileName.LastIndexOf('.');
+                fileName = fileName.Substring(0, index);
+            }
+            fileName = fileName.Replace('.', '/') + ".lua";
 			
 			int n = LuaDLL.lua_gettop(L);
 			

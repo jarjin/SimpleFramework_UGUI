@@ -9,6 +9,9 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 
+//-------------2015-07-23-------------
+(1)修复il2cpp iOS64 Release模式require文件崩溃异常。
+
 //-------------2015-07-22-------------
 (1)增加了@最后的骄傲实现的32/64bit统一编码luavm，使用自带的编码工具编码。
 
