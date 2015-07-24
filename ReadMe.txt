@@ -9,6 +9,9 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 
+//-------------2015-07-25-------------
+(1)修复cstolua自带test场景运行环境。
+
 //-------------2015-07-23-------------
 (1)修复il2cpp iOS64 Release模式require文件崩溃异常。
 

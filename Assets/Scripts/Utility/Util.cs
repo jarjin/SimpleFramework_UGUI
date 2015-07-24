@@ -9,6 +9,10 @@ using System.Text.RegularExpressions;
 using LuaInterface;
 using SimpleFramework.Manager;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace SimpleFramework {
     public class Util : MonoBehaviour {
         public static int Int(object o) {
@@ -452,6 +456,30 @@ namespace SimpleFramework {
             string funcName = module + "." + func;
             funcName = funcName.Replace("(Clone)", "");
             return luaMgr.CallLuaFunction(funcName, args);
+        }
+
+                /// <summary>
+        /// 检查运行环境
+        /// </summary>
+        public static bool CheckEnvironment() {
+#if UNITY_EDITOR
+            int resultId = Util.CheckRuntimeFile();
+            if (resultId == -1) {
+                Debug.LogError("没有找到框架所需要的资源，单击Game菜单下Build xxx Resource生成！！");
+                EditorApplication.isPlaying = false;
+                return false;
+            } else if (resultId == -2) {
+                Debug.LogError("没有找到Wrap脚本缓存，单击Lua菜单下Gen Lua Wrap Files生成脚本！！");
+                EditorApplication.isPlaying = false;
+                return false;
+            }
+#endif
+            if (Application.loadedLevelName == "Test" && !AppConst.DebugMode) {
+                Debug.LogError("测试场景，必须打开调试模式，AppConst.DebugMode = true！！");
+                EditorApplication.isPlaying = false;
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -4,21 +4,20 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using LuaInterface;
+using SimpleFramework;
 
 
 public class Client : MonoBehaviour 
 {    
     LuaScriptMgr luaMgr = null;
 
-    void Awake()
-    {        
-        luaMgr = new LuaScriptMgr();
-        luaMgr.Start();            
-    }
-
 	void Start () 
     {
-        luaMgr.DoFile("Test.Lua");    
+        if (!Util.CheckEnvironment()) return;
+
+        luaMgr = new LuaScriptMgr();
+        luaMgr.Start();   
+        luaMgr.DoFile("System.Test");    
 	}
 
     void Update()
@@ -47,6 +46,8 @@ public class Client : MonoBehaviour
 		
 	void OnGUI()
     {
+        if (luaMgr == null) return;
+
 #pragma warning disable 219        
         if (GUI.Button(new Rect(10, 10, 120, 50), "Test"))
         {            
