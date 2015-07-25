@@ -52,10 +52,10 @@ function GameManager.OnInitOK()
     --createPanel("Prompt");
     CtrlManager.Init();
     local ctrl = CtrlManager.GetCtrl(CtrlName.Prompt);
-    if ctrl ~= nil then
+    if ctrl ~= nil and AppConst.ExampleMode then
         ctrl:Awake();
     end
-    warn('OnInitOK--->>>');
+    warn('SimpleFramework InitOK--->>>');
 end
 
 --测试sproto--
@@ -127,7 +127,7 @@ end
 
 --测试lua类--
 function GameManager.test_class_func()
-    luaclass:New(10, 20):test();
+    LuaClass:New(10, 20):test();
 end
 
 --测试pblua--
