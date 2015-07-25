@@ -51,13 +51,18 @@
         {
             //this.mWelcomeScreenImage = EditorGUIUtility.Load("WelcomeScreenHeader.png") as Texture;
                 //BehaviorDesignerUtility.LoadTexture("WelcomeScreenHeader.png", false, this);
-
             flag = PlayerPrefs.GetInt("ShowWelcomeScreen", 1) == 1;
-            this.mSamplesImage = EditorGUIUtility.Load("WelcomeScreenSamplesIcon.png") as Texture;
-            this.mDocImage = EditorGUIUtility.Load("WelcomeScreenDocumentationIcon.png") as Texture;
-            this.mVideoImage = EditorGUIUtility.Load("WelcomeScreenVideosIcon.png") as Texture;
-            this.mForumImage = EditorGUIUtility.Load("WelcomeScreenForumIcon.png") as Texture;
-            this.mContactImage = EditorGUIUtility.Load("WelcomeScreenContactIcon.png") as Texture;
+            this.mSamplesImage = LoadTexture("WelcomeScreenSamplesIcon.png");
+            this.mDocImage = LoadTexture("WelcomeScreenDocumentationIcon.png");
+            this.mVideoImage = LoadTexture("WelcomeScreenVideosIcon.png");
+            this.mForumImage = LoadTexture("WelcomeScreenForumIcon.png");
+            this.mContactImage = LoadTexture("WelcomeScreenContactIcon.png");
+        }
+
+
+        Texture LoadTexture(string name) {
+            string path = "Assets/Examples/Editor Default Resources/";
+            return (Texture)AssetDatabase.LoadAssetAtPath(path + name, typeof(Texture));
         }
 
         public void OnGUI()

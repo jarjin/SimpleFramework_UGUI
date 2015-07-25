@@ -238,8 +238,8 @@ namespace SimpleFramework.Manager {
         /// </summary>
         public void OnResourceInited() {
             LuaManager.Start();
-            LuaManager.DoFile("Logic/game");      //加载游戏
-            LuaManager.DoFile("Logic/network");   //加载网络
+            LuaManager.DoFile("Logic/Network");      //加载游戏
+            LuaManager.DoFile("Logic/GameManager");   //加载网络
             initialize = true;  
 
             NetManager.OnInit();    //初始化网络

@@ -48,7 +48,9 @@ public class Packager {
         string assetfile = string.Empty;  //素材文件名
         string resPath = AppDataPath + "/" + AppConst.AssetDirname + "/";
         if (!Directory.Exists(resPath)) Directory.CreateDirectory(resPath);
-        BuildPipeline.BuildAssetBundles(resPath, BuildAssetBundleOptions.None, target);
+        if (AppConst.ExampleMode) {
+            BuildPipeline.BuildAssetBundles(resPath, BuildAssetBundleOptions.None, target);
+        }
 
         string luaPath = resPath + "/lua/";
 
@@ -167,7 +169,11 @@ public class Packager {
 
     [MenuItem("Game/Build Protobuf-lua-gen File")]
     public static void BuildProtobufFile() {
-        string dir = AppDataPath + "/Lua/bin";
+        if (!AppConst.ExampleMode) {
+            Debugger.LogError("若使用编码Protobuf-lua-gen功能，需要自己配置外部环境！！");
+            return;
+        }
+        string dir = AppDataPath + "/Lua/3rd/pblua";
         paths.Clear(); files.Clear(); Recursive(dir);
 
         string protoc = "d:/protobuf-2.4.1/src/protoc.exe";
