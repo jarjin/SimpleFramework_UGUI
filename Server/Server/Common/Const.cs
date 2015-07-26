@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 
-namespace Junfine.Dota.Common {
+namespace SimpleFramework.Common {
     class Const {
         public static int RedisPort;        //Redis Port
         public static string RedisHost;     //Redis Address

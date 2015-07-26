@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Junfine.Dota.Common;
+using SimpleFramework.Common;
 
-namespace Junfine.Dota.Utility {
+namespace SimpleFramework.Utility {
     public class UserUtil {
         /// <summary>
         /// 添加

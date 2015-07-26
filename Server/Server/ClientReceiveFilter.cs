@@ -4,7 +4,7 @@ using SuperSocket.Common;
 using SuperSocket.Facility.Protocol;
 using SuperSocket.SocketBase.Protocol;
 
-namespace Junfine.Dota {
+namespace SimpleFramework {
     class ClientReceiveFilter : FixedHeaderReceiveFilter<BinaryRequestInfo> {
         public ClientReceiveFilter() : base(2) { 
         }

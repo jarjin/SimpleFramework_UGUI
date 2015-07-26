@@ -1,7 +1,7 @@
 ﻿using System;
-using Junfine.Dota.Common;
+using SimpleFramework.Common;
 
-namespace Junfine.Dota.Message {
+namespace SimpleFramework.Message {
     class Join :IMessage {
         public void OnMessage(ClientSession session, ByteBuffer buffer) {
         }

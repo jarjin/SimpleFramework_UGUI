@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Junfine.Dota.Common;
-using Junfine.Dota.Utility;
+using SimpleFramework.Common;
+using SimpleFramework.Utility;
 
-namespace Junfine.Dota.Timer {
+namespace SimpleFramework.Timer {
     class RedisTimer {
         System.Timers.Timer timer = null;
 

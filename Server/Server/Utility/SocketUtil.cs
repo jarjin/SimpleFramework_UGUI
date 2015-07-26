@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Junfine.Dota.Common;
-using Junfine.Dota.Message;
+using SimpleFramework.Common;
+using SimpleFramework.Message;
 using SuperSocket.SocketBase.Protocol;
 
-namespace Junfine.Dota.Utility {
+namespace SimpleFramework.Utility {
     class SocketUtil {
         static SocketUtil socket;
         public static SocketUtil instance {
@@ -55,7 +55,7 @@ namespace Junfine.Dota.Utility {
             ByteBuffer buffer = new ByteBuffer(requestInfo.Body);
             int commandId = buffer.ReadShort();
             Protocal c = (Protocal)commandId;
-            string className = "Junfine.Dota.Message." + c;
+            string className = "SimpleFramework.Message." + c;
             Console.WriteLine("OnRequestReceived--->>>" + className);
 
             Type t = Type.GetType(className);

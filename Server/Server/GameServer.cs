@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
-using Junfine.Dota.Timer;
-using Junfine.Dota.Utility;
+using SimpleFramework.Timer;
+using SimpleFramework.Utility;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketBase.Config;
 using SuperSocket.SocketBase.Protocol;
 
-namespace Junfine.Dota {
+namespace SimpleFramework {
     class GameServer : AppServer<ClientSession, BinaryRequestInfo> {
 
         public GameServer() : base(new DefaultReceiveFilterFactory<ClientReceiveFilter, BinaryRequestInfo>()) {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Junfine.Dota.Message {
+namespace SimpleFramework.Message {
     public enum Protocal {
         //Buildin Table
         Connect           = 101,	//连接服务器

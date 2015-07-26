@@ -2,9 +2,9 @@
 using System.IO;
 using System.Text;
 using System.Configuration;
-using Junfine.Dota.Common;
+using SimpleFramework.Common;
 
-namespace Junfine.Dota.Utility {
+namespace SimpleFramework.Utility {
     class ConfigUtil {
         public static void LoadConfig() {
             Const.RedisHost = GetValue("RedisHost");

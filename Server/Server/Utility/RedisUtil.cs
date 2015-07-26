@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using Junfine.Dota.Common;
+using SimpleFramework.Common;
 using Sider;
 
-namespace Junfine.Dota.Utility {
+namespace SimpleFramework.Utility {
     class RedisUtil {
         RedisClient client;
         static RedisUtil redis;

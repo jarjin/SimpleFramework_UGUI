@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Junfine.Dota.Common {
+namespace SimpleFramework.Common {
     abstract class BaseThread {
         Thread thread = null;
         abstract public void run();

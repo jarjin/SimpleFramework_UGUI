@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Junfine.Dota.Utility;
+using SimpleFramework.Utility;
 
-namespace Junfine.Dota.Timer {
+namespace SimpleFramework.Timer {
     class ConfigTimer {
         int time = 30;
         System.Timers.Timer timer = null;

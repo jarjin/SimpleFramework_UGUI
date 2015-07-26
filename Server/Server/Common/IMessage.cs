@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Junfine.Dota.Common {
+namespace SimpleFramework.Common {
     public interface IMessage {
         void OnMessage(ClientSession session, ByteBuffer buffer);
     }

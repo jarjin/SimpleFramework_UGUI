@@ -1,8 +1,8 @@
 ﻿using System;
-using Junfine.Dota.Common;
-using Junfine.Dota.Utility;
+using SimpleFramework.Common;
+using SimpleFramework.Utility;
 
-namespace Junfine.Dota.Message {
+namespace SimpleFramework.Message {
     class Login : IMessage {
         public void OnMessage(ClientSession session, ByteBuffer buffer) {
             string str = buffer.ReadString();

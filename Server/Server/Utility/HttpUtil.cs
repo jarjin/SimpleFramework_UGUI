@@ -2,9 +2,9 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using Junfine.Dota.Common;
+using SimpleFramework.Common;
 
-namespace Junfine.Dota.Utility {
+namespace SimpleFramework.Utility {
     class HttpUtil {
         static string url = string.Empty;
 

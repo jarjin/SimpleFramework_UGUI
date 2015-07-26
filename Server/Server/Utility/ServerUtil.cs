@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Junfine.Dota.Common;
-using Junfine.Dota.Message;
-using Junfine.Dota.Timer;
+using SimpleFramework.Common;
+using SimpleFramework.Message;
+using SimpleFramework.Service;
+using SimpleFramework.Timer;
 
-namespace Junfine.Dota.Utility {
+namespace SimpleFramework.Utility {
     class ServerUtil {
         static ServerUtil server;
         private RedisTimer redis;
-        private ConfigTimer cfg;
+        private ConfigTimer config;
+        private HttpServer http;
 
         public static ServerUtil instance {
             get {
@@ -26,8 +28,9 @@ namespace Junfine.Dota.Utility {
         /// 服务器初始化
         /// </summary>
         public void Init() {
-            cfg = new ConfigTimer(); cfg.Start();
+            config = new ConfigTimer(); config.Start();
             redis = new RedisTimer(); redis.Start();
+            http = new HttpServer(7077); http.Start();
 
             Const.users = new Dictionary<long, ClientSession>();
             //var v = RedisUtil.Get("aaa");
@@ -39,7 +42,8 @@ namespace Junfine.Dota.Utility {
         /// </summary>
         public void Close() {
             redis.Stop(); redis = null;
-            cfg.Stop(); cfg = null;
+            config.Stop(); config = null;
+            http.Stop(); http = null;
         }
     }
 }
