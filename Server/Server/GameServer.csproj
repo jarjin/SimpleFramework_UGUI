@@ -66,6 +66,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="Sider, Version=0.9.3.43052, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Sider.dll</HintPath>
@@ -119,13 +123,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Protobuff\addressbook_pb.cs" />
+    <Compile Include="Protobuff\login_pb.cs" />
     <Compile Include="Service\HttpServer.cs" />
     <Compile Include="Service\HttpService.cs" />
+    <Compile Include="Sproto\Member.cs" />
+    <Compile Include="Sproto\src\Package.cs" />
+    <Compile Include="Sproto\src\ProtocolBase.cs" />
+    <Compile Include="Sproto\src\ProtocolFunctionDictionary.cs" />
+    <Compile Include="Sproto\src\SprotoPack.cs" />
+    <Compile Include="Sproto\src\SprotoRpc.cs" />
+    <Compile Include="Sproto\src\SprotoStream.cs" />
+    <Compile Include="Sproto\src\SprotoTypeBase.cs" />
+    <Compile Include="Sproto\src\SprotoTypeDeserialize.cs" />
+    <Compile Include="Sproto\src\SprotoTypeFieldOP.cs" />
+    <Compile Include="Sproto\src\SprotoTypeReader.cs" />
+    <Compile Include="Sproto\src\SprotoTypeSerialize.cs" />
+    <Compile Include="Sproto\src\SprotoTypeSize.cs" />
     <Compile Include="Timer\ConfigTimer.cs" />
     <Compile Include="Timer\RedisTimer.cs" />
     <Compile Include="Utility\ConfigUtil.cs" />
     <Compile Include="Common\Const.cs" />
     <Compile Include="Utility\HttpUtil.cs" />
+    <Compile Include="Utility\ProtoUtil.cs" />
     <Compile Include="Utility\RedisUtil.cs" />
     <Compile Include="Utility\ServerUtil.cs" />
     <Compile Include="Utility\SocketUtil.cs" />
@@ -135,6 +155,11 @@
     <None Include="App.config" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
+    <None Include="Protobuff\addressbook.bin" />
+    <None Include="Protobuff\addressbook.proto" />
+    <None Include="Protobuff\login.bin" />
+    <None Include="Protobuff\login.proto" />
+    <None Include="Sproto\Member.sproto" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -162,7 +187,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="protobuf-net.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

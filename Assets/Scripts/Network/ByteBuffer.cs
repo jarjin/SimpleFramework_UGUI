@@ -35,8 +35,8 @@ namespace SimpleFramework {
             stream = null;
         }
 
-        public void WriteByte(int v) {
-            writer.Write((byte)v);
+        public void WriteByte(byte v) {
+            writer.Write(v);
         }
 
         public void WriteInt(int v) {
@@ -70,12 +70,16 @@ namespace SimpleFramework {
         }
 
         public void WriteBytes(byte[] v) {
-            writer.Write((ushort)v.Length);
+            writer.Write((int)v.Length);
             writer.Write(v);
         }
 
-        public int ReadByte() {
-            return (int)reader.ReadByte();
+        public void WriteBuffer(LuaStringBuffer strBuffer) {
+            WriteBytes(strBuffer.buffer);
+        }
+
+        public byte ReadByte() {
+            return reader.ReadByte();
         }
 
         public int ReadInt() {
@@ -110,8 +114,13 @@ namespace SimpleFramework {
         }
 
         public byte[] ReadBytes() {
-            ushort len = ReadShort();
+            int len = ReadInt();
             return reader.ReadBytes(len);
+        }
+
+        public LuaStringBuffer ReadBuffer() {
+            byte[] bytes = ReadBytes();
+            return new LuaStringBuffer(bytes);
         }
 
         public byte[] ToBytes() {

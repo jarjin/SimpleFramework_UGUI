@@ -1,9 +1,5 @@
 ﻿<linker>
-    
 	<assembly fullname="UnityEngine">
-        
 		<namespace fullname="UnityEngine" preserve="all"/>
-    
 	</assembly>
-
 </linker>

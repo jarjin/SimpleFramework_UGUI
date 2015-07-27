@@ -20,7 +20,7 @@ namespace SimpleFramework.Service {
             thread.Start();
         }
 
-        public void Stop() {
+        public new void Stop() {
             base.Stop();
             thread.Abort();
         }

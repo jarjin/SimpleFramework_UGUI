@@ -22,13 +22,15 @@ namespace SimpleFramework.Utility {
         /// <summary>
         /// 发送消息
         /// </summary>
-        public static void SendMessage(ClientSession session, ByteBuffer buffer) {
+        public static void SendMessage(ClientSession session, Protocal protocal, ByteBuffer buffer) {
             byte[] message = buffer.ToBytes();
             using (MemoryStream ms = new MemoryStream()) {
                 ms.Position = 0;
                 BinaryWriter writer = new BinaryWriter(ms);
-                ushort msglen = (ushort)message.Length;
+                ushort protocalId = (ushort)protocal;
+                ushort msglen = (ushort)(message.Length + 2);
                 writer.Write(msglen);
+                writer.Write(protocalId); 
                 writer.Write(message);
                 writer.Flush();
                 if (session != null && session.Connected) {

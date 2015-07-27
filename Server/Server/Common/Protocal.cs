@@ -27,4 +27,14 @@ namespace SimpleFramework.Message {
         RoleList          = 2005,   //角色列表
         ServerList        = 2006,   //服务器列表
     }
+
+    /// <summary>
+    /// 协议类型
+    /// </summary>
+    public enum ProtocalType : byte { 
+        BINARY = 0,     //二进制
+        PB_LUA = 1,     //pblua
+        PBC    = 2,     //pbc
+        SPROTO = 3,     //sproto
+    }
 }
