@@ -49,6 +49,7 @@ function PromptCtrl.InitPanel(prefab)
 		go.transform:SetParent(parent);
 		go.transform.localScale = Vector3.one;
 		go.transform.localPosition = Vector3.zero;
+        prompt:AddClick(go, this.OnItemClick);
 
 	    local label = go.transform:FindChild('Text');
 	    label:GetComponent('Text').text = tostring(i);
@@ -65,6 +66,11 @@ function PromptCtrl.InitPanel(prefab)
 	local position = rtTrans.localPosition;
 	position.y = -(size.y / 2);
 	rtTrans.localPosition = position;
+end
+
+--滚动项单击--
+function PromptCtrl.OnItemClick(go)
+    log(go.name);
 end
 
 --单击事件--

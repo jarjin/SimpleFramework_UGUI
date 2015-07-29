@@ -9,6 +9,10 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 
+//-------------2015-07-30-------------
+(1)底层库集成topameng的protobuff-lua-gen修复版本的pb.c。
+(2)添加面板滚动项单击事件。
+
 //-------------2015-07-27-------------
 (1)为Binary/Pblua/pbc/sproto等格式协议增加网络通讯示例。
    相关代码在：PromptCtrl.lua、Network.lua
