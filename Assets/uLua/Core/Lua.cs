@@ -31,6 +31,7 @@ namespace LuaInterface
         internal LuaCSFunction loadfileFunction;
         internal LuaCSFunction loaderFunction;
         internal LuaCSFunction dofileFunction;
+        internal LuaCSFunction import_wrapFunction;
 
         public LuaState()
         {
@@ -78,6 +79,10 @@ namespace LuaInterface
             dofileFunction = new LuaCSFunction(LuaStatic.dofile);
             LuaDLL.lua_pushstdcallcfunction(L, dofileFunction);
             LuaDLL.lua_setfield(L, LuaIndexes.LUA_GLOBALSINDEX, "dofile");
+
+            import_wrapFunction = new LuaCSFunction(LuaStatic.importWrap);
+            LuaDLL.lua_pushstdcallcfunction(L, import_wrapFunction);
+            LuaDLL.lua_setfield(L, LuaIndexes.LUA_GLOBALSINDEX, "import");
 
             // Insert our loader FIRST
             loaderFunction = new LuaCSFunction(LuaStatic.loader);

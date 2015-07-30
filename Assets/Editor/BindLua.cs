@@ -186,6 +186,7 @@ public static class LuaBinding
         _GT(typeof(LuaHelper)),
         _GT(typeof(LuaBehaviour)), 
         _GT(typeof(RectTransform)),
+        _GT(typeof(DelegateFactory)),
         
         //unity                        
         _GT(typeof(Component)),
@@ -326,12 +327,16 @@ public static class LuaBinding
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("using System;");
+        sb.AppendLine("using System.Collections.Generic;");
         sb.AppendLine();
         sb.AppendLine("public static class LuaBinder");
         sb.AppendLine("{");
-        sb.AppendLine("\tpublic static void Bind(IntPtr L)");
-        sb.AppendLine("\t{");        
-
+        sb.AppendLine("\tstatic List<string> cachedlist = new List<string>();");
+        sb.AppendLine("\tpublic static void Bind(IntPtr L, string type = null)");
+        sb.AppendLine("\t{");
+        sb.AppendLine("\t\tif (type == null || cachedlist.Contains(type)) return;");
+        sb.AppendLine("\t\tcachedlist.Add(type); type += \"Wrap\";");
+        sb.AppendLine("\t\tswitch (type) {");
         string[] files = Directory.GetFiles("Assets/Source/LuaWrap/", "*.cs", SearchOption.TopDirectoryOnly);
 
         for (int i = 0; i < files.Length; i++)
@@ -339,9 +344,9 @@ public static class LuaBinding
             string wrapName = Path.GetFileName(files[i]);
             int pos = wrapName.LastIndexOf(".");
             wrapName = wrapName.Substring(0, pos);
-            sb.AppendFormat("\t\t{0}.Register(L);\r\n", wrapName);
+            sb.AppendFormat("\t\t\tcase \"{0}\": {0}.Register(L); break;\r\n", wrapName);
         }
-
+        sb.AppendLine("\t\t}");
         sb.AppendLine("\t}");
         sb.AppendLine("}");
 
@@ -363,7 +368,7 @@ public static class LuaBinding
         sb.AppendLine();
         sb.AppendLine("public static class LuaBinder");
         sb.AppendLine("{");
-        sb.AppendLine("\tpublic static void Bind(IntPtr L)");
+        sb.AppendLine("\tpublic static void Bind(IntPtr L, string type = null)");
         sb.AppendLine("\t{");
         sb.AppendLine("\t}");
         sb.AppendLine("}");
@@ -376,8 +381,7 @@ public static class LuaBinding
             textWriter.Flush();
             textWriter.Close();
         }
-        string path = Application.dataPath;
-        ClearFiles(path + "/Source/LuaWrap/");
+        ClearFiles(Application.dataPath + "/Source/LuaWrap/");
         AssetDatabase.Refresh();
     }
 
@@ -432,7 +436,6 @@ public static class LuaBinding
             Debug.Log("Encode file::>>" + file + " OK!");
         }
     }
-
 
     [MenuItem("Lua/Gen u3d Wrap Files(慎用)", false, 51)]
     public static void U3dBinding()

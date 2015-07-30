@@ -2,7 +2,7 @@
 
 public static class LuaBinder
 {
-	public static void Bind(IntPtr L)
+	public static void Bind(IntPtr L, string type = null)
 	{
 	}
 }

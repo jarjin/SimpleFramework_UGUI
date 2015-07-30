@@ -306,21 +306,6 @@ public class LuaScriptMgr
         BindArray(L);
         DelegateFactory.Register(L);
         LuaBinder.Bind(L);
-
-        enumMetaRef = GetTypeMetaRef(typeof(System.Enum));
-        typeMetaRef = GetTypeMetaRef(typeof(System.Type));
-        delegateMetaRef = GetTypeMetaRef(typeof(System.Delegate));
-        iterMetaRef = GetTypeMetaRef(typeof(IEnumerator));
-
-        //LuaDLL.luaL_getmetatable(lua.L, "luaNet_array");
-        //arrayMetaRef = LuaDLL.luaL_ref(lua.L, LuaIndexes.LUA_REGISTRYINDEX);
-
-        foreach (Type t in checkBaseType)
-        {
-            Debugger.LogWarning("BaseType {0} not register to lua", t.FullName);
-        }
-
-        checkBaseType.Clear();
     }
 
     void BindArray(IntPtr L)
@@ -390,6 +375,20 @@ public class LuaScriptMgr
         }*/
 
         OnBundleLoaded();
+
+        enumMetaRef = GetTypeMetaRef(typeof(System.Enum));
+        typeMetaRef = GetTypeMetaRef(typeof(System.Type));
+        delegateMetaRef = GetTypeMetaRef(typeof(System.Delegate));
+        iterMetaRef = GetTypeMetaRef(typeof(IEnumerator));
+
+        //LuaDLL.luaL_getmetatable(lua.L, "luaNet_array");
+        //arrayMetaRef = LuaDLL.luaL_ref(lua.L, LuaIndexes.LUA_REGISTRYINDEX);
+
+        foreach (Type t in checkBaseType) {
+            Debugger.LogWarning("BaseType {0} not register to lua", t.FullName);
+        }
+
+        checkBaseType.Clear();
     }
 
     int GetLuaReference(string str)

@@ -185,6 +185,17 @@ namespace LuaInterface
 			return loader(L);
 		}
 
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        public static int importWrap(IntPtr L) {
+            string fileName = String.Empty;
+            fileName = LuaDLL.lua_tostring(L, 1);
+            fileName = fileName.Replace('.', '_');
+            if (!string.IsNullOrEmpty(fileName)) {
+                LuaBinder.Bind(L, fileName);
+            } 
+            return 0;
+        }
+
         public static string init_luanet =
             @"local metatable = {}
             local rawget = rawget

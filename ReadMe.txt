@@ -1,4 +1,4 @@
-﻿本工程基于Unity 5.0/4.6.4 + UGUI + cstolua构建
+﻿本工程基于Unity 5.0/4.6.2 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
 有问题请加：ulua技术交流1群 341746602(已满)、请加2群：469941220
@@ -8,6 +8,9 @@
 
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
+
+//-------------2015-07-31-------------
+(1)添加import关键字，可以动态注册c#wrap文件，代码在Wrap.lua。
 
 //-------------2015-07-30-------------
 (1)底层库集成topameng的protobuff-lua-gen修复版本的pb.c。
