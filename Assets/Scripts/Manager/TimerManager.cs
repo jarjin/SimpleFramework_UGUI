@@ -84,7 +84,7 @@ namespace SimpleFramework.Manager {
         /// <param name="info"></param>
         public void ResumeTimerEvent(TimerInfo info) {
             if (objects.Contains(info) && info != null) {
-                info.delete = false;
+                info.stop = false;
             }
         }
 
