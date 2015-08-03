@@ -15,6 +15,7 @@ using LuaInterface;
 using Object = UnityEngine.Object;
 using System.IO;
 using System.Text.RegularExpressions;
+using SimpleFramework;
 
 public enum MetaOp
 {
@@ -235,7 +236,7 @@ public static class ToLuaExport
             GenEnum();
             GenEnumTranslator();
             sb.AppendLine("}\r\n");
-            SaveFile(Application.dataPath + "/Source/LuaWrap/" + wrapClassName + "Wrap.cs");
+            SaveFile(AppConst.LuaWrapPath + wrapClassName + "Wrap.cs");
             return;
         }
 
@@ -317,7 +318,7 @@ public static class ToLuaExport
 
         sb.AppendLine("}\r\n");
         //Debugger.Log(sb.ToString());       
-        string path = Application.dataPath + "/Source/LuaWrap/";
+        string path = AppConst.LuaWrapPath;
         if (!Directory.Exists(path)) {
             Directory.CreateDirectory(path);
         }
@@ -2804,7 +2805,7 @@ public static class ToLuaExport
         }
 
         sb.AppendLine("}");        
-        SaveFile(Application.dataPath + "/Source/Base/DelegateFactory.cs");
+        SaveFile(AppConst.LuaBasePath + "Base/DelegateFactory.cs");
 
         Clear();
     }

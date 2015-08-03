@@ -437,7 +437,7 @@ namespace SimpleFramework {
                     return -1;
                 }
             }
-            string sourceDir = Application.dataPath + "/Source/LuaWrap/";
+            string sourceDir = AppConst.LuaWrapPath;
             if (!Directory.Exists(sourceDir)) {
                 return -2;
             } else {
