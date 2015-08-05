@@ -9,6 +9,9 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 
+//-------------2015-08-05-------------
+(1)同步cstolua修复委托bug，修复框架LuaClass大小写引用bug。
+
 //-------------2015-07-31-------------
 (1)添加import关键字，可以动态注册c#wrap文件，代码在Wrap.lua。
 
