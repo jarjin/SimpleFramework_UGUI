@@ -550,6 +550,8 @@ public class LuaScriptMgr
         lua.Dispose();
         lua = null;
 
+        DelegateFactory.Clear();
+        LuaBinder.wrapList.Clear();
         Debugger.Log("Lua module destroy");        
     }
 

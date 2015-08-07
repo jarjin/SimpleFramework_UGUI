@@ -2803,6 +2803,10 @@ public static class ToLuaExport
 
             sb.AppendLine("\t}\r\n");
         }
+        sb.AppendLine("\tpublic static void Clear()");
+        sb.AppendLine("\t{");
+        sb.AppendLine("\t\tdict.Clear();");
+        sb.AppendLine("\t}\r\n");
 
         sb.AppendLine("}");        
         SaveFile(AppConst.LuaBasePath + "Base/DelegateFactory.cs");

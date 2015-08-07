@@ -40,4 +40,9 @@ public static class DelegateFactory
 		return d;
 	}
 
+	public static void Clear()
+	{
+		dict.Clear();
+	}
+
 }

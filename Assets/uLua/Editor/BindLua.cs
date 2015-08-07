@@ -331,11 +331,11 @@ public static class LuaBinding
         sb.AppendLine();
         sb.AppendLine("public static class LuaBinder");
         sb.AppendLine("{");
-        sb.AppendLine("\tstatic List<string> cachedlist = new List<string>();");
+        sb.AppendLine("\tpublic static List<string> wrapList = new List<string>();");
         sb.AppendLine("\tpublic static void Bind(IntPtr L, string type = null)");
         sb.AppendLine("\t{");
-        sb.AppendLine("\t\tif (type == null || cachedlist.Contains(type)) return;");
-        sb.AppendLine("\t\tcachedlist.Add(type); type += \"Wrap\";");
+        sb.AppendLine("\t\tif (type == null || wrapList.Contains(type)) return;");
+        sb.AppendLine("\t\twrapList.Add(type); type += \"Wrap\";");
         sb.AppendLine("\t\tswitch (type) {");
         string[] files = Directory.GetFiles("Assets/uLua/Source/LuaWrap/", "*.cs", SearchOption.TopDirectoryOnly);
 
@@ -365,9 +365,11 @@ public static class LuaBinding
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("using System;");
+        sb.AppendLine("using System.Collections.Generic;");
         sb.AppendLine();
         sb.AppendLine("public static class LuaBinder");
         sb.AppendLine("{");
+        sb.AppendLine("\tpublic static List<string> wrapList = new List<string>();");
         sb.AppendLine("\tpublic static void Bind(IntPtr L, string type = null)");
         sb.AppendLine("\t{");
         sb.AppendLine("\t}");

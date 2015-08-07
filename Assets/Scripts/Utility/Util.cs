@@ -286,7 +286,7 @@ namespace SimpleFramework {
         public static void ClearMemory() {
             GC.Collect(); Resources.UnloadUnusedAssets();
             LuaScriptMgr mgr = AppFacade.Instance.GetManager<LuaScriptMgr>(ManagerName.Lua);
-            if (mgr == null) mgr.LuaGC();
+            if (mgr != null && mgr.lua != null) mgr.LuaGC();
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿本工程基于Unity 5.0/4.6.2 + UGUI + cstolua构建
+﻿本工程基于Unity 5.0 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
 有问题请加：ulua技术交流1群 341746602(已满)、请加2群：469941220
@@ -8,6 +8,10 @@
 
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
+框架详细介绍 http://bbs.ulua.org/dispbbs.asp?boardid=3&Id=24
+
+//-------------2015-08-08-------------
+(1)修复几个小bug。
 
 //-------------2015-08-05-------------
 (1)同步cstolua修复委托bug，修复框架LuaClass大小写引用bug。
