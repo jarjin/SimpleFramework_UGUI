@@ -83,20 +83,20 @@ namespace LuaInterface
 				LuaDLL.lua_pushvalue(L, -1);  /* function to be called */
 				LuaDLL.lua_pushvalue(L, i);   /* value to print */
 				LuaDLL.lua_call(L, 1, 1);
-				s += LuaDLL.lua_tostring(L, -1);
 				
 				if( i > 1 ) 
 				{
 					s += "\t";
 				}
+				s += LuaDLL.lua_tostring(L, -1);
 				
 				LuaDLL.lua_pop(L, 1);  /* pop result */
 				
-				Debug.Log("LUA: " + s);
+				
 
                 //LuaDLL.PrintCmd(s);
 			}
-
+			Debug.Log("LUA: " + s);
 		    
 			return 0;
 		}
