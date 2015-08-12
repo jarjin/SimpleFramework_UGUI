@@ -10,6 +10,9 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/dispbbs.asp?boardid=3&Id=24
 
+//-------------2015-08-13-------------
+(1)添加Lua搜索路径，lua文件可存在多个不同路径，Util.AddLuaPath(path)\Util.RemoveLuaPath(path);
+
 //-------------2015-08-08-------------
 (1)修复几个小bug。
 

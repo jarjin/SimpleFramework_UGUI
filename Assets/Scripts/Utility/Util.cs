@@ -14,7 +14,9 @@ using UnityEditor;
 #endif
 
 namespace SimpleFramework {
-    public class Util : MonoBehaviour {
+    public class Util {
+        private static List<string> luaPaths = new List<string>();
+
         public static int Int(object o) {
             return Convert.ToInt32(o);
         }
@@ -81,7 +83,7 @@ namespace SimpleFramework {
             if (go != null) {
                 T[] ts = go.GetComponents<T>();
                 for (int i = 0; i < ts.Length; i++) {
-                    if (ts[i] != null) Destroy(ts[i]);
+                    if (ts[i] != null) GameObject.Destroy(ts[i]);
                 }
                 return go.gameObject.AddComponent<T>();
             }
@@ -219,7 +221,7 @@ namespace SimpleFramework {
         public static void ClearChild(Transform go) {
             if (go == null) return;
             for (int i = go.childCount - 1; i >= 0; i--) {
-                Destroy(go.GetChild(i).gameObject);
+                GameObject.Destroy(go.GetChild(i).gameObject);
             }
         }
 
@@ -387,13 +389,6 @@ namespace SimpleFramework {
             get { return Application.loadedLevelName.CompareTo("fight") == 0; }
         }
 
-        public static string LuaPath() {
-            if (AppConst.DebugMode) {
-                return Application.dataPath + "/lua/";
-            }
-            return DataPath + "lua/";
-        }
-
         /// <summary>
         /// 取得Lua路径
         /// </summary>
@@ -405,7 +400,48 @@ namespace SimpleFramework {
                 name = name.Substring(0, index);
             }
             name = name.Replace('.', '/');
-            return path + "lua/" + name + ".lua";
+            if (luaPaths.Count == 0) {
+                AddLuaPath(path + "lua/");
+            }
+            path = SearchLuaPath(name + ".lua");
+            return path;
+        }
+
+        /// <summary>
+        /// 获取Lua路径
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string SearchLuaPath(string fileName) {
+            string filePath = fileName;
+            for (int i = 0; i < luaPaths.Count; i++) {
+                filePath = luaPaths[i] + fileName;
+                if (File.Exists(filePath)) {
+                    return filePath;
+                }
+            }
+            return filePath;
+        }
+
+        /// <summary>
+        /// 添加的Lua路径
+        /// </summary>
+        /// <param name="path"></param>
+        public static void AddLuaPath(string path) {
+            if (!luaPaths.Contains(path)) {
+                if (!path.EndsWith("/")) {
+                    path += "/";
+                }
+                luaPaths.Add(path);
+            }
+        }
+
+        /// <summary>
+        /// 删除Lua路径
+        /// </summary>
+        /// <param name="path"></param>
+        public static void RemoveLuaPath(string path) {
+            luaPaths.Remove(path);
         }
 
         public static void Log(string str) {
