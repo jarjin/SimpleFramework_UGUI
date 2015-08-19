@@ -509,12 +509,12 @@ namespace SimpleFramework {
                 EditorApplication.isPlaying = false;
                 return false;
             }
-#endif
             if (Application.loadedLevelName == "Test" && !AppConst.DebugMode) {
                 Debug.LogError("测试场景，必须打开调试模式，AppConst.DebugMode = true！！");
                 EditorApplication.isPlaying = false;
                 return false;
             }
+#endif
             return true;
         }
     }

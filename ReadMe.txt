@@ -10,6 +10,9 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/dispbbs.asp?boardid=3&Id=24
 
+//-------------2015-08-20-------------
+(1)修改了Util类检查环境小BUG，给UGUI同步模式添加命名空间。
+
 //-------------2015-08-13-------------
 (1)添加Lua搜索路径，lua文件可存在多个不同路径，Util.AddLuaPath(path)\Util.RemoveLuaPath(path);
 
