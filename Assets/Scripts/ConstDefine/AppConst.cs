@@ -18,6 +18,7 @@ namespace SimpleFramework {
         /// 复制到自己的Webserver上面，并修改下面的WebUrl。
         /// </summary>
         public const bool UpdateMode = false;                       //更新模式-默认关闭 
+        public const bool AutoWrapMode = true;                      //自动添加Wrap模式
 
         public const int TimerInterval = 1;
         public const int GameFrameRate = 30;                       //游戏帧频

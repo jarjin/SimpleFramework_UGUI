@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using PureMVC.Patterns;
 
 public class AppFacade : Facade
 {
@@ -22,36 +21,9 @@ public class AppFacade : Facade
         }
     }
 
-    public void RegisterMultiCommand(SimpleCommand commandClassRef, params string[] notificationName)
+    override protected void InitFramework()
     {
-        int count = notificationName.Length;
-        for (int i = 0; i < count; i++)
-        {
-            RegisterCommand(notificationName[i], commandClassRef.GetType());
-        }
-    }
-
-    public void RegisterMultiCommand(System.Type commandType, params string[] notificationName)
-    {
-        int count = notificationName.Length;
-        for (int i = 0; i < count; i++)
-        {
-            RegisterCommand(notificationName[i], commandType);
-        }
-    }
-
-    public void RemoveMultiCommand(params string[] notificationName)
-    {
-        int count = notificationName.Length;
-        for (int i = 0; i < count; i++)
-        {
-            RemoveCommand(notificationName[i]);
-        }
-    }
-
-    override protected void InitializeController()
-    {
-        base.InitializeController();
+        base.InitFramework();
         RegisterCommand(NotiConst.START_UP, typeof(StartUpCommand));
     }
 
@@ -59,7 +31,7 @@ public class AppFacade : Facade
     /// 启动框架
     /// </summary>
     public void StartUp() {
-        SendNotification(NotiConst.START_UP);
+        SendMessageCommand(NotiConst.START_UP);
         RemoveMultiCommand(NotiConst.START_UP);
     }
 }

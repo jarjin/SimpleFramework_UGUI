@@ -81,7 +81,7 @@ namespace SimpleFramework.Manager {
 
                 message = "正在解包文件:>" + fs[0];
                 Debug.Log("正在解包文件:>" + infile);
-                facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+                facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
 
                 string dir = Path.GetDirectoryName(outfile);
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
@@ -103,7 +103,7 @@ namespace SimpleFramework.Manager {
                 yield return new WaitForEndOfFrame();
             }
             message = "解包完成!!!";
-            facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+            facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
             yield return new WaitForSeconds(0.1f);
 
             message = string.Empty;
@@ -158,7 +158,7 @@ namespace SimpleFramework.Manager {
                 if (canUpdate) {   //本地缺少文件
                     Debug.Log(fileUrl);
                     message = "downloading>>" + fileUrl;
-                    facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+                    facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
                     /*
                     www = new WWW(fileUrl); yield return www;
                     if (www.error != null) {
@@ -175,14 +175,14 @@ namespace SimpleFramework.Manager {
             yield return new WaitForEndOfFrame();
 
             message = "更新完成!!";
-            facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+            facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
 
             OnResourceInited();
         }
 
         void OnUpdateFailed(string file) {
             string message = "更新失败!>" + file;
-            facade.SendNotification(NotiConst.UPDATE_MESSAGE, message);
+            facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
         }
 
         /// <summary>

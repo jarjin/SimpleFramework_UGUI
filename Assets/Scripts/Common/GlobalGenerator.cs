@@ -17,8 +17,6 @@ namespace SimpleFramework {
         /// </summary>
         public void InitGameMangager() {
             string name = "GameManager";
-            gameObject.AddComponent<AppView>();
-
             GameObject manager = GameObject.Find(name);
             if (manager == null) {
                 manager = new GameObject(name);

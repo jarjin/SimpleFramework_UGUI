@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using LuaInterface;
 
 namespace SimpleFramework.Manager {
-    public class PanelManager : BehaviourBase {
+    public class PanelManager : View {
         private Transform parent;
 
         Transform Parent {

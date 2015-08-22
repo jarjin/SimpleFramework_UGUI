@@ -1,25 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
-using PureMVC.Patterns;
-using PureMVC.Interfaces;
 using SimpleFramework;
 using SimpleFramework.Manager;
 
-public class StartUpCommand : MacroCommand {
+public class StartUpCommand : ControllerCommand {
 
-    protected override void InitializeMacroCommand() {
-        base.InitializeMacroCommand();
-
+    public override void Execute(IMessage message) {
         if (!Util.CheckEnvironment()) return;
 
-        //BootstrapModels
-        AddSubCommand(typeof(BootstrapModels));
+        GameObject gameMgr = GameObject.Find("GlobalGenerator");
+        if (gameMgr != null) {
+            AppView appView = gameMgr.AddComponent<AppView>();
+        }
+        //-----------------关联命令-----------------------
+        AppFacade.Instance.RegisterCommand(NotiConst.DISPATCH_MESSAGE, typeof(SocketCommand));
 
-        //BootstrapCommands
-        AddSubCommand(typeof(BootstrapCommands));
+        //-----------------初始化管理器-----------------------
+        AppFacade.Instance.AddManager(ManagerName.Lua, new LuaScriptMgr());
 
-        //BootstrapViewMediators
-        AddSubCommand(typeof(BootstrapViewMediators));
+        AppFacade.Instance.AddManager<PanelManager>(ManagerName.Panel);
+        AppFacade.Instance.AddManager<MusicManager>(ManagerName.Music);
+        AppFacade.Instance.AddManager<TimerManager>(ManagerName.Timer);
+        AppFacade.Instance.AddManager<NetworkManager>(ManagerName.Network);
+        AppFacade.Instance.AddManager<ResourceManager>(ManagerName.Resource);
+        AppFacade.Instance.AddManager<ThreadManager>(ManagerName.Thread);
+        AppFacade.Instance.AddManager<GameManager>(ManagerName.Game);
+
+        Debug.Log("SimpleFramework StartUp-------->>>>>");
     }
-
 }

@@ -10,6 +10,10 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/dispbbs.asp?boardid=3&Id=24
 
+//-------------2015-08-22-------------
+(1)精简PureMVC，留下了消息层，使用方式大大简化。
+(2)添加自动Wrap模式，开关在AppConst.AutoWrapMode;
+
 //-------------2015-08-20-------------
 (1)修改了Util类检查环境小BUG，给UGUI同步模式添加命名空间。
 

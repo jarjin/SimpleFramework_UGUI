@@ -6,7 +6,7 @@ using System;
 using UnityEngine.UI;
 
 namespace SimpleFramework {
-    public class LuaBehaviour : BehaviourBase {
+    public class LuaBehaviour : View {
         private string data = null;
         private List<LuaFunction> buttons = new List<LuaFunction>();
         protected static bool initialize = false;

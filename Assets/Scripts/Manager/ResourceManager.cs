@@ -17,7 +17,7 @@ namespace SimpleFramework.Manager {
     }
 
     // Class takes care of loading assetBundle and its dependencies automatically, loading variants automatically.
-    public class ResourceManager : MonoBehaviour {
+    public class ResourceManager : View {
 
         static string m_BaseDownloadingURL = "";
         static string[] m_Variants = { };
@@ -294,7 +294,7 @@ using SimpleFramework;
 using LuaInterface;
 
 namespace SimpleFramework.Manager {
-    public class ResourceManager : BehaviourBase {
+    public class ResourceManager : View {
         private string[] m_Variants = { };
         private AssetBundleManifest manifest;
         private AssetBundle shared, assetbundle;

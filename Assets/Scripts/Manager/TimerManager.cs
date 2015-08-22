@@ -18,7 +18,7 @@ namespace SimpleFramework.Manager {
     }
 
 
-    public class TimerManager : BehaviourBase {
+    public class TimerManager : View {
         private float interval = 0;
         private List<TimerInfo> objects = new List<TimerInfo>();
 

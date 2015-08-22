@@ -339,12 +339,20 @@ public static class LuaBinding
         sb.AppendLine("\t\tswitch (type) {");
         string[] files = Directory.GetFiles("Assets/uLua/Source/LuaWrap/", "*.cs", SearchOption.TopDirectoryOnly);
 
+        List<string> wrapfiles = new List<string>();
         for (int i = 0; i < files.Length; i++)
         {
             string wrapName = Path.GetFileName(files[i]);
             int pos = wrapName.LastIndexOf(".");
             wrapName = wrapName.Substring(0, pos);
             sb.AppendFormat("\t\t\tcase \"{0}\": {0}.Register(L); break;\r\n", wrapName);
+
+            string wrapfile = wrapName.Substring(0, wrapName.Length - 4);
+            wrapfiles.Add("import '" + wrapfile + "'");
+        }
+        if (AppConst.AutoWrapMode) {
+            string wrapfile = Application.dataPath + "/Lua/System/Wrap.lua";
+            File.WriteAllLines(wrapfile, wrapfiles.ToArray());
         }
         sb.AppendLine("\t\t}");
         sb.AppendLine("\t}");
@@ -382,6 +390,10 @@ public static class LuaBinding
             textWriter.Write(sb.ToString());
             textWriter.Flush();
             textWriter.Close();
+        }
+        if (AppConst.AutoWrapMode) {
+            string wrapfile = Application.dataPath + "/Lua/System/Wrap.lua";
+            File.WriteAllText(wrapfile, string.Empty);
         }
         ClearFiles(AppConst.LuaWrapPath);
         AssetDatabase.Refresh();

@@ -26,7 +26,7 @@ namespace SimpleFramework.Manager {
     /// <summary>
     /// 当前线程管理器，同时只能做一个任务
     /// </summary>
-    public class ThreadManager : BehaviourBase {
+    public class ThreadManager : View {
         private Thread thread;
         private Action<NotiData> func;
         private Stopwatch sw = new Stopwatch();
@@ -64,7 +64,7 @@ namespace SimpleFramework.Manager {
         /// <param name="state"></param>
         private void OnSyncEvent(NotiData data) {
             if (this.func != null) func(data);  //回调逻辑层
-            facade.SendNotification(data.evName, data.evParam); //通知View层
+            facade.SendMessageCommand(data.evName, data.evParam); //通知View层
         }
 
         // Update is called once per frame

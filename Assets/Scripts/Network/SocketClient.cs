@@ -6,7 +6,6 @@ using System.Net.Sockets;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleFramework.Manager;
-using PureMVC.Patterns;
 using SimpleFramework;
 
 public enum DisType {
@@ -14,7 +13,7 @@ public enum DisType {
     Disconnect,
 }
 
-public class SocketProxy : Proxy {
+public class SocketClient {
     private TcpClient client = null;
     private NetworkStream outStream = null;
     private MemoryStream memStream;
@@ -22,20 +21,16 @@ public class SocketProxy : Proxy {
 
     private const int MAX_READ = 8192;
     private byte[] byteBuffer = new byte[MAX_READ];
-
     public static bool loggedIn = false;
-    public static string NAME = "SocketProxy";
-    public static SocketProxy instances;
 
     // Use this for initialization
-    public SocketProxy() : base(NAME) {
-        instances = this;
+    public SocketClient() {
     }
 
     /// <summary>
     /// 注册代理
     /// </summary>
-    public override void OnRegister() {
+    public void OnRegister() {
         memStream = new MemoryStream();
         reader = new BinaryReader(memStream);
     }
@@ -43,7 +38,7 @@ public class SocketProxy : Proxy {
     /// <summary>
     /// 移除代理
     /// </summary>
-    public override void OnRemove() {
+    public void OnRemove() {
         this.Close();
         reader.Close();
         memStream.Close();
