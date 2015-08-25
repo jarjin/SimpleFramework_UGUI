@@ -10,6 +10,10 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/dispbbs.asp?boardid=3&Id=24
 
+//-------------2015-08-25-------------
+(1)同步cstolua2.0最新版本。
+(2)修复网络管理器未启动socket的bug。
+
 //-------------2015-08-22-------------
 (1)精简PureMVC，留下了消息层，使用方式大大简化。
 (2)添加自动Wrap模式，开关在AppConst.AutoWrapMode;

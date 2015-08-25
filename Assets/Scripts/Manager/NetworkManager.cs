@@ -22,6 +22,7 @@ namespace SimpleFramework.Manager {
         }
 
         void Init() {
+            SocketClient.OnRegister();
         }
 
         public void OnInit() {
@@ -74,6 +75,7 @@ namespace SimpleFramework.Manager {
         /// Îö¹¹º¯Êý
         /// </summary>
         new void OnDestroy() {
+            SocketClient.OnRemove();
             Debug.Log("~NetworkManager was destroy");
         }
     }

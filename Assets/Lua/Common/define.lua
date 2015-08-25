@@ -4,15 +4,15 @@ CtrlName = {
 	Message = "MessageCtrl"
 }
 
---协议类型--
+--鍗忚绫诲瀷--
 ProtocalType = {
 	BINARY = 0,
 	PB_LUA = 1,
 	PBC = 2,
 	SPROTO = 3,
 }
---当前使用的协议类型--
-TestProtoType = ProtocalType.BINARY;
+--褰撳墠浣跨敤鍗忚绫诲瀷-
+TestProtoType = ProtocalType.PB_LUA;
 
 Util = SimpleFramework.Util;
 AppConst = SimpleFramework.AppConst;
