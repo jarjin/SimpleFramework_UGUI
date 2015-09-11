@@ -16,9 +16,11 @@ using UnityEngine.UI;
 using SimpleFramework;
 using SimpleFramework.Manager;
 
+[InitializeOnLoad]
 public static class LuaBinding
 {
-    //自动生成wrap功能
+    static bool beAutoGen = false;
+
     //static LuaBinding()
     //{        
     //    string dir = Application.dataPath + "/Source/LuaWrap/";
@@ -31,10 +33,15 @@ public static class LuaBinding
     //    string[] files = Directory.GetFiles(dir);
 
     //    if (files.Length <= 0)
-    //    {            
-    //        GenLuaDelegates();
-    //        Binding();
-    //        GenLuaBinder();
+    //    {
+    //        if (EditorUtility.DisplayDialog("自动生成", "点击确定自动注册常用unity类和委托， 也可通过菜单完成此功能", "确定", "取消"))
+    //        {
+    //            beAutoGen = true;
+    //            Binding();
+    //            GenLuaDelegates();
+    //            GenLuaBinder();
+    //            beAutoGen = false;
+    //        }
     //    }
     //}
 
@@ -271,11 +278,7 @@ public static class LuaBinding
         _GT(typeof(TweenPosition)),
         _GT(typeof(TweenScale)),
         _GT(typeof(UICenterOnChild)),    
-        _GT(typeof(UIAtlas)),*/ 
-   
-        //_GT(typeof(LeanTween)),
-        //_GT(typeof(LTDescr)),
-        
+        _GT(typeof(UIAtlas)),*/         
     };
 
 
@@ -399,6 +402,74 @@ public static class LuaBinding
         AssetDatabase.Refresh();
     }
 
+    static DelegateType _DT(Type t)
+    {
+        return new DelegateType(t);
+    }
+
+    static HashSet<Type> GetCustomDelegateTypes()
+    {
+        BindType[] list = binds;
+        HashSet<Type> set = new HashSet<Type>();
+        BindingFlags binding = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.Instance;
+
+        for (int i = 0; i < list.Length; i++)
+        {
+            Type type = list[i].type;
+            FieldInfo[] fields = type.GetFields(BindingFlags.GetField | BindingFlags.SetField | binding);
+            PropertyInfo[] props = type.GetProperties(BindingFlags.GetProperty | BindingFlags.SetProperty | binding);
+            MethodInfo[] methods = null;
+
+            if (type.IsInterface)
+            {
+                methods = type.GetMethods();
+            }
+            else
+            {
+                methods = type.GetMethods(BindingFlags.Instance | binding);
+            }
+
+            for (int j = 0; j < fields.Length; j++)
+            {
+                Type t = fields[j].FieldType;
+
+                if (typeof(System.Delegate).IsAssignableFrom(t))
+                {
+                    set.Add(t);
+                }
+            }
+
+            for (int j = 0; j < props.Length; j++)
+            {
+                Type t = props[j].PropertyType;
+
+                if (typeof(System.Delegate).IsAssignableFrom(t))
+                {
+                    set.Add(t);
+                }
+            }
+
+            for (int j = 0; j < methods.Length; j++)
+            {
+                MethodInfo m = methods[j];
+                ParameterInfo[] pifs = m.GetParameters();
+
+                for (int k = 0; k < pifs.Length; k++)
+                {
+                    Type t = pifs[k].ParameterType;
+
+                    if (typeof(System.MulticastDelegate).IsAssignableFrom(t))
+                    {
+                        set.Add(t);
+                    }
+                }
+            }
+
+        }
+
+        return set;
+    }
+
     /// <summary>
     /// 清除缓存文件
     /// </summary>
@@ -410,29 +481,100 @@ public static class LuaBinding
         }
     }
 
-    static DelegateType _DT(Type t)
-    {
-        return new DelegateType(t);
-    }
-
-    [MenuItem("Lua/Gen Lua Delegates", false, 12)]
+    [MenuItem("Lua/Gen Lua Delegates", false, 2)]
     static void GenLuaDelegates()
     {
         ToLuaExport.Clear();
+        List<DelegateType> list = new List<DelegateType>();
 
-        DelegateType[] list = new DelegateType[]
-        {
+        list.AddRange(new DelegateType[] {
             _DT(typeof(Action<GameObject>)),
-            //_DT(typeof(Action<GameObject, int, string>)),
-            //_DT(typeof(Action<int, int, int, List<int>>)),
-            //_DT(typeof(UIEventListener.VoidDelegate)).SetName("VoidDelegate"),            
-        };
+            _DT(typeof(Action)),
+            _DT(typeof(UnityEngine.Events.UnityAction)),         
+        });
 
-        ToLuaExport.GenDelegates(list);
+        HashSet<Type> set = beAutoGen ? ToLuaExport.eventSet : GetCustomDelegateTypes();                
+        List<Type> typeList = new List<Type>();
 
+        foreach (Type t in set)
+        {
+            if (null == list.Find((p) => { return p.type == t; }))
+            {
+                list.Add(_DT(t));
+            }
+        }
+
+        ToLuaExport.GenDelegates(list.ToArray());
+        set.Clear();
+        ToLuaExport.Clear();
+        AssetDatabase.Refresh();
         Debug.Log("Create lua delegate over");
     }
 
+    static void CopyLuaToOut(string dir)
+    {
+        string[] files = Directory.GetFiles(Application.dataPath + "/Lua/" + dir, "*.lua", SearchOption.TopDirectoryOnly);
+        string outDir = Application.dataPath + "/Lua/Out/" + dir + "/";
+
+        if (!File.Exists(outDir))
+        {
+            Directory.CreateDirectory(outDir);
+        }
+
+        for (int i = 0; i < files.Length; i++)
+        {
+            string fname = Path.GetFileName(files[i]);
+            FileUtil.CopyFileOrDirectory(files[i], outDir + fname + ".bytes");
+        }
+    }
+
+    static string GetOS()
+    {
+#if UNITY_STANDALONE
+        return "Win";
+#elif UNITY_ANDROID
+        return "Android";
+#elif UNITY_IPHONE
+        return "IOS";
+#endif
+
+    }
+
+    static void CreateDir(string dir)
+    {        
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+    }
+
+    static void BuildLuaBundle(string dir)
+    {
+        BuildAssetBundleOptions options = BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets | BuildAssetBundleOptions.DeterministicAssetBundle;
+
+        string[] files = Directory.GetFiles("Assets/Lua/Out/" + dir, "*.lua.bytes");
+        List<Object> list = new List<Object>();
+        string bundleName = dir == null ? "Lua.unity3d" : "Lua_" + dir + ".unity3d";
+
+        CreateDir(Application.dataPath + "/Bundle/");
+        CreateDir(string.Format("{0}/{1}/", Application.persistentDataPath, GetOS()));
+
+        for (int i = 0; i < files.Length; i++)
+        {
+            Object obj = AssetDatabase.LoadMainAssetAtPath(files[i]);
+            list.Add(obj);
+        }
+
+        if (files.Length > 0)
+        {            
+            string output = string.Format("{0}/Bundle/" + bundleName, Application.dataPath);
+            BuildPipeline.BuildAssetBundle(null, list.ToArray(), output, options, EditorUserBuildSettings.activeBuildTarget);
+            string output1 = string.Format("{0}/{1}/" + bundleName, Application.persistentDataPath, GetOS());
+            File.Delete(output1);
+            File.Copy(output, output1);
+            AssetDatabase.Refresh();
+        }
+    }
     /// <summary>
     /// 编码LUA文件用UTF-8
     /// </summary>
@@ -449,6 +591,29 @@ public static class LuaBinding
             }
             Debug.Log("Encode file::>>" + file + " OK!");
         }
+    }
+	
+    [MenuItem("Lua/Build Lua without jit", false, 4)]
+    public static void BuildLuaNoJit()
+    {        
+        string dir = Application.dataPath + "/Lua/Out/";
+
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+
+        string[] files = Directory.GetFiles(dir, "*.lua.bytes", SearchOption.AllDirectories);
+
+        for (int i = 0; i < files.Length; i++)
+        {
+            FileUtil.DeleteFileOrDirectory(files[i]);
+        }
+
+        CopyLuaToOut(null);
+        AssetDatabase.Refresh();
+        BuildLuaBundle(null);
+        UnityEngine.Debug.Log("编译lua without jit结束");
     }
 
     [MenuItem("Lua/Gen u3d Wrap Files(慎用)", false, 51)]

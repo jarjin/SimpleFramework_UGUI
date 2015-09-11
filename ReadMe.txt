@@ -8,7 +8,15 @@
 
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
-框架详细介绍 http://bbs.ulua.org/dispbbs.asp?boardid=3&Id=24
+框架详细介绍 http://bbs.ulua.org/default.asp?cateID=4
+
+//-------------2015-09-11-------------
+(1)同步cstolua最新版本内容如下：
+   <1>委托新方式,能够导出自定义类型涉及的所有委托类型。
+   <2>修改GetErrorFunc 
+   <3>lua协同cortuine增加www请求功能
+   <4>延迟销毁没有GC，delaydestroy no gc
+(2)iOS平台底层库集成位操作库LuaBitOp1.0.2版
 
 //-------------2015-08-25-------------
 (1)同步cstolua2.0最新版本。
