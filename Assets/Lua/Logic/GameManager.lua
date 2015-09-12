@@ -56,14 +56,12 @@ function GameManager.OnInitOK()
     if ctrl ~= nil and AppConst.ExampleMode then
         ctrl:Awake();
     end
-   
+       
     warn('SimpleFramework InitOK--->>>');
 end
 
 --测试协同--
-function GameManager.test_coroutine() 
-    Time:Init();
-    
+function GameManager.test_coroutine()    
     warn("1111");
     coroutine.wait(1);	
     warn("2222");

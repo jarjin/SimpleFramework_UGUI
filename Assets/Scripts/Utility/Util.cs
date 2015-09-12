@@ -517,5 +517,17 @@ namespace SimpleFramework {
 #endif
             return true;
         }
+
+        /// <summary>
+        /// 是不是苹果平台
+        /// </summary>
+        /// <returns></returns>
+        public static bool isApplePlatform {
+            get {
+                return Application.platform == RuntimePlatform.IPhonePlayer ||
+                       Application.platform == RuntimePlatform.OSXEditor ||
+                       Application.platform == RuntimePlatform.OSXPlayer;            
+            }
+        }
     }
 }
