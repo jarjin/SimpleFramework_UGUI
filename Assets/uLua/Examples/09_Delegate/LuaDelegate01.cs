@@ -1,52 +1,36 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using LuaInterface;
 
-public class LuaDelegate01 : MonoBehaviour
-{
-    private string script =
-    @"                  
-            function DoClick1(go)
-                print('click1 on ', go.name)
-            end
+/// <summary>
+/// 使用操作步骤请参考文档：http://bbs.ulua.org/
+/// </summary>
+public class LuaDelegate01 : MonoBehaviour {
 
-            function DoClick2(go)
-                print('click2 on ', go.name)
-            end
-            
-            local click2 = nil
+    const string script = @"
+        local func1 = function() print('测试委托1'); end
+        local func2 = function(gameObj) print('测试委托2:>'..gameObj.name); end        
+        
+        function testDelegate(go) 
+            local ev = go:AddComponent(TestDelegateListener.GetClassType());
+        
+            ---直接赋值模式---
+            ev.onClick = func1;
 
-            function AddDelegate(listener)                     
-                listener.OnClick = DoClick1
-                click2 = DelegateFactory.Action_GameObject(DoClick2)                
-                listener.OnClick = listener.OnClick + click2                                    
-            end
-
-            function RemoveDelegate(listener)                
-                listener.OnClick = listener.OnClick - click2       
-                return delegate         
-            end
+            ---C#的加减模式---
+            local delegate = DelegateFactory.TestLuaDelegate_VoidDelegate(func2);
+            ev.onEvClick = ev.onEvClick + delegate;
+            --ev.onEvClick = ev.onEvClick - delegate;
+        end
     ";
-   
-    //需要删除的转LuaFunction为委托，不需要删除的直接加或者等于即可
-    void Start()
-    {
+
+	// Use this for initialization
+	void Start () {
         LuaScriptMgr mgr = new LuaScriptMgr();
         mgr.Start();
-        TestEventListenerWrap.Register(mgr.GetL());
         mgr.DoString(script);
-        GameObject go = new GameObject("TestGo");
-        TestEventListener listener = (TestEventListener)go.AddComponent(typeof(TestEventListener));         
 
-        LuaFunction func = mgr.GetLuaFunction("AddDelegate");
-        func.Call(listener);                
-        listener.OnClick(go);
-        func.Release();
-        Debug.Log("---------------------------------------------------------------------");        
-        func = mgr.GetLuaFunction("RemoveDelegate");
-        func.Call(listener);
-        listener.OnClick(go);
-        func.Release();        
-    }
+        LuaFunction f = mgr.GetLuaFunction("testDelegate");
+        f.Call(gameObject);     //将自己对象传给lua
+	}
 }

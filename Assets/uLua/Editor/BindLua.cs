@@ -194,6 +194,8 @@ public static class LuaBinding
         _GT(typeof(LuaBehaviour)), 
         _GT(typeof(RectTransform)),
         _GT(typeof(DelegateFactory)),
+        _GT(typeof(TestLuaDelegate)),
+        _GT(typeof(TestDelegateListener)),
         
         //unity                        
         _GT(typeof(Component)),
