@@ -22,6 +22,7 @@ local this = GameManager;
 local game; 
 local transform;
 local gameObject;
+local WWW = UnityEngine.WWW;
 
 function GameManager.LuaScriptPanel()
 	return 'Prompt', 'Message';
@@ -48,14 +49,28 @@ function GameManager.OnInitOK()
     this.test_pbc_func();
     this.test_lpeg_func();
     this.test_sproto_func();
+    coroutine.start(this.test_coroutine);
 
-    --createPanel("Prompt");
     CtrlManager.Init();
     local ctrl = CtrlManager.GetCtrl(CtrlName.Prompt);
     if ctrl ~= nil and AppConst.ExampleMode then
         ctrl:Awake();
     end
+   
     warn('SimpleFramework InitOK--->>>');
+end
+
+--测试协同--
+function GameManager.test_coroutine() 
+    Time:Init();
+    
+    warn("1111");
+    coroutine.wait(1);	
+    warn("2222");
+	
+    local www = WWW("http://bbs.ulua.org/readme.txt");
+    coroutine.www(www);
+    warn(www.text);    	
 end
 
 --测试sproto--
