@@ -15,6 +15,7 @@ using Junfine.Debuger;
 using UnityEngine.UI;
 using SimpleFramework;
 using SimpleFramework.Manager;
+using UnityEngine.Events;
 
 [InitializeOnLoad]
 public static class LuaBinding
@@ -194,10 +195,15 @@ public static class LuaBinding
         _GT(typeof(LuaHelper)),
         _GT(typeof(LuaBehaviour)), 
         _GT(typeof(RectTransform)),
+
         _GT(typeof(DelegateFactory)),
         _GT(typeof(TestLuaDelegate)),
         _GT(typeof(TestDelegateListener)),
         _GT(typeof(TestEventListener)),
+        _GT(typeof(Button)),   
+        _GT(typeof(Button.ButtonClickedEvent)),
+        _GT(typeof(UnityEventBase)),
+        _GT(typeof(UnityEvent)),
         
         //unity                        
         _GT(typeof(Component)),

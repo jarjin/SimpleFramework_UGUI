@@ -10,6 +10,9 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/default.asp?cateID=4
 
+//-------------2015-09-14-------------
+(1)添加了NGUI/UGUI Button单击例子。
+
 //-------------2015-09-12-------------
 (1)添加新版LuaDelegate/委托例子代码。
 (2)增加Lua协同WWW访问web内容例子代码。

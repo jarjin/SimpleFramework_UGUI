@@ -29,7 +29,7 @@ public class LuaProtoBuffer01 : MonoBehaviour
         LuaScriptMgr mgr = new LuaScriptMgr();
         mgr.Start();
         TestProtolWrap.Register(mgr.GetL());
-        mgr.DoFile("person_pb.lua");
+        mgr.DoFile("3rd/pblua/person_pb.lua");
         mgr.DoString(script);
 
         LuaFunction func = mgr.GetLuaFunction("encoder");
