@@ -107,6 +107,9 @@ namespace LuaInterface
         public static extern int luaopen_cjson_safe(IntPtr L);
 
         [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int luaopen_socket_core(IntPtr L);
+
+        [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int tolua_openlibs(IntPtr L);        
 
         public static int lua_upvalueindex(int i)	

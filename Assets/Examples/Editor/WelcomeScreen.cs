@@ -20,7 +20,7 @@
 
     public class WelcomeScreen : EditorWindow
     {
-        private string version = "Version : 0.3.7";
+        private string version = "Version : 0.4.0";
         private bool flag = true;
         private Rect mContactDescriptionRect = new Rect(70f, 344f, 250f, 30f);
         private Rect mContactHeaderRect = new Rect(70f, 324f, 250f, 20f);

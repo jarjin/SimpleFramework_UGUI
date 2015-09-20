@@ -205,9 +205,11 @@ public class LuaScriptMgr
         if (AppConst.UseSproto) {
             LuaDLL.luaopen_sproto_core(lua.L);
         }
+        if (AppConst.UseLuaSocket) {
+            LuaDLL.luaopen_socket_core(lua.L);        
+        }
         LuaDLL.tolua_openlibs(lua.L);
         //OpenXml();        
-        //LuaDLL.luaopen_socket_core(lua.L);        
                 
         fileList = new HashSet<string>();
         dict = new Dictionary<string,LuaBase>();        

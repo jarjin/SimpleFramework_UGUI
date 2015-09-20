@@ -10,6 +10,15 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/default.asp?cateID=4
 
+//-------------2015-09-20-------------
+ulua已经支持ZeroBraneStudio的调试功能，支持全平台WIN/MAC/LINUX。
+ZeroBrane Studio下载地址：http://studio.zerobrane.com/download?not-this-time
+
+调试步骤：
+（1）打开Lua/debugger.lua 需要根据自身配置路径
+（2）打开zbstudio.exe，单击菜单Project/Start Debugger Server。
+（3）运行例子uLua\Examples\A5_Debugger\A5_Debugger.cs
+
 //-------------2015-09-14-------------
 (1)添加了NGUI/UGUI Button单击例子。
 

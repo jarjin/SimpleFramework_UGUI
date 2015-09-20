@@ -28,6 +28,7 @@ namespace SimpleFramework {
         public const bool UsePbLua = true;                         //Protobuff-lua-gen
         public const bool UseCJson = true;                         //CJson
         public const bool UseSproto = true;                        //Sproto
+        public const bool UseLuaSocket = true;                     //LuaSocket 
         public const bool LuaEncode = false;                        //使用LUA编码
 
         public const string AppName = "SimpleFramework";           //应用程序名称

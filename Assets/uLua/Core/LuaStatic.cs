@@ -134,7 +134,9 @@ namespace LuaInterface
 
             byte[] text = LuaStatic.Load(fileName);
             if (text == null) {
-                Debugger.LogError("Loader lua file failed: {0}", fileName);
+                if (!fileName.Contains("mobdebug")) {
+                    Debugger.LogError("Loader lua file failed: {0}", fileName);
+                }
                 LuaDLL.lua_pop(L, 1);
                 return 0;
             }
