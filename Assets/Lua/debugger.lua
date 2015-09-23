@@ -7,7 +7,7 @@ package.path = package.path..";./?.lua;"..ZBS.."lualibs/?/?.lua;"..ZBS.."lualibs
 
 --for win--
 ZBS = "D:/ZeroBraneStudio/";
-LuaPath = "C:/Users/Administrator/Documents/New Unity Project/Assets/uLua/Lua/"
+LuaPath = "E:/workspace/SimpleFramework_UGUI/Assets/Lua/"
 package.path = package.path..";./?.lua;"..ZBS.."lualibs/?/?.lua;"..ZBS.."lualibs/?.lua;"..LuaPath.."?.lua;"
 
 require("mobdebug").start()

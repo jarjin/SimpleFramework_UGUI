@@ -1,4 +1,4 @@
-﻿本工程基于Unity 5.0 + UGUI + cstolua构建
+﻿本框架工程基于Unity 5.0 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
 有问题请加：ulua技术交流1群 341746602(已满)、请加2群：469941220
@@ -9,6 +9,14 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/default.asp?cateID=4
+
+//-------------2015-09-20-------------
+修复调试步骤BUG：
+(1)生成wrap文件列表。
+(2)将AppConst.DebugMode = true;
+(3)用ZeroBrane设置到框架Lua目录。
+(4)单击菜单Project/Start Debugger Server。
+(5)运行游戏！
 
 //-------------2015-09-20-------------
 ulua已经支持ZeroBraneStudio的调试功能，支持全平台WIN/MAC/LINUX。
