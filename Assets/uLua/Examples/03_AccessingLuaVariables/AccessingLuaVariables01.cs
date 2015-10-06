@@ -12,7 +12,7 @@ public class AccessingLuaVariables01 : MonoBehaviour {
 
             for i = 1, Objs2Spawn, 1 do
                 local newGameObj = GameObject('NewObj' .. tostring(i))
-                local ps = newGameObj:AddComponent('ParticleSystem')
+                local ps = newGameObj:AddComponent(ParticleSystem.GetClassType())
                 ps:Stop()
 
                 table.insert(particles, ps)

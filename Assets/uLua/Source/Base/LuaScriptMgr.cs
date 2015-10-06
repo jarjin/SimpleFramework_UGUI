@@ -205,9 +205,9 @@ public class LuaScriptMgr
         if (AppConst.UseSproto) {
             LuaDLL.luaopen_sproto_core(lua.L);
         }
-        if (AppConst.UseLuaSocket) {
-            LuaDLL.luaopen_socket_core(lua.L);        
-        }
+#if UNITY_EDITOR
+        LuaDLL.luaopen_socket_core(lua.L);        
+#endif
         LuaDLL.tolua_openlibs(lua.L);
         //OpenXml();        
                 
