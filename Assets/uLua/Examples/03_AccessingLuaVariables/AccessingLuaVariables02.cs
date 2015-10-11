@@ -6,7 +6,8 @@ public class AccessingLuaVariables02 : MonoBehaviour
 {
     //cstolua要求必须要先定义变量才能使用
     private string var = @"Objs2Spawn = 0";
-    private string script = @"            
+    private string script = @"      
+            ParticleSystem = UnityEngine.ParticleSystem
             particles = {}
 
             for i = 1, Objs2Spawn, 1 do

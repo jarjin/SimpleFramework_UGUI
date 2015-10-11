@@ -7,12 +7,14 @@ public class AccessingLuaVariables01 : MonoBehaviour {
     private string script = @"
             luanet.load_assembly('UnityEngine')
             GameObject = luanet.import_type('UnityEngine.GameObject')
+            ParticleSystem = luanet.import_type('UnityEngine.ParticleSystem')
 
             particles = {}
 
             for i = 1, Objs2Spawn, 1 do
                 local newGameObj = GameObject('NewObj' .. tostring(i))
-                local ps = newGameObj:AddComponent(ParticleSystem.GetClassType())
+                local ps = newGameObj:AddComponent(luanet.ctype(ParticleSystem))
+                --local ps = newGameObj:AddComponent('ParticleSystem') PS:Unity5.x已经废弃这种方式，Unity4.x可用--
                 ps:Stop()
 
                 table.insert(particles, ps)

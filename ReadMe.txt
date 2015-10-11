@@ -1,4 +1,6 @@
-﻿本框架工程基于Unity 5.0 + UGUI + cstolua构建
+﻿项目开源免费，求上面点星支持(star ^o^)
+
+本框架工程基于Unity 5.0 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
 有问题请加：ulua技术交流1群 341746602(已满)、请加2群：469941220
@@ -9,6 +11,9 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://bbs.ulua.org/default.asp?cateID=4
+
+//-------------2015-10-11-------------
+(1)修复03反射模式例子。
 
 //-------------2015-09-20-------------
 修复调试步骤BUG：
