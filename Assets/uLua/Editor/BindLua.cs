@@ -11,11 +11,101 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Reflection;
 using UnityEngine.Rendering;
-using Junfine.Debuger;
-using UnityEngine.UI;
 using SimpleFramework;
-using SimpleFramework.Manager;
-using UnityEngine.Events;
+
+public class BindType {
+    public string name;                 //类名称
+    public Type type;
+    public bool IsStatic;
+    public string baseName = null;      //继承的类名字
+    public string wrapName = "";        //产生的wrap文件名字
+    public string libName = "";         //注册到lua的名字
+
+    string GetTypeStr(Type t) {
+        string str = t.ToString();
+
+        if (t.IsGenericType) {
+            str = GetGenericName(t);
+        } else if (str.Contains("+")) {
+            str = str.Replace('+', '.');
+        }
+
+        return str;
+    }
+
+    private static string[] GetGenericName(Type[] types) {
+        string[] results = new string[types.Length];
+
+        for (int i = 0; i < types.Length; i++) {
+            if (types[i].IsGenericType) {
+                results[i] = GetGenericName(types[i]);
+            } else {
+                results[i] = ToLuaExport.GetTypeStr(types[i]);
+            }
+
+        }
+
+        return results;
+    }
+
+    private static string GetGenericName(Type type) {
+        if (type.GetGenericArguments().Length == 0) {
+            return type.Name;
+        }
+
+        Type[] gArgs = type.GetGenericArguments();
+        string typeName = type.Name;
+        string pureTypeName = typeName.Substring(0, typeName.IndexOf('`'));
+
+        return pureTypeName + "<" + string.Join(",", GetGenericName(gArgs)) + ">";
+    }
+
+    public BindType(Type t) {
+        type = t;
+
+        name = ToLuaExport.GetTypeStr(t);
+
+        if (t.IsGenericType) {
+            libName = ToLuaExport.GetGenericLibName(t);
+            wrapName = ToLuaExport.GetGenericLibName(t);
+        } else {
+            libName = t.FullName.Replace("+", ".");
+            wrapName = name.Replace('.', '_');
+
+            if (name == "object") {
+                wrapName = "System_Object";
+            }
+        }
+
+        if (t.BaseType != null) {
+            baseName = ToLuaExport.GetTypeStr(t.BaseType);
+
+            if (baseName == "ValueType") {
+                baseName = null;
+            }
+        }
+
+        if (t.GetConstructor(Type.EmptyTypes) == null && t.IsAbstract && t.IsSealed) {
+            baseName = null;
+            IsStatic = true;
+        }
+    }
+
+    public BindType SetBaseName(string str) {
+        baseName = str;
+        return this;
+    }
+
+    public BindType SetWrapName(string str) {
+        wrapName = str;
+        return this;
+    }
+
+    public BindType SetLibName(string str) {
+        libName = str;
+        return this;
+    }
+}
 
 [InitializeOnLoad]
 public static class LuaBinding
@@ -46,252 +136,6 @@ public static class LuaBinding
     //    }
     //}
 
-
-    public class BindType
-    {
-        public string name;                 //类名称
-        public Type type;
-        public bool IsStatic;
-        public string baseName = null;      //继承的类名字
-        public string wrapName = "";        //产生的wrap文件名字
-        public string libName = "";         //注册到lua的名字
-
-        string GetTypeStr(Type t)
-        {
-            string str = t.ToString();
-
-            if (t.IsGenericType)
-            {
-                str = GetGenericName(t);
-            }
-            else if (str.Contains("+"))
-            {
-                str = str.Replace('+', '.');
-            }
-
-            return str;
-        }
-
-        private static string[] GetGenericName(Type[] types)
-        {
-            string[] results = new string[types.Length];
-
-            for (int i = 0; i < types.Length; i++)
-            {
-                if (types[i].IsGenericType)
-                {
-                    results[i] = GetGenericName(types[i]);
-                }
-                else
-                {
-                    results[i] = ToLuaExport.GetTypeStr(types[i]);
-                }
-
-            }
-
-            return results;
-        }
-
-        private static string GetGenericName(Type type)
-        {
-            if (type.GetGenericArguments().Length == 0)
-            {
-                return type.Name;
-            }
-
-            Type[] gArgs = type.GetGenericArguments();
-            string typeName = type.Name;
-            string pureTypeName = typeName.Substring(0, typeName.IndexOf('`'));
-
-            return pureTypeName + "<" + string.Join(",", GetGenericName(gArgs)) + ">";
-        }
-
-        public BindType(Type t)
-        {
-            type = t;
-
-            name = ToLuaExport.GetTypeStr(t);
-
-            if (t.IsGenericType)
-            {
-                libName = ToLuaExport.GetGenericLibName(t);
-                wrapName = ToLuaExport.GetGenericLibName(t);
-            }
-            else
-            {
-                libName = t.FullName.Replace("+", ".");
-                wrapName = name.Replace('.', '_');
-
-                if (name == "object")
-                {
-                    wrapName = "System_Object";
-                }
-            }
-
-            if (t.BaseType != null)
-            {
-                baseName = ToLuaExport.GetTypeStr(t.BaseType);
-
-                if (baseName == "ValueType")
-                {
-                    baseName = null;
-                }
-            }
-
-            if (t.GetConstructor(Type.EmptyTypes) == null && t.IsAbstract && t.IsSealed)
-            {
-                baseName = null;
-                IsStatic = true;
-            }
-        }
-
-        public BindType SetBaseName(string str)
-        {
-            baseName = str;
-            return this;
-        }
-
-        public BindType SetWrapName(string str)
-        {
-            wrapName = str;
-            return this;
-        }
-
-        public BindType SetLibName(string str)
-        {
-            libName = str;
-            return this;
-        }
-    }
-
-    static BindType _GT(Type t)
-    {
-        return new BindType(t);
-    }
-
-    static BindType[] binds = new BindType[]
-    {
-        _GT(typeof(object)),
-        _GT(typeof(System.String)),
-        _GT(typeof(System.Enum)),   
-        _GT(typeof(IEnumerator)),
-        _GT(typeof(System.Delegate)),        
-        _GT(typeof(Type)).SetBaseName("System.Object"),                                                     
-        _GT(typeof(UnityEngine.Object)),
-        
-        //测试模板
-        ////_GT(typeof(Dictionary<int,string>)).SetWrapName("DictInt2Str").SetLibName("DictInt2Str"),
-        
-        //custom    
-        _GT(typeof(WWW)),
-        _GT(typeof(Debugger)),
-		_GT(typeof(Util)),
-		_GT(typeof(AppConst)),
-		_GT(typeof(ByteBuffer)),
-        _GT(typeof(NetworkManager)),
-        _GT(typeof(ResourceManager)),
-        _GT(typeof(PanelManager)),
-        _GT(typeof(TimerManager)),
-        _GT(typeof(LuaHelper)),
-        _GT(typeof(LuaBehaviour)), 
-        _GT(typeof(RectTransform)),
-
-        _GT(typeof(DelegateFactory)),
-        _GT(typeof(TestLuaDelegate)),
-        _GT(typeof(TestDelegateListener)),
-        _GT(typeof(TestEventListener)),
-        _GT(typeof(Button)),   
-        _GT(typeof(Button.ButtonClickedEvent)),
-        _GT(typeof(UnityEventBase)),
-        _GT(typeof(UnityEvent)),
-        
-        //unity                        
-        _GT(typeof(Component)),
-        _GT(typeof(Behaviour)),
-        _GT(typeof(MonoBehaviour)),        
-        _GT(typeof(GameObject)),
-        _GT(typeof(Transform)),
-        _GT(typeof(Space)),
-
-        _GT(typeof(Camera)),   
-        _GT(typeof(CameraClearFlags)),           
-        _GT(typeof(Material)),
-        _GT(typeof(Renderer)),        
-        _GT(typeof(MeshRenderer)),
-        _GT(typeof(SkinnedMeshRenderer)),
-        _GT(typeof(Light)),
-        _GT(typeof(LightType)),     
-        _GT(typeof(ParticleEmitter)),
-        _GT(typeof(ParticleRenderer)),
-        _GT(typeof(ParticleAnimator)),        
-                
-        _GT(typeof(Physics)),
-        _GT(typeof(Collider)),
-        _GT(typeof(BoxCollider)),
-        _GT(typeof(MeshCollider)),
-        _GT(typeof(SphereCollider)),
-        
-        _GT(typeof(CharacterController)),
-
-        _GT(typeof(Animation)),             
-        _GT(typeof(AnimationClip)).SetBaseName("UnityEngine.Object"),
-        _GT(typeof(TrackedReference)),
-        _GT(typeof(AnimationState)),  
-        _GT(typeof(QueueMode)),  
-        _GT(typeof(PlayMode)),                  
-        
-        _GT(typeof(AudioClip)),
-        _GT(typeof(AudioSource)),                
-        
-        _GT(typeof(Application)),
-        _GT(typeof(Input)),    
-        _GT(typeof(TouchPhase)),            
-        _GT(typeof(KeyCode)),             
-        _GT(typeof(Screen)),
-        _GT(typeof(Time)),
-        _GT(typeof(RenderSettings)),
-        _GT(typeof(SleepTimeout)),        
-
-        _GT(typeof(AsyncOperation)).SetBaseName("System.Object"),
-        _GT(typeof(AssetBundle)),   
-        _GT(typeof(BlendWeights)),   
-        _GT(typeof(QualitySettings)),          
-        _GT(typeof(AnimationBlendMode)),    
-        _GT(typeof(Texture)),
-        _GT(typeof(RenderTexture)),
-        _GT(typeof(ParticleSystem)),
-        _GT(typeof(Text)),
-        
-
-        //ngui
-        /*_GT(typeof(UICamera)),
-        _GT(typeof(Localization)),
-        _GT(typeof(NGUITools)),
-
-        _GT(typeof(UIRect)),
-        _GT(typeof(UIWidget)),        
-        _GT(typeof(UIWidgetContainer)),     
-        _GT(typeof(UILabel)),        
-        _GT(typeof(UIToggle)),
-        _GT(typeof(UIBasicSprite)),        
-        _GT(typeof(UITexture)),
-        _GT(typeof(UISprite)),           
-        _GT(typeof(UIProgressBar)),
-        _GT(typeof(UISlider)),
-        _GT(typeof(UIGrid)),
-        _GT(typeof(UIInput)),
-        _GT(typeof(UIScrollView)),
-        
-        _GT(typeof(UITweener)),
-        _GT(typeof(TweenWidth)),
-        _GT(typeof(TweenRotation)),
-        _GT(typeof(TweenPosition)),
-        _GT(typeof(TweenScale)),
-        _GT(typeof(UICenterOnChild)),    
-        _GT(typeof(UIAtlas)),*/         
-    };
-
-
     [MenuItem("Lua/Gen Lua Wrap Files", false, 11)]
     public static void Binding()
     {
@@ -300,7 +144,7 @@ public static class LuaBinding
             EditorApplication.isPlaying = true;
         }
 
-        BindType[] list = binds;
+        BindType[] list = WrapFile.binds;
 
         for (int i = 0; i < list.Length; i++)
         {
@@ -419,7 +263,7 @@ public static class LuaBinding
 
     static HashSet<Type> GetCustomDelegateTypes()
     {
-        BindType[] list = binds;
+        BindType[] list = WrapFile.binds;
         HashSet<Type> set = new HashSet<Type>();
         BindingFlags binding = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.Instance;
 
@@ -852,7 +696,7 @@ public static class LuaBinding
             if (!types[i].IsGenericType && types[i].BaseType != typeof(System.MulticastDelegate) &&
                 !typeof(YieldInstruction).IsAssignableFrom(types[i]) && !ToLuaExport.IsObsolete(types[i]))
             {
-                list.Add(_GT(types[i]));
+                list.Add(WrapFile._GT(types[i]));
             }
             else
             {
