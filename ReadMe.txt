@@ -10,7 +10,10 @@
 
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
-框架详细介绍 http://bbs.ulua.org/default.asp?cateID=4
+框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
+
+//-------------2015-10-15-------------
+(1)修复System/Event.lua里面Util判断平台缺框架命名空间。
 
 //-------------2015-10-11-------------
 (1)修复03反射模式例子。
