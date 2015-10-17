@@ -12,6 +12,13 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
 
+//-------------2015-10-17-------------
+(1)编译底层库使其支持在安卓、iOS进行Lua真机调试。
+PS:现在可调试平台包括WIN/MAC/LINUX/iOS/Android全平台。
+   真机调试方法：要调试的lua需要处于打开状态。
+   第一个lua脚本里面 加上 require("mobdebug").start('192.168.217.112') 。
+   感谢大神tangram发现并亲测。
+
 //-------------2015-10-15-------------
 (1)修复System/Event.lua里面Util判断平台缺框架命名空间。
 
