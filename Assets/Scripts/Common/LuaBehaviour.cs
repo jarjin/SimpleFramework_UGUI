@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using SimpleFramework.Manager;
 
 namespace SimpleFramework {
     public class LuaBehaviour : View {
@@ -69,6 +70,10 @@ namespace SimpleFramework {
         protected void OnDestroy() {
             ClearClick();
             LuaManager = null;
+#if ASYNC_MODE
+            string abName = name.ToLower().Replace("panel", "");
+            ResourceManager.UnloadAssetBundle(abName + AppConst.ExtName);
+#endif
             Util.ClearMemory();
             Debug.Log("~" + name + " was destroy!");
         }
