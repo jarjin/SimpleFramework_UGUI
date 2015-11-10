@@ -12,6 +12,9 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
 
+//-------------2015-11-10-------------
+(1)添加lua中使用self关键字例子A6_LuaCall
+
 //-------------2015-10-17-------------
 (1)编译底层库使其支持在安卓、iOS进行Lua真机调试。
 PS:现在可调试平台包括WIN/MAC/LINUX/iOS/Android全平台。

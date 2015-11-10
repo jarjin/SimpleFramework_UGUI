@@ -312,6 +312,7 @@ namespace SimpleFramework.Manager {
             string uri = string.Empty;
             bundles = new Dictionary<string, AssetBundle>();
             uri = Util.DataPath + AppConst.AssetDirname;
+            if (!File.Exists(uri)) return;
             stream = File.ReadAllBytes(uri);
             assetbundle = AssetBundle.CreateFromMemoryImmediate(stream);
             manifest = assetbundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
