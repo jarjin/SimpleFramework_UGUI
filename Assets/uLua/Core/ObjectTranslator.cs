@@ -6,7 +6,14 @@ namespace LuaInterface
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Collections.Generic;
+    using UnityEngine;
     //using System.Diagnostics;
+
+    public static class ObjectExtends {
+        public static object RefObject(this object obj) {
+            return new WeakReference(obj).Target;
+        }
+    }
 
     /*
      * Passes objects from the CLR to Lua and vice-versa
@@ -632,7 +639,6 @@ namespace LuaInterface
             int index = -1;
             // Object already in the list of Lua objects? Push the stored reference.
             bool beValueType = o.GetType().IsValueType;
-
             if (!beValueType && objectsBackMap.TryGetValue(o, out index))
             {
                 if (LuaDLL.tolua_pushudata(luaState, weakTableRef, index))
@@ -648,7 +654,6 @@ namespace LuaInterface
                 // Remove from both our tables and fall out to get a new ID
                 collectObject(o, index);
             }
-
             index = addObject(o, beValueType);
             pushNewObject(luaState, o, index, metatable);
         }
