@@ -10,7 +10,7 @@ function PromptPanel.Awake(obj)
 	transform = obj.transform;
 
 	this.InitPanel();
-	warn("Awake lua--->>"..gameObject.name);
+	logWarn("Awake lua--->>"..gameObject.name);
 end
 
 --初始化面板--
@@ -21,5 +21,5 @@ end
 
 --单击事件--
 function PromptPanel.OnDestroy()
-	warn("OnDestroy---->>>");
+	logWarn("OnDestroy---->>>");
 end

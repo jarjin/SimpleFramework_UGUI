@@ -4,18 +4,13 @@ function log(str)
     Util.Log(str);
 end
 
---打印字符串--
-function print(str) 
-	Util.Log(str);
-end
-
 --错误日志--
-function error(str) 
+function logError(str) 
 	Util.LogError(str);
 end
 
 --警告日志--
-function warn(str) 
+function logWarn(str) 
 	Util.LogWarning(str);
 end
 
@@ -28,7 +23,7 @@ function destroy(obj)
 	GameObject.Destroy(obj);
 end
 
-function newobject(prefab)
+function newObject(prefab)
 	return GameObject.Instantiate(prefab);
 end
 

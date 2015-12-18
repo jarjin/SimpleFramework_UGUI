@@ -7,7 +7,7 @@ local this = CtrlManager;
 local ctrlList = {};	--控制器列表--
 
 function CtrlManager.Init()
-	warn("CtrlManager.Init----->>>");
+	logWarn("CtrlManager.Init----->>>");
 	ctrlList[CtrlName.Prompt] = PromptCtrl.New();
 	ctrlList[CtrlName.Message] = MessageCtrl.New();
 	return this;
@@ -30,5 +30,5 @@ end
 
 --关闭控制器--
 function CtrlManager.Close()
-	warn('CtrlManager.Close---->>>');
+	logWarn('CtrlManager.Close---->>>');
 end

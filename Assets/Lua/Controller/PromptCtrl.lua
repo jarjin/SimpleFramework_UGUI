@@ -17,12 +17,12 @@ local gameObject;
 
 --构建函数--
 function PromptCtrl.New()
-	warn("PromptCtrl.New--->>");
+	logWarn("PromptCtrl.New--->>");
 	return this;
 end
 
 function PromptCtrl.Awake()
-	warn("PromptCtrl.Awake--->>");
+	logWarn("PromptCtrl.Awake--->>");
 	PanelManager:CreatePanel('Prompt', this.OnCreate);
 end
 
@@ -33,7 +33,7 @@ function PromptCtrl.OnCreate(obj)
 
 	panel = transform:GetComponent('UIPanel');
 	prompt = transform:GetComponent('LuaBehaviour');
-	warn("Start lua--->>"..gameObject.name);
+	logWarn("Start lua--->>"..gameObject.name);
 
 	prompt:AddClick(PromptPanel.btnOpen, this.OnClick);
 	ResManager:LoadAsset('prompt', 'PromptItem', this.InitPanel);
@@ -44,7 +44,7 @@ function PromptCtrl.InitPanel(prefab)
 	local count = 100; 
 	local parent = PromptPanel.gridParent;
 	for i = 1, count do
-		local go = newobject(prefab);
+		local go = newObject(prefab);
 		go.name = 'Item'..tostring(i);
 		go.transform:SetParent(parent);
 		go.transform.localScale = Vector3.one;
@@ -87,7 +87,7 @@ function PromptCtrl.OnClick(go)
 	if TestProtoType == ProtocalType.SPROTO then
 		this.TestSendSproto();
 	end
-	warn("OnClick---->>>"..go.name);
+	logWarn("OnClick---->>>"..go.name);
 end
 
 --测试发送SPROTO--

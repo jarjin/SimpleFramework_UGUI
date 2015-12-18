@@ -12,8 +12,9 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
 
-//-------------2015-11-28-------------
-(1)修复清理纹理引用遗留BUG。
+//-------------2015-12-18-------------
+(1)iOS默认加载bit。
+(2)修改functions.lua里面warn、error、newobject函数为logWarn、logError、newObject。
 
 //-------------2015-11-10-------------
 (1)添加lua中使用self关键字例子A6_LuaCall

@@ -205,8 +205,12 @@ public class LuaScriptMgr
         if (AppConst.UseSproto) {
             LuaDLL.luaopen_sproto_core(lua.L);
         }
+        if (Application.platform == RuntimePlatform.IPhonePlayer || 
+            Application.platform == RuntimePlatform.OSXEditor) {
+            LuaDLL.luaopen_bit(lua.L);
+        }
 #if UNITY_EDITOR
-        LuaDLL.luaopen_socket_core(lua.L);        
+        LuaDLL.luaopen_socket_core(lua.L);
 #endif
         LuaDLL.tolua_openlibs(lua.L);
         //OpenXml();        

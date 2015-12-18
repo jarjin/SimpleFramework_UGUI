@@ -18,7 +18,7 @@ end
 
 --测试打印方法--
 function LuaClass:test() 
-    warn("x:>" .. self.x .. " y:>" .. self.y);
+    logWarn("x:>" .. self.x .. " y:>" .. self.y);
 end
 
 --endregion
