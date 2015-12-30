@@ -12,6 +12,10 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
 
+//-------------2015-12-30-------------
+(1)去掉了uLua的Linux平台底层库。
+(2)重新编译底层库，异常信息文件路径从60扩展到256字符长度。
+
 //-------------2015-12-18-------------
 (1)iOS默认加载bit。
 (2)修改functions.lua里面warn、error、newobject函数为logWarn、logError、newObject。
