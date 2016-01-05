@@ -301,13 +301,12 @@ namespace SimpleFramework.Manager {
         private Dictionary<string, AssetBundle> bundles;
 
         void Awake() {
-            Initialize();
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
-        void Initialize() {
+        public void Initialize() {
             byte[] stream = null;
             string uri = string.Empty;
             bundles = new Dictionary<string, AssetBundle>();

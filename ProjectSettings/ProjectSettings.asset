@@ -257,6 +257,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     1: ASYNC_MODE
     4: 
+    7: 
   metroPackageName: SimpleFramework
   metroPackageLogo: 
   metroPackageLogo140: 

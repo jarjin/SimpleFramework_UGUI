@@ -223,6 +223,9 @@ namespace SimpleFramework.Manager {
         /// 资源初始化结束
         /// </summary>
         public void OnResourceInited() {
+#if !ASYNC_MODE
+            ResManager.Initialize();
+#endif
             LuaManager.Start();
             LuaManager.DoFile("Logic/Network");      //加载游戏
             LuaManager.DoFile("Logic/GameManager");   //加载网络

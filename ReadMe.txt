@@ -12,6 +12,9 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
 
+//-------------2016-01-06-------------
+(1)修复在同步模式下首次运行异常：Please initialize AssetBundleManifest by calling...
+
 //-------------2015-12-30-------------
 (1)去掉了uLua的Linux平台底层库。
 (2)重新编译底层库，异常信息文件路径从60扩展到256字符长度。
