@@ -12,6 +12,11 @@
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
 
+//-------------2016-01-09-------------
+(1)优化安卓底层库armv7-a添加-mfloat-abi=softfp使用FPU硬件来做浮点运算。
+(2)iOS底层库Optimization Level从-Os修改成-O3，提高优化等级。
+(3)iOS底层库Dead Code Stripping改为NO，提高稳定性。
+
 //-------------2016-01-06-------------
 (1)修复在同步模式下首次运行异常：Please initialize AssetBundleManifest by calling...
 
