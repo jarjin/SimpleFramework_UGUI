@@ -17,7 +17,8 @@
 (2)iOS底层库Optimization Level从-Os修改成-O3，提高优化等级。
 (3)iOS底层库Dead Code Stripping改为NO，提高稳定性。
 (4)将 UnityEngine.EventSystems 添加到 usingList;
-(5)判断有无`符号的程序集分隔符, 避免一些本程序集的报错
+(5)判断有无`符号的程序集分隔符, 避免一些本程序集的报错。
+(6)修复miss using when exporting UnityEngine.UI
 
 //-------------2016-01-06-------------
 (1)修复在同步模式下首次运行异常：Please initialize AssetBundleManifest by calling...
