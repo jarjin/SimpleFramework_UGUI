@@ -3,7 +3,7 @@
 本框架工程基于Unity 5.0 + UGUI + cstolua构建
 服务器端基于VS2012及其以上版本。
 
-有问题请加：ulua技术交流1群 341746602(已满)、请加2群：469941220
+有问题请加：ulua技术交流群 434341400
 
 支持平台：PC/MAC/Android(armv7-a + Intel x86)/iOS(armv7 + arm64)/
 	  WP8(SimpleFramework_WP_v0.1.1 (nlua))/
@@ -11,6 +11,9 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
+
+//-------------2016-01-24-------------
+(1)修复逻辑小bug，添加移除单击监听。
 
 //-------------2016-01-09-------------
 (1)优化安卓底层库armv7-a添加-mfloat-abi=softfp使用FPU硬件来做浮点运算。
