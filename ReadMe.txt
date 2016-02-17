@@ -11,6 +11,7 @@
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
+服务器框架:  https://github.com/jarjin/ServerFramework
 
 //-------------2016-01-24-------------
 (1)修复逻辑小bug，添加移除单击监听。
