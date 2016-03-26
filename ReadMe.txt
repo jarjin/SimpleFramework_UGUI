@@ -1,7 +1,5 @@
-﻿项目开源免费，求上面点星支持(star ^o^)
-
-本框架工程基于Unity 5.0 + UGUI + cstolua构建
-服务器端基于VS2012及其以上版本。
+﻿本项目已经不再更新维护，由LuaFramework_UGUI代替，
+LuaFramework_UGUI地址：https://github.com/jarjin/LuaFramework_UGUI
 
 有问题请加：ulua技术交流群 434341400
 
