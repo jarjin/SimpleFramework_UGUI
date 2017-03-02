@@ -6,6 +6,9 @@ LuaFramework_UGUI地址：https://github.com/jarjin/LuaFramework_UGUI
 支持平台：PC/MAC/Android(armv7-a + Intel x86)/iOS(armv7 + arm64)/
 	  WP8(SimpleFramework_WP_v0.1.1 (nlua))/
 
+寻找热更新人才与项目组到“七之猫”网站 http://www.sevencat.cn/
+
+
 视频教程地址 http://pan.baidu.com/s/1gd8fG4N
 游戏案例地址 http://www.ulua.org/showcase.html
 框架详细介绍 http://doc.ulua.org/default.asp?cateID=4
